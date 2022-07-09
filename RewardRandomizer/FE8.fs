@@ -4,12 +4,6 @@ open Item
 open Reward
 
 module FE8 =
-    let private item id name cat = {
-        id = byte id
-        name = name
-        category = cat
-    }
-
     let Items = [
         item 0x0 "NONE" Other
         item 0x1 "IRON_SWORD" Other
@@ -180,17 +174,16 @@ module FE8 =
     ]
 
     let CHES offset item = reward Chest (offset + 4) item None
-    let ITGV offset item = reward Give (offset + 4) item None
-    let ITGC offset item unit = reward GiveToUnit (offset + 8) item (Some unit)
+    let ITGV offset item = reward Village (offset + 4) item None
     let Unit offset item unit pos = reward StartingInventory (offset + 12 + pos) item (Some unit)
+
+    let Chap offset item = reward SacredStonesEndOfChapter (offset + 12) item None
 
     // Most of the data below comes from running this Yune fork, which has been modified to output rough F# code to the console:
     // https://github.com/libertyernie/Universal-FE-Randomizer/tree/item-location-dump
 
     let US = [
         // Fire Emblem - The Sacred Stones (USA, Australia)
-
-        // NOTE: like with FE7, most story events (where an item is given to a specific character) are missing.
 
         // Prologue: The Fall of Renais
         ITGV 0x9EF084 0x09 // RAPIER
@@ -292,7 +285,7 @@ module FE8 =
             // Final (Eirika): Sacred Stone (Part 2)
         ]
 
-        yield! List.map (route Eirika) [
+        yield! List.map (route Ephraim) [
             // Chapter 9 (Ephraim): Fort Rigwald
             CHES 0x9EA2A0 0x50 // RESTORE
             CHES 0x9EA2E8 0x97 // CONQUORER_PROOF
@@ -348,4 +341,15 @@ module FE8 =
 
             // Final (Ephraim): Sacred Stone (Part 2)
         ]
+
+        // End-of-chapter promotion items
+
+        // Chapter 5: The Empire's Reach
+        Chap 0x9F2134 0x68 // GUIDING_RING
+
+        // Chapter 9 (Eirika): Distant Blade
+        Chap 0x9F3F28 0x5B |> route Eirika // ANGELIC_ROBE
+
+        // Chapter 10 (Ephraim): Turning Traitor
+        Chap 0x9FAD7C 0x65 |> route Ephraim // KNIGHT_CREST
     ]

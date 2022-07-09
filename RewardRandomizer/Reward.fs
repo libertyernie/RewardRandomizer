@@ -1,11 +1,12 @@
 ﻿namespace RewardRandomizer
 
-type Method = Chest | Give | GiveToUnit | StartingInventory
+type Method = Chest | Village | GiveToUnit | StartingInventory | SacredStonesEndOfChapter
 
 type Route =
 | All
 | Bartre | Echidna | Ilia | Sacae
 | Eirika | Ephraim
+| JoshuaAlive | JoshuaDead
 | SpecialBehavior
 
 type Reward = {

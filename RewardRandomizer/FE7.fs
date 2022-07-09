@@ -158,7 +158,7 @@ module FE7 =
     ]
 
     let CHES offset item = reward Chest (offset + 4) item None
-    let ITGV offset item = reward Give (offset + 4) item None
+    let ITGV offset item = reward Village (offset + 4) item None
     let ITGC offset item unit = reward GiveToUnit (offset + 8) item (Some unit)
     let Unit offset item unit pos = reward StartingInventory (offset + 8 + pos) item (Some unit)
 
