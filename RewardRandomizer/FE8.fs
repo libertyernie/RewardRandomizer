@@ -1,5 +1,8 @@
 ﻿namespace RewardRandomizer
 
+open Item
+open Reward
+
 module FE8 =
     let private item id name cat = {
         id = byte id
@@ -176,35 +179,10 @@ module FE8 =
         item 0x3d "UNUSED_FORBLAZE" Other
     ]
 
-    let private CHES offset item = {
-        note = "Chest"
-        item = item
-        unit = None
-        slot = None
-        offset = offset + 4
-        routes = []
-    }
-
-    let private ITGV offset item = {
-        note = "Item Give"
-        item = item
-        unit = None
-        slot = None
-        offset = offset + 4
-        routes = []
-    }
-
-    let private Unit offset item unit slot = {
-        note = "Unit Inventory"
-        item = item
-        unit = Some unit
-        slot = Some slot
-        offset = offset + 12 + slot
-        routes = []
-    }
-
-    let private route newRoute object =
-        { object with routes = newRoute :: object.routes }
+    let CHES offset item = reward Chest (offset + 4) item None
+    let ITGV offset item = reward Give (offset + 4) item None
+    let ITGC offset item unit = reward GiveToUnit (offset + 8) item (Some unit)
+    let Unit offset item unit pos = reward StartingInventory (offset + 12 + pos) item (Some unit)
 
     // Most of the data below comes from running this Yune fork, which has been modified to output rough F# code to the console:
     // https://github.com/libertyernie/Universal-FE-Randomizer/tree/item-location-dump

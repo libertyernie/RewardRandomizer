@@ -7,3 +7,10 @@ type Item = {
     name: string
     category: ItemCategory
 }
+
+module Item =
+    let item id name cat = {
+        id = byte id
+        name = name
+        category = cat
+    }

@@ -8,7 +8,7 @@ type Game = {
 
 module Game =
     let FE6_JP = {
-        Name = "ファイアーエムブレム封印の剣"
+        Name = "Fire Emblem: The Binding Blade (J)"
         Items = FE6.Items
         Locations = FE6.JP
     }
@@ -26,13 +26,21 @@ module Game =
     }
 
     let FE7_US = {
-        Name = "Fire Emblem: The Blazing Blade"
+        Name = "Fire Emblem: The Blazing Blade (U)"
         Items = FE7.Items
         Locations = FE7.US
     }
 
     let FE8_US = {
-        Name = "Fire Emblem: The Sacred Stones"
+        Name = "Fire Emblem: The Sacred Stones (U)"
         Items = FE8.Items
         Locations = FE8.US
     }
+
+    let All = [
+        FE6_JP
+        FE6_Localization
+        FE6_ProjectEmber
+        FE7_US
+        FE8_US
+    ]
