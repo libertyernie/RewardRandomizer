@@ -1,6 +1,5 @@
 ﻿open System.IO
 open RewardRandomizer
-open RewardRandomizer.Correlation
 
 let data = File.ReadAllBytes @"C:\Users\isaac\Desktop\Fire Emblem - Fuuin no Tsurugi (Japan).gba"
 
@@ -9,7 +8,6 @@ let matching_games = seq {
         let mismatches = seq {
             for l in g.Locations do
                 if l.offset >= data.Length || data[l.offset] <> l.item then
-                    printfn "Mismatch found in game %s: %O" g.Name l
                     yield l
         }
         if Seq.isEmpty mismatches then
@@ -19,7 +17,9 @@ let matching_games = seq {
 
 let game = Seq.exactlyOne matching_games
 
-for f in game.Locations |> Correlator.ExtractSets do
+let l2 = game.Locations |> Correlator.ExtractAll |> Seq.sortBy id |> Seq.toList
+
+for f in l2 do
     let id = [for x in f do x.item] |> List.distinct |> List.exactlyOne
     for y in f do
         let actual_item = data[y.offset]

@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RewardRandomizer.Correlation\RewardRandomizer.Correlation.csproj" />
     <ProjectReference Include="..\RewardRandomizer.Procedures\RewardRandomizer.Procedures.csproj" />
     <ProjectReference Include="..\RewardRandomizer\RewardRandomizer.fsproj" />
   </ItemGroup>

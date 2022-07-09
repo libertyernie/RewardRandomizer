@@ -1,5 +1,4 @@
-﻿using RewardRandomizer.Correlation;
-using System;
+﻿using System;
 using System.Linq;
 
 namespace RewardRandomizer.Procedures
@@ -10,7 +9,7 @@ namespace RewardRandomizer.Procedures
 
         public static void ShuffleRewards(byte[] data, Game game)
         {
-            var sets = Correlator.ExtractSets(game.Locations).ToList();
+            var sets = Correlator.ExtractAll(game.Locations).ToList();
             var shuffled_sets = sets.OrderBy(_ => r.Next()).ToList();
             for (int i = 0; i < sets.Count; i++)
             {

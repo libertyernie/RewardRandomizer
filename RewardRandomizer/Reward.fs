@@ -12,10 +12,9 @@ type Method =
 
 type Route =
 | All
-| Bartre | Echidna | Ilia | Sacae
+| Bartre | Echidna | Ilia | Sacae | EarlyPercival | LatePercival
 | EliwoodNormal | EliwoodHard | HectorNormal | HectorHard
-| Eirika | Ephraim
-| JoshuaAlive | JoshuaDead
+| Eirika | Ephraim | JoshuaAlive | JoshuaDead
 | SpecialBehavior
 
 type Reward = {

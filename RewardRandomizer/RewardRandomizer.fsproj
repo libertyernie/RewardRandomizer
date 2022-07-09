@@ -12,6 +12,7 @@
     <Compile Include="FE7.fs" />
     <Compile Include="FE8.fs" />
     <Compile Include="Game.fs" />
+    <Compile Include="Correlator.fs" />
   </ItemGroup>
 
 </Project>
