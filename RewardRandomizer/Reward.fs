@@ -1,7 +1,5 @@
 ﻿namespace RewardRandomizer
 
-open System
-
 type Method =
 | Chest
 | Village
