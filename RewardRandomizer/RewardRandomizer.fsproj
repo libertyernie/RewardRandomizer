@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Item.fs" />
+    <Compile Include="Reward.fs" />
+    <Compile Include="FE6.fs" />
+    <Compile Include="FE7.fs" />
+    <Compile Include="FE8.fs" />
+    <Compile Include="Game.fs" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "RewardRandomizer", "RewardRandomizer\RewardRandomizer.fsproj", "{B3F65439-2206-4C7C-8B7E-7A725DD916F6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RewardRandomizer.Correlation", "RewardRandomizer.Correlation\RewardRandomizer.Correlation.csproj", "{A7FF4520-A844-4C7B-A4E7-DBA7C14856E8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RewardRandomizer.Procedures", "RewardRandomizer.Procedures\RewardRandomizer.Procedures.csproj", "{BC287B4E-E1A8-416E-9F6E-0599AC8A144F}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "RewardRandomizer.Console", "RewardRandomizer.Console\RewardRandomizer.Console.fsproj", "{E1EA4F97-8739-40F7-8E17-B41B07F86AB0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87A3EDE1-8636-4BFD-8CBF-81983C88BC2D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3F65439-2206-4C7C-8B7E-7A725DD916F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F65439-2206-4C7C-8B7E-7A725DD916F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F65439-2206-4C7C-8B7E-7A725DD916F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F65439-2206-4C7C-8B7E-7A725DD916F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7FF4520-A844-4C7B-A4E7-DBA7C14856E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7FF4520-A844-4C7B-A4E7-DBA7C14856E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7FF4520-A844-4C7B-A4E7-DBA7C14856E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7FF4520-A844-4C7B-A4E7-DBA7C14856E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC287B4E-E1A8-416E-9F6E-0599AC8A144F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC287B4E-E1A8-416E-9F6E-0599AC8A144F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC287B4E-E1A8-416E-9F6E-0599AC8A144F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC287B4E-E1A8-416E-9F6E-0599AC8A144F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1EA4F97-8739-40F7-8E17-B41B07F86AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1EA4F97-8739-40F7-8E17-B41B07F86AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1EA4F97-8739-40F7-8E17-B41B07F86AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1EA4F97-8739-40F7-8E17-B41B07F86AB0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4EAFBD1E-9B78-4A92-9945-5BBACFB04D54}
+	EndGlobalSection
+EndGlobal
