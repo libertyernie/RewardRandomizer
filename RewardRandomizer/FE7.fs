@@ -157,54 +157,14 @@ module FE7 =
         item 0x98 "GOLD_5000" Other
     ]
 
-    let CHES offset item = reward Chest (offset + 4) item None
-    let ITGV offset item = reward Village (offset + 4) item None
-    let ITGC offset item unit = reward GiveToUnit (offset + 8) item (Some unit)
-    let Unit offset item unit pos = reward StartingInventory (offset + 8 + pos) item (Some unit)
-
-    // Most of the data below comes from running this Yune fork, which has been modified to output rough F# code to the console:
-    // https://github.com/libertyernie/Universal-FE-Randomizer/tree/item-location-dump
+    let CHES offset item = reward Chest (offset + 4) item 0
+    let ITGV offset item = reward Village (offset + 4) item 0
+    let Unit offset item unit pos r = reward StartingInventory (offset + 8 + pos) item unit |> route r
+    let Chap offset item = reward FE7Story (offset + 12) item 0
+    let ChTo offset item unit = reward FE7Story (offset + 16) item unit
 
     let US = [
         // Fire Emblem (USA, Australia).gba
-
-        // NOTE: this game splits based on character (Eliwood / Hector) and difficulty (Normal / Hard) selection.
-        // These splits are not (yet) accounted for in this randomizer, so item distribution in "shuffle" mode may be strange.
-
-        // NOTE: like with FE8, most story events (where an item is given to a specific character) are missing.
-
-        // Prologue: A Girl From the Plains
-
-        // Chapter 1: Footsteps of Fate
-
-        // Chapter 2: Sword of Spirits
-        ITGC 0xCA9ACC 0x0A 0x03 // MANI_KATTI
-
-        // Chapter 3: Band of Mercenaries
-
-        // Chapter 4: In Occupation's Shadow
-
-        // Chapter 5: Beyond the Borders
-
-        // Chapter 6: Blood of Pride
-        CHES 0xCA1130 0x5A // ANGELIC_ROBE
-        CHES 0xCA113C 0x0E // ARMORSLAYER
-        ITGV 0xCAC160 0x69 // DOOR_KEY
-
-        // Chapter 7: Siblings Abroad
-        ITGV 0xCACDF4 0x6D // PURE_WATER
-
-        // Chapter 7x: The Black Shadow
-        CHES 0xCA1434 0x26 // HAMMER
-
-        // Chapter 8: Vortex of Strategy
-        ITGV 0xCAD6BC 0x12 // LANCEREAVER
-
-        // Chapter 9: A Grim Reunion
-        ITGV 0xCADA40 0x6F // TORCH
-
-        // Chapter 10: The Distant Plains
-        ITGV 0xCADE98 0x5B // ENERGY_RING
 
         // Chapter 11 (Eliwood): Taking Leave
         ITGV 0xCAE43C 0x5F // DRAGONSHIELD
@@ -237,6 +197,11 @@ module FE7 =
         CHES 0xCA2888 0x04 // SILVER_SWORD
         CHES 0xCA2894 0x57 // UNLOCK
         CHES 0xCA28A0 0x63 // HERO_CREST
+        Chap 0xCB1950 0x75 // RED_GEM
+
+        Chap 0xCB1950 0x75 |> route SpecialBehavior // RED_GEM
+        Chap 0xCB197C 0x7A |> route SpecialBehavior // LIGHT_RUNE
+        Chap 0xCB19A8 0x79 |> route SpecialBehavior // MINE
 
         // Chapter 17x: The Port of Badon
         ITGV 0xCB1F10 0x12 // LANCEREAVER
@@ -245,20 +210,20 @@ module FE7 =
         ITGV 0xCB200C 0x27 // DEVIL_AXE
 
         // Chapter 18: Pirate Ship
-        Unit 0xCCC32C 0x67 0x6E 1 // GUIDING_RING
-        Unit 0xCCC50C 0x67 0x4A 1 // GUIDING_RING
-        Unit 0xCCC45C 0x67 0x6E 1 // GUIDING_RING
-        Unit 0xCCC65C 0x67 0x4A 1 // GUIDING_RING
-        Unit 0xCCC6CC 0x66 0xF3 1 // ELYSIAN_WHIP
+        Unit 0xCCC32C 0x67 0x6E 1 EliwoodNormal // GUIDING_RING
+        Unit 0xCCC50C 0x67 0x4A 1 EliwoodHard // GUIDING_RING
+        Unit 0xCCC45C 0x67 0x6E 1 HectorNormal // GUIDING_RING
+        Unit 0xCCC65C 0x67 0x4A 1 HectorHard // GUIDING_RING
+        Unit 0xCCC6CC 0x66 0xF3 1 HectorHard // ELYSIAN_WHIP
 
         // Chapter 19: The Dread Isle
-        Unit 0xCCD054 0x65 0x4B 3 // ORION_BOLT
-        Unit 0xCCD314 0x65 0x4B 3 // ORION_BOLT
-        Unit 0xCCD1B4 0x65 0x4B 3 // ORION_BOLT
-        Unit 0xCCD4F4 0x65 0x4B 3 // ORION_BOLT
+        Unit 0xCCD054 0x65 0x4B 3 EliwoodNormal // ORION_BOLT
+        Unit 0xCCD314 0x65 0x4B 3 EliwoodHard // ORION_BOLT
+        Unit 0xCCD1B4 0x65 0x4B 3 HectorNormal // ORION_BOLT
+        Unit 0xCCD4F4 0x65 0x4B 3 HectorHard // ORION_BOLT
 
         // Chapter 19x: Imprisoner of Magic
-        Unit 0xCCDF50 0x66 0x6D 1 // ELYSIAN_WHIP
+        Unit 0xCCDF50 0x66 0x6D 1 EliwoodHard // ELYSIAN_WHIP
         ITGV 0xCB348C 0x5E // GODDESS_ICON
 
         // Chapter 19xx: A Glimpse in Time
@@ -274,27 +239,27 @@ module FE7 =
         CHES 0xCA3490 0x67 // GUIDING_RING
 
         // Chapter 21: New Resolve
-        Unit 0xCCFF0C 0x63 0x4F 2 // HERO_CREST
-        Unit 0xCD014C 0x63 0x4F 2 // HERO_CREST
-        Unit 0xCD003C 0x63 0x4F 2 // HERO_CREST
-        Unit 0xCD02FC 0x63 0x4F 2 // HERO_CREST
+        Unit 0xCCFF0C 0x63 0x4F 2 EliwoodNormal // HERO_CREST
+        Unit 0xCD014C 0x63 0x4F 2 EliwoodHard // HERO_CREST
+        Unit 0xCD003C 0x63 0x4F 2 HectorNormal // HERO_CREST
+        Unit 0xCD02FC 0x63 0x4F 2 HectorHard // HERO_CREST
         ITGV 0xCB4E1C 0x0F // WYRMSLAYER
         ITGV 0xCB4E5C 0x7A // LIGHT_RUNE
         ITGV 0xCB4E9C 0x66 // ELYSIAN_WHIP
         ITGV 0xCB4EDC 0x4F // RESTORE
 
         // Chapter 22: Kinship's Bond
-        Unit 0xCD0A44 0x64 0xD7 1 // KNIGHT_CREST
-        Unit 0xCD0C14 0x64 0x50 1 // KNIGHT_CREST
-        Unit 0xCD0B24 0x64 0xD7 1 // KNIGHT_CREST
-        Unit 0xCD0D74 0x64 0x50 1 // KNIGHT_CREST
+        Unit 0xCD0A44 0x64 0xD7 1 EliwoodNormal // KNIGHT_CREST
+        Unit 0xCD0C14 0x64 0x50 1 EliwoodHard // KNIGHT_CREST
+        Unit 0xCD0B24 0x64 0xD7 1 HectorNormal // KNIGHT_CREST
+        Unit 0xCD0D74 0x64 0x50 1 HectorHard // KNIGHT_CREST
         CHES 0xCA3AAC 0x23 // BRAVE_AXE
 
         // Chapter 23: Living Legend
-        Unit 0xCD1CAC 0x67 0x54 2 // GUIDING_RING
-        Unit 0xCD1FFC 0x67 0xE8 1 // GUIDING_RING
-        Unit 0xCD1DFC 0x67 0x54 2 // GUIDING_RING
-        Unit 0xCD21DC 0x67 0xE8 1 // GUIDING_RING
+        Unit 0xCD1CAC 0x67 0x54 2 EliwoodNormal // GUIDING_RING
+        Unit 0xCD1FFC 0x67 0xE8 1 EliwoodHard // GUIDING_RING
+        Unit 0xCD1DFC 0x67 0x54 2 HectorNormal // GUIDING_RING
+        Unit 0xCD21DC 0x67 0xE8 1 HectorHard // GUIDING_RING
         ITGV 0xCB5CEC 0x63 // HERO_CREST
         ITGV 0xCB5D2C 0x10 // LIGHT_BRAND
         ITGV 0xCB5D6C 0x7C // FILLA_MIGHT
@@ -306,10 +271,11 @@ module FE7 =
         CHES 0xCA3E3C 0x07 // SILVER_BLADE
         CHES 0xCA3E48 0x5C // SECRET_BOOK
         CHES 0xCA3E54 0x52 // BERSERK
+        Chap 0xCB6118 0x88 |> route SpecialBehavior // AFA_DROPS
 
         // Chapter 24: Four Fanged Offense (Lloyd)
-        Unit 0xCD3128 0x65 0x6E 1 // ORION_BOLT
-        Unit 0xCD3298 0x65 0x6E 1 // ORION_BOLT
+        Unit 0xCD3128 0x65 0x6E 1 EliwoodNormal // ORION_BOLT
+        Unit 0xCD3298 0x65 0x6E 1 HectorNormal // ORION_BOLT
         ITGV 0xCB6DA8 0x87 // EARTH_SEAL
         ITGV 0xCB6DE8 0x50 // SILENCE
 
@@ -322,9 +288,10 @@ module FE7 =
         ITGV 0xCB830C 0x66 // ELYSIAN_WHIP
 
         // Chapter 26: Unfulfilled Heart
-        Unit 0xCD568C 0x64 0x6D 1 // KNIGHT_CREST
-        Unit 0xCD599C 0x64 0x6D 1 // KNIGHT_CREST
-        Unit 0xCD580C 0x64 0x6D 1 // KNIGHT_CREST
+        Chap 0xCB87F8 0x89 |> route SpecialBehavior // HEAVEN_SEAL
+        Unit 0xCD568C 0x64 0x6D 1 EliwoodNormal // KNIGHT_CREST
+        Unit 0xCD599C 0x64 0x6D 1 EliwoodHard // KNIGHT_CREST
+        Unit 0xCD580C 0x64 0x6D 1 HectorNormal // KNIGHT_CREST
         ITGV 0xCB8974 0x56 // HAMMERNE
 
         // Chapter 27: Pale Flower of Darkness (Kenneth)
@@ -339,20 +306,21 @@ module FE7 =
         CHES 0xCA5048 0x3A // BOLTING
 
         // Chapter 28: Battle Before Dawn
-        Unit 0xCD87C8 0x66 0x6E 2 // ELYSIAN_WHIP
-        Unit 0xCD8828 0x66 0x6E 2 // ELYSIAN_WHIP
-        Unit 0xCD90A8 0x87 0x6D 1 // EARTH_SEAL
+        Unit 0xCD87C8 0x66 0x6E 2 EliwoodNormal // ELYSIAN_WHIP
+        Unit 0xCD8828 0x66 0x6E 2 HectorNormal // ELYSIAN_WHIP
+        Unit 0xCD90A8 0x87 0x6D 1 All // EARTH_SEAL
         CHES 0xCA5418 0x61 // BOOTS
         CHES 0xCA5424 0x19 // BRAVE_LANCE
         CHES 0xCA5430 0x54 // RESCUE
         CHES 0xCA543C 0x70 // DELPHI_SHIELD
+        ChTo 0xCBA90C 0x89 0x01 // HEAVEN_SEAL
 
         // Chapter 28x: Night of Farewells
-        Unit 0xCD96B0 0x8B 0x5B 2 // FELL_CONTRACT
-        Unit 0xCD9A90 0x8B 0x5B 2 // FELL_CONTRACT
-        Unit 0xCD9880 0x8B 0x5B 2 // FELL_CONTRACT
-        Unit 0xCD9CE0 0x8B 0x5B 2 // FELL_CONTRACT
-        Unit 0xCDA3C0 0x8B 0x5B 2 // FELL_CONTRACT
+        Unit 0xCD96B0 0x8B 0x5B 2 EliwoodNormal // FELL_CONTRACT
+        Unit 0xCD9A90 0x8B 0x5B 2 EliwoodHard // FELL_CONTRACT
+        Unit 0xCD9880 0x8B 0x5B 2 HectorNormal // FELL_CONTRACT
+        Unit 0xCD9CE0 0x8B 0x5B 2 HectorHard // FELL_CONTRACT
+        Unit 0xCDA3C0 0x8B 0x5B 2 SpecialBehavior // FELL_CONTRACT
         CHES 0xCA58EC 0x48 // FENRIR
         CHES 0xCA58F8 0x7E // THOR_IRE
         CHES 0xCA5904 0x4C // RECOVER
@@ -361,9 +329,9 @@ module FE7 =
         // Chapter 28 (Eliwood): Valorous Roland
 
         // Chapter 29: Cog of Destiny
-        Unit 0xCDAB18 0x67 0x70 1 // GUIDING_RING
-        Unit 0xCDB078 0x65 0x70 1 // ORION_BOLT
-        Unit 0xCDADC8 0x67 0x70 1 // GUIDING_RING
+        Unit 0xCDAB18 0x67 0x70 1 EliwoodNormal // GUIDING_RING
+        Unit 0xCDB078 0x65 0x70 1 EliwoodHard // ORION_BOLT
+        Unit 0xCDADC8 0x67 0x70 1 HectorNormal // GUIDING_RING
         ITGV 0xCBBFFC 0x53 // WARP
 
         // Chapter 30 (Hector): The Berserker
@@ -379,6 +347,7 @@ module FE7 =
         // Chapter 31x: Battle Preparations
 
         // Chapter 32: Victory or Death
+        Chap 0xCBE9A0 0x87 // EARTH_SEAL
         ITGV 0xCBEC54 0x7F // SET_LITANY
         ITGV 0xCBECE4 0x60 // TALISMAN
 

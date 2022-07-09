@@ -173,14 +173,10 @@ module FE8 =
         item 0x3d "UNUSED_FORBLAZE" Other
     ]
 
-    let CHES offset item = reward Chest (offset + 4) item None
-    let ITGV offset item = reward Village (offset + 4) item None
-    let Unit offset item unit pos = reward StartingInventory (offset + 12 + pos) item (Some unit)
-
-    let Chap offset item = reward SacredStonesEndOfChapter (offset + 12) item None
-
-    // Most of the data below comes from running this Yune fork, which has been modified to output rough F# code to the console:
-    // https://github.com/libertyernie/Universal-FE-Randomizer/tree/item-location-dump
+    let CHES offset item = reward Chest (offset + 4) item 0
+    let ITGV offset item = reward Village (offset + 4) item 0
+    let Unit offset item unit pos = reward StartingInventory (offset + 12 + pos) item unit
+    let Chap offset item = reward FE8Story (offset + 12) item 0
 
     let US = [
         // Fire Emblem - The Sacred Stones (USA, Australia)
@@ -232,7 +228,7 @@ module FE8 =
 
             // Chapter 10 (Eirika): Revolt at Carcino
             Unit 0x8B89A0 0x64 0x14 2 // HERO_CREST
-            Unit 0x8B8644 0x68 0x4F 1 // GUIDING_RING
+            Unit 0x8B8644 0x68 0x4F 1 // GUIDING_RINGd
 
             // Chapter 11 (Eirika): Creeping Darkness
             CHES 0x9E9358 0x50 // RESTORE
@@ -248,6 +244,7 @@ module FE8 =
 
             // Chapter 14 (Eirika): Queen of White Dunes
             Unit 0x8BBE78 0x64 0x80 1 // HERO_CREST
+            Unit 0x8B7EA0 0x97 0x42 1 // CONQUORER_PROOF
             CHES 0x9E9708 0x57 // HAMMERNE
             CHES 0x9E9714 0x8D // DRAGONSPEAR
             CHES 0x9E9720 0x1D // SPEAR
@@ -291,6 +288,7 @@ module FE8 =
             CHES 0x9EA2E8 0x97 // CONQUORER_PROOF
 
             // Chapter 10 (Ephraim): Turning Traitor
+            Unit 0x8C2EE8 0x5D 0x80 1 // SECRET_BOOK
             Unit 0x8C3050 0x67 0x0E 2 // ELYSIAN_WHIP
             ITGV 0x9FAF7C 0x56 // TORCH_STAFF
             ITGV 0x9FAFB8 0x64 // HERO_CREST
@@ -299,8 +297,13 @@ module FE8 =
 
             // Chapter 12 (Ephraim): Landing at Taizel
             Unit 0x8C4938 0x68 0x80 1 // GUIDING_RING
+            Unit 0x8C4AB4 0x60 0x18 1 // DRAGONSHIELD
 
             // Chapter 13 (Ephraim): Fluorspar's Oath
+            //Unit 0x8C4FF4 0x80 0x5C 2 // ENERGY_RING
+            //Unit 0x8C50BC 0x80 0x8D 0 // DRAGONSPEAR
+            //Unit 0x8C524C 0x80 0x5E 1 // SPEEDWING
+            Unit 0x8C529C 0x64 0x14 1 // HERO_CREST
             ITGV 0x9FBDB8 0x59 // BARRIER
             ITGV 0x9FBDF4 0x61 // TALISMAN
 
@@ -342,14 +345,46 @@ module FE8 =
             // Final (Ephraim): Sacred Stone (Part 2)
         ]
 
-        // End-of-chapter promotion items
+        // End-of-chapter items
 
-        // Chapter 5: The Empire's Reach
+        // Chapter 5
         Chap 0x9F2134 0x68 // GUIDING_RING
 
-        // Chapter 9 (Eirika): Distant Blade
+        // Chapter 9 (Eirika)
         Chap 0x9F3F28 0x5B |> route Eirika // ANGELIC_ROBE
 
-        // Chapter 10 (Ephraim): Turning Traitor
+        // Chapter 14 (Eirika)
+        Chap 0x9F5FDC 0x91 |> route JoshuaAlive // AUDHULMA
+        Chap 0x9F5FF0 0x3E |> route JoshuaAlive // EXCALIBUR
+        Chap 0x9F6024 0x91 |> route JoshuaDead // AUDHULMA
+        Chap 0x9F6038 0x3E |> route JoshuaDead // EXCALIBUR
+
+        // Chapter 15 (Eirika)
+        Chap 0x9F64B8 0x4A |> route Eirika // GLEIPNIR
+        Chap 0x9F64CC 0x93 |> route Eirika // GARM
+
+        // Chapter 10 (Ephraim)
         Chap 0x9FAD7C 0x65 |> route Ephraim // KNIGHT_CREST
+
+        // Chpater 14 (Ephraim)
+        Chap 0x9FC48C 0x4A |> route Ephraim // GLEIPNIR
+        Chap 0x9FC4A0 0x93 |> route Ephraim // GARM
+
+        // Chpater 15 (Ephraim)
+        Chap 0x9F64F4 0x91 |> route Ephraim // AUDHULMA
+        Chap 0x9F6508 0x3E |> route Ephraim // EXCALIBUR
+
+        // Chapter 16
+        Chap 0x9F71E4 0x92 // SIEGMUND
+        Chap 0x9F7204 0x85 // SIEGLINDE
+
+        // Chpater 17
+        Chap 0x9F7C0C 0x94 // NIDHOGG
+        Chap 0x9F7C20 0x8E // VIDOFNIR
+        Chap 0x9F7C90 0x55 // RESCUE
+
+        // Chatper 19
+        Chap 0x9F885C 0x87 // IVALDI
+        Chap 0x9F8870 0x8C // LATONA
+        Chap 0x9F8920 0x10 // LIGHT_BRAND
     ]

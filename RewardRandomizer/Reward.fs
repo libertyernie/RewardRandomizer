@@ -1,10 +1,19 @@
 ﻿namespace RewardRandomizer
 
-type Method = Chest | Village | GiveToUnit | StartingInventory | SacredStonesEndOfChapter
+open System
+
+type Method =
+| Chest
+| Village
+| StartingInventory
+| FE6Story
+| FE7Story
+| FE8Story
 
 type Route =
 | All
 | Bartre | Echidna | Ilia | Sacae
+| EliwoodNormal | EliwoodHard | HectorNormal | HectorHard
 | Eirika | Ephraim
 | JoshuaAlive | JoshuaDead
 | SpecialBehavior
@@ -12,37 +21,32 @@ type Route =
 type Reward = {
     method: Method
     item: byte
-    unit: byte option
+    unit: byte
     offset: int
-    routes: Route list
+    route: Route
 } with
-    member this.Route =
-        match List.distinct this.routes with
-        | [] -> All
-        | [x] -> x
-        | _::_::_ -> SpecialBehavior
-    member this.IsToUnit =
-        this.unit <> None
-    member this.IsAsExpected (data: byte[]) =
-        data[this.offset] = byte this.item
     override this.ToString() = String.concat " " [
-        sprintf "%A" this.Route
+        sprintf "%A" this.route
         sprintf "%A" this.method
         sprintf "%06X" this.offset
         sprintf "%02X" this.item
-        match this.unit with
-        | Some u -> sprintf "unit %02X" u
-        | None -> ()
+        if this.unit <> 0uy then
+            sprintf "unit %02X" this.unit
     ]
 
 module Reward =
-    let route newRoute object =
-        { object with routes = newRoute :: object.routes }
+    let consolidate routes =
+        match routes |> List.except [All] |> List.distinct with
+        | [] -> All
+        | [single] -> single
+        | _::_::_ -> SpecialBehavior
+
+    let route new_route object = { object with route = consolidate [object.route; new_route] }
 
     let reward method offset item unit = {
         method = method
         item = byte item
-        unit = unit |> Option.map byte
+        unit = byte unit
         offset = offset
-        routes = []
+        route = All
     }

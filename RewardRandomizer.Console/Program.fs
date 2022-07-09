@@ -2,7 +2,7 @@
 open RewardRandomizer
 open RewardRandomizer.Correlation
 
-let data = File.ReadAllBytes @"C:\Users\isaac\Desktop\Fire Emblem - The Sacred Stones (USA, Australia).gba"
+let data = File.ReadAllBytes @"C:\Users\isaac\Desktop\Fire Emblem - Fuuin no Tsurugi (Japan).gba"
 
 let matching_games = seq {
     for g in Game.All do

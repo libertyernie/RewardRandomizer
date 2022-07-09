@@ -133,13 +133,10 @@ module FE6 =
         item 0x71 "ECKESACHS" Other
     ]
 
-    let CHES offset item = reward Chest (offset + 4) item None
-    let ITGV offset item = reward Village (offset + 4) item None
-    let ITGC offset item unit = reward GiveToUnit (offset + 8) item (Some unit)
-    let Unit offset item unit pos = reward StartingInventory (offset + 8 + pos) item (Some unit)
-
-    // Most of the data below comes from running this Yune fork, which has been modified to output rough F# code to the console:
-    // https://github.com/libertyernie/Universal-FE-Randomizer/tree/item-location-dump
+    let CHES offset item = reward Chest (offset + 4) item 0
+    let ITGV offset item = reward Village (offset + 4) item 0
+    let ITGC offset item unit = reward FE6Story (offset + 8) item unit
+    let Unit offset item unit pos = reward StartingInventory (offset + 8 + pos) item unit
 
     let JP = [
         // Fire Emblem - Fuuin no Tsurugi (Japan)
@@ -389,8 +386,6 @@ module FE6 =
     ]
 
     let FE6Localization = [
-        // FE6Localization_v1.1.3
-
         // Most of the offsets are the same as the original Japanese version, but translation patches have moved a few of them.
 
         // Chapter 1: Dawn of Destiny
@@ -638,8 +633,6 @@ module FE6 =
     ]
 
     let ProjectEmber = [
-        // FE6 Project Ember HM.gba
-
         // Chapter 1: Dawn of Destiny
 
         // Chapter 2: The Princess of Bern
