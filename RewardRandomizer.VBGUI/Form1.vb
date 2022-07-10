@@ -1,9 +1,6 @@
 ﻿Imports System.IO
 
 Public Class Form1
-    Private RomData As Byte()
-    Private Game As Game
-
     Private Shared Function IsGame(data As Byte(), candidate As Game) As Boolean
         For Each itemLocation In candidate.locations
             If itemLocation.offset < data.Length Then
@@ -29,14 +26,14 @@ Public Class Form1
             dialog.Filter = "GBA ROM images (*.gba)|*.gba"
             If dialog.ShowDialog(Me) = DialogResult.OK Then
                 InputBox.Text = dialog.FileName
-                Dim data = File.ReadAllBytes(dialog.FileName)
-                RomData = data
-                Game = GetGame(data)
 
-                TextBox2.Name = Game.name
+                Dim data = File.ReadAllBytes(dialog.FileName)
+                Dim game = GetGame(data)
+
+                TextBox2.Text = game.name
                 PromotionItemsList.Items.Clear()
                 StatBoostersList.Items.Clear()
-                For Each x In Game.items
+                For Each x In game.items
                     If x.category Is ItemCategory.Promotion Then
                         PromotionItemsList.Items.Add(x.name)
                     ElseIf x.category Is ItemCategory.StatBooster Then
@@ -57,14 +54,17 @@ Public Class Form1
     End Sub
 
     Private Sub PatchButton_Click(sender As Object, e As EventArgs) Handles PatchButton.Click
+        Dim newData = File.ReadAllBytes(InputBox.Text)
+        Dim game = GetGame(newData)
+
         Dim path = OutputBox.Text
 
-        Dim newData = RomData.ToArray()
-
         Dim step1 As New List(Of Method)
+
         If ShuffleChests.Checked Then
             step1.Add(Method.Chest)
         End If
+
         If ShuffleVillages.Checked Then
             step1.Add(Method.Village)
         End If
@@ -72,50 +72,46 @@ Public Class Form1
         If step1.Any() Then
             Procedure.Run(
                 Procedure.Mode.Shuffle,
-                Game,
+                game,
                 Procedure.CategoryCollection.AllCategories,
                 Procedure.MethodCollection.NewMethodCollection(step1),
                 newData)
         End If
 
-        Dim step2 As New List(Of ItemCategory)
         If ShufflePromoItems.Checked Then
-            step2.Add(ItemCategory.Promotion)
-        End If
-        If ShuffleStatBoosters.Checked Then
-            step2.Add(ItemCategory.StatBooster)
-        End If
-
-        If step2.Any() Then
             Procedure.Run(
                 Procedure.Mode.Shuffle,
-                Game,
-                Procedure.CategoryCollection.NewCategoryCollection(step2),
+                game,
+                Procedure.CategoryCollection.NewCategoryCollection(New ItemCategory() {ItemCategory.Promotion}),
                 Procedure.MethodCollection.AllMethods,
                 newData)
         End If
 
-        Dim step3 As New List(Of ItemCategory)
-        If RandomizePromotionItems.Checked Then
-            step3.Add(ItemCategory.Promotion)
-        End If
-        If RandomizeStatBoosters.Checked Then
-            step3.Add(ItemCategory.StatBooster)
+        If ShuffleStatBoosters.Checked Then
+            Procedure.Run(
+                Procedure.Mode.Shuffle,
+                game,
+                Procedure.CategoryCollection.NewCategoryCollection(New ItemCategory() {ItemCategory.StatBooster}),
+                Procedure.MethodCollection.AllMethods,
+                newData)
         End If
 
-        If step3.Any() Then
+        If RandomizePromotionItems.Checked Then
             Procedure.Run(
                 Procedure.Mode.Randomize,
-                Game,
-                Procedure.CategoryCollection.NewCategoryCollection(step3),
+                game,
+                Procedure.CategoryCollection.NewCategoryCollection(New ItemCategory() {ItemCategory.Promotion}),
                 Procedure.MethodCollection.AllMethods,
                 newData)
         End If
 
-        If File.Exists(path) Then
-            If MsgBox("Are you sure you want to overwrite this file?", MsgBoxStyle.YesNo) = DialogResult.No Then
-                Return
-            End If
+        If RandomizeStatBoosters.Checked Then
+            Procedure.Run(
+                Procedure.Mode.Randomize,
+                game,
+                Procedure.CategoryCollection.NewCategoryCollection(New ItemCategory() {ItemCategory.StatBooster}),
+                Procedure.MethodCollection.AllMethods,
+                newData)
         End If
 
         File.WriteAllBytes(path, newData)
