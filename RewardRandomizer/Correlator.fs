@@ -1,7 +1,7 @@
 ﻿namespace RewardRandomizer
 
 module Correlator =
-    let ExtractAll reward_source = [
+    let ExtractAll game reward_source = [
         let mutable rewards = Set.ofSeq reward_source
 
         // Determines which items are the "same"
@@ -14,10 +14,8 @@ module Correlator =
             for p in primary_rewards do
                 // This function will find the best match for this item on the route given
                 let find_matching route =
-                    let ofr =
-                        rewards
-                        |> Seq.where (fun r -> r.route = route)
-                    ofr
+                    rewards
+                    |> Seq.where (fun r -> r.route = route)
                     |> Seq.where (fun r -> r.item = p.item)
                     |> Seq.sortBy (fun r -> [
                         if r.unit = p.unit then 1 else 2
@@ -51,16 +49,6 @@ module Correlator =
         for x in rewards do
             if x.route = All then
                 yield Set.singleton x
+            else
+                printfn "Not touching route-specific item %O (%O)" [for y in game.items do if y.id = x.item then y.name] x
     ]
-
-    let DebugAll game rewards =
-        let o = Set.ofSeq rewards
-        for m in o do
-            if m.item = 0x64uy then
-                printfn "%A" m
-        let n = ExtractAll o
-        for r in o do
-            match [for u1 in n do for u2 in u1 do if u2 = r then u2] with
-            | [] -> printfn "%O (%O): not matched" r [for i in game.items do if i.id = r.item then i]
-            | _::_ -> ()
-        n

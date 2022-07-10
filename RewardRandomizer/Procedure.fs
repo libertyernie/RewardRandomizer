@@ -31,11 +31,16 @@ module Procedure =
             game.locations
             |> Seq.where (isMethodOf methods)
             |> Seq.where (fun x -> Seq.contains x.item item_ids)
-            |> Correlator.DebugAll game
+            |> Correlator.ExtractAll game
         let shuffled_sets =
             location_sets
             |> List.sortBy (fun _ -> random.Next())
         for (old_set, new_set) in Seq.zip location_sets shuffled_sets do
+            let old_item =
+                old_set
+                |> Seq.map (fun x -> x.item)
+                |> Seq.distinct
+                |> Seq.exactlyOne
             let new_item =
                 match mode with
                 | Shuffle ->
@@ -45,6 +50,9 @@ module Procedure =
                     |> Seq.exactlyOne
                 | Randomize ->
                     item_ids[random.Next (List.length item_ids)]
+            let old_name = [for i in game.items do if i.id = old_item then i.name]
+            let new_name = [for i in game.items do if i.id = new_item then i.name]
+            printfn "Replacing %O with %O (%O -> %O)" old_name new_name old_set new_set
             for old_location in old_set do
                 data[old_location.offset] <- new_item
             ()

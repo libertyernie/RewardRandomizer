@@ -168,6 +168,7 @@ module FE7 =
 
         // Chapter 11 (Eliwood): Taking Leave
         ITGV 0xCAE43C 0x5F // DRAGONSHIELD
+        Unit 0xCC7C5C 0x5B 0x08 1 SpecialBehavior // ENERGY_RING (Eliwood mode only)
 
         // Chapter 11 (Hector): Another Journey
         CHES 0xCA19CC 0x75 // RED_GEM
@@ -249,6 +250,7 @@ module FE7 =
         ITGV 0xCB4EDC 0x4F // RESTORE
 
         // Chapter 22: Kinship's Bond
+        Unit 0xCD1064 0x5A 0x34 2 All // ANGELIC_ROBE
         Unit 0xCD0A44 0x64 0xD7 1 EliwoodNormal // KNIGHT_CREST
         Unit 0xCD0C14 0x64 0x50 1 EliwoodHard // KNIGHT_CREST
         Unit 0xCD0B24 0x64 0xD7 1 HectorNormal // KNIGHT_CREST
