@@ -1,40 +1,40 @@
 ﻿namespace RewardRandomizer
 
 type Game = {
-    Name: string
-    Items: Item list
-    Locations: Reward list
+    name: string
+    items: Item list
+    locations: Reward list
 }
 
 module Game =
     let FE6_JP = {
-        Name = "Fire Emblem: The Binding Blade (J)"
-        Items = FE6.Items
-        Locations = FE6.JP
+        name = "Fire Emblem: The Binding Blade (J)"
+        items = FE6.Items
+        locations = FE6.JP
     }
 
     let FE6_Localization = {
-        FE6_JP with
-            Name = "Fire Emblem: The Binding Blade (Localization Patch v1.1.3)"
-            Locations = FE6.FE6Localization
+        name = "Fire Emblem: The Binding Blade (Localization Patch v1.1.3)"
+        items = FE6.Items
+        locations = FE6.FE6Localization
     }
 
     let FE6_ProjectEmber = {
-        FE6_JP with
-            Name = "Project Ember v1.85"
-            Locations = FE6.ProjectEmber
+        name = "Project Ember v1.85"
+        items = FE6.Items
+        locations = FE6.ProjectEmber
     }
 
     let FE7_US = {
-        Name = "Fire Emblem: The Blazing Blade (U)"
-        Items = FE7.Items
-        Locations = FE7.US
+        name = "Fire Emblem: The Blazing Blade (U)"
+        items = FE7.Items
+        locations = FE7.US
     }
 
     let FE8_US = {
-        Name = "Fire Emblem: The Sacred Stones (U)"
-        Items = FE8.Items
-        Locations = FE8.US
+        name = "Fire Emblem: The Sacred Stones (U)"
+        items = FE8.Items
+        locations = FE8.US
     }
 
     let All = [

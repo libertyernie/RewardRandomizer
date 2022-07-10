@@ -6,18 +6,18 @@ let data = File.ReadAllBytes @"C:\Users\isaac\Desktop\Fire Emblem - Fuuin no Tsu
 let matching_games = seq {
     for g in Game.All do
         let mismatches = seq {
-            for l in g.Locations do
+            for l in g.locations do
                 if l.offset >= data.Length || data[l.offset] <> l.item then
                     yield l
         }
         if Seq.isEmpty mismatches then
-            printfn "Matching game: %s" g.Name
+            printfn "Matching game: %s" g.name
             yield g
 }
 
 let game = Seq.exactlyOne matching_games
 
-let l2 = game.Locations |> Correlator.ExtractAll |> Seq.sortBy id |> Seq.toList
+let l2 = game.locations |> Correlator.ExtractAll |> Seq.sortBy id |> Seq.toList
 
 for f in l2 do
     let id = [for x in f do x.item] |> List.distinct |> List.exactlyOne
@@ -26,4 +26,4 @@ for f in l2 do
         if actual_item <> byte id then
             failwith "Not recognized"
 
-    printfn "--> %O %s" f (Seq.exactlyOne [for x in game.Items do if x.id = byte id then x.name])
+    printfn "--> %O %s" f (Seq.exactlyOne [for x in game.items do if x.id = byte id then x.name])
