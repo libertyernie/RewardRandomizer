@@ -142,7 +142,6 @@ module FE6 =
         // Fire Emblem - Fuuin no Tsurugi (Japan)
 
         // Chapter 1: Dawn of Destiny
-        ITGV 0x66B340 0x68 // VULNERARY
 
         // Chapter 2: The Princess of Bern
         ITGV 0x66BD40 0x0A // ARMORSLAYER
@@ -390,7 +389,6 @@ module FE6 =
         // Most of the offsets are the same as the original Japanese version, but translation patches have moved a few of them.
 
         // Chapter 1: Dawn of Destiny
-        ITGV 0x66B340 0x68 // VULNERARY
 
         // Chapter 2: The Princess of Bern
         ITGV 0x66BD40 0x0A // ARMORSLAYER
