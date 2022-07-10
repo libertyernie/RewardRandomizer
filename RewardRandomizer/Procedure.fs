@@ -7,12 +7,12 @@ module Procedure =
 
     type Mode = Shuffle | Randomize
 
-    type CategoryCollection = CategoryCollection of seq<ItemCategory> | AllCategories
+    type ItemCollection = ItemCollection of seq<Item> | AllItems
 
-    let isCategoryOf this item =
+    let isItemOf this item =
         match this with
-        | CategoryCollection c -> Seq.contains item.category c
-        | AllCategories -> true
+        | ItemCollection c -> Seq.contains item c
+        | AllItems -> true
 
     type MethodCollection = MethodCollection of seq<Method> | AllMethods
 
@@ -21,10 +21,10 @@ module Procedure =
         | MethodCollection m -> Seq.contains location.method m
         | AllMethods -> true
 
-    let Run mode game categories methods (data: byte[]) =
+    let Run mode game items methods (data: byte[]) =
         let item_ids =
             game.items
-            |> Seq.where (isCategoryOf categories)
+            |> Seq.where (isItemOf items)
             |> Seq.map (fun x -> x.id)
             |> Seq.toList
         let location_sets =

@@ -35,9 +35,15 @@ Public Class Form1
                 StatBoostersList.Items.Clear()
                 For Each x In game.items
                     If x.category Is ItemCategory.Promotion Then
-                        PromotionItemsList.Items.Add(x.name)
+                        PromotionItemsList.Items.Add(x)
+                        If game.locations.Any(Function(y) y.item = x.id) Then
+                            PromotionItemsList.SelectedItems.Add(x)
+                        End If
                     ElseIf x.category Is ItemCategory.StatBooster Then
-                        StatBoostersList.Items.Add(x.name)
+                        StatBoostersList.Items.Add(x)
+                        If game.locations.Any(Function(y) y.item = x.id) Then
+                            StatBoostersList.SelectedItems.Add(x)
+                        End If
                     End If
                 Next
             End If
@@ -73,7 +79,7 @@ Public Class Form1
             Procedure.Run(
                 Procedure.Mode.Shuffle,
                 game,
-                Procedure.CategoryCollection.AllCategories,
+                Procedure.ItemCollection.AllItems,
                 Procedure.MethodCollection.NewMethodCollection(step1),
                 newData)
         End If
@@ -82,7 +88,7 @@ Public Class Form1
             Procedure.Run(
                 Procedure.Mode.Shuffle,
                 game,
-                Procedure.CategoryCollection.NewCategoryCollection(New ItemCategory() {ItemCategory.Promotion}),
+                Procedure.ItemCollection.NewItemCollection(PromotionItemsList.SelectedItems.Cast(Of Item)()),
                 Procedure.MethodCollection.AllMethods,
                 newData)
         End If
@@ -91,7 +97,7 @@ Public Class Form1
             Procedure.Run(
                 Procedure.Mode.Shuffle,
                 game,
-                Procedure.CategoryCollection.NewCategoryCollection(New ItemCategory() {ItemCategory.StatBooster}),
+                Procedure.ItemCollection.NewItemCollection(StatBoostersList.SelectedItems.Cast(Of Item)()),
                 Procedure.MethodCollection.AllMethods,
                 newData)
         End If
@@ -100,7 +106,7 @@ Public Class Form1
             Procedure.Run(
                 Procedure.Mode.Randomize,
                 game,
-                Procedure.CategoryCollection.NewCategoryCollection(New ItemCategory() {ItemCategory.Promotion}),
+                Procedure.ItemCollection.NewItemCollection(PromotionItemsList.SelectedItems.Cast(Of Item)()),
                 Procedure.MethodCollection.AllMethods,
                 newData)
         End If
@@ -109,7 +115,7 @@ Public Class Form1
             Procedure.Run(
                 Procedure.Mode.Randomize,
                 game,
-                Procedure.CategoryCollection.NewCategoryCollection(New ItemCategory() {ItemCategory.StatBooster}),
+                Procedure.ItemCollection.NewItemCollection(StatBoostersList.SelectedItems.Cast(Of Item)()),
                 Procedure.MethodCollection.AllMethods,
                 newData)
         End If

@@ -28,27 +28,27 @@ Partial Class Form1
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.ShuffleChests = New System.Windows.Forms.CheckBox()
-        Me.ShuffleVillages = New System.Windows.Forms.CheckBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.ShuffleStatBoosters = New System.Windows.Forms.CheckBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.ShufflePromoItems = New System.Windows.Forms.CheckBox()
-        Me.RandomizePromotionItems = New System.Windows.Forms.CheckBox()
-        Me.RandomizeStatBoosters = New System.Windows.Forms.CheckBox()
-        Me.PatchButton = New System.Windows.Forms.Button()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.PromotionItemsList = New System.Windows.Forms.ListBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.StatBoostersList = New System.Windows.Forms.ListBox()
+        Me.PatchButton = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.OutputBox = New System.Windows.Forms.TextBox()
         Me.BrowseOutputButton = New System.Windows.Forms.Button()
-        Me.PromotionItemsList = New System.Windows.Forms.ListBox()
-        Me.StatBoostersList = New System.Windows.Forms.ListBox()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.RandomizeStatBoosters = New System.Windows.Forms.CheckBox()
+        Me.RandomizePromotionItems = New System.Windows.Forms.CheckBox()
+        Me.ShuffleStatBoosters = New System.Windows.Forms.CheckBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.ShufflePromoItems = New System.Windows.Forms.CheckBox()
+        Me.ShuffleVillages = New System.Windows.Forms.CheckBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.ShuffleChests = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -124,22 +124,162 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.ShuffleChests)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(360, 387)
+        Me.GroupBox1.Size = New System.Drawing.Size(360, 437)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Reward Randomizer"
         '
-        'ShuffleChests
+        'TableLayoutPanel1
         '
-        Me.ShuffleChests.AutoSize = True
-        Me.ShuffleChests.Checked = True
-        Me.ShuffleChests.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShuffleChests.Location = New System.Drawing.Point(9, 90)
-        Me.ShuffleChests.Name = "ShuffleChests"
-        Me.ShuffleChests.Size = New System.Drawing.Size(58, 17)
-        Me.ShuffleChests.TabIndex = 0
-        Me.ShuffleChests.Text = "Chests"
-        Me.ShuffleChests.UseVisualStyleBackColor = True
+        Me.TableLayoutPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.GroupBox2, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.GroupBox3, 1, 0)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(6, 178)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(348, 198)
+        Me.TableLayoutPanel1.TabIndex = 14
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.PromotionItemsList)
+        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox2.Location = New System.Drawing.Point(3, 3)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(168, 192)
+        Me.GroupBox2.TabIndex = 9
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Promotion items"
+        '
+        'PromotionItemsList
+        '
+        Me.PromotionItemsList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PromotionItemsList.FormattingEnabled = True
+        Me.PromotionItemsList.Location = New System.Drawing.Point(3, 16)
+        Me.PromotionItemsList.Name = "PromotionItemsList"
+        Me.PromotionItemsList.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
+        Me.PromotionItemsList.Size = New System.Drawing.Size(162, 173)
+        Me.PromotionItemsList.TabIndex = 0
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.StatBoostersList)
+        Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox3.Location = New System.Drawing.Point(177, 3)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(168, 192)
+        Me.GroupBox3.TabIndex = 10
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Stat boosters"
+        '
+        'StatBoostersList
+        '
+        Me.StatBoostersList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.StatBoostersList.FormattingEnabled = True
+        Me.StatBoostersList.Location = New System.Drawing.Point(3, 16)
+        Me.StatBoostersList.Name = "StatBoostersList"
+        Me.StatBoostersList.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
+        Me.StatBoostersList.Size = New System.Drawing.Size(162, 173)
+        Me.StatBoostersList.TabIndex = 0
+        '
+        'PatchButton
+        '
+        Me.PatchButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PatchButton.Location = New System.Drawing.Point(279, 408)
+        Me.PatchButton.Name = "PatchButton"
+        Me.PatchButton.Size = New System.Drawing.Size(75, 23)
+        Me.PatchButton.TabIndex = 6
+        Me.PatchButton.Text = "Patch"
+        Me.PatchButton.UseVisualStyleBackColor = True
+        '
+        'Label5
+        '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(6, 385)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(67, 13)
+        Me.Label5.TabIndex = 11
+        Me.Label5.Text = "Output ROM"
+        '
+        'OutputBox
+        '
+        Me.OutputBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.OutputBox.Location = New System.Drawing.Point(77, 382)
+        Me.OutputBox.Name = "OutputBox"
+        Me.OutputBox.Size = New System.Drawing.Size(196, 20)
+        Me.OutputBox.TabIndex = 12
+        '
+        'BrowseOutputButton
+        '
+        Me.BrowseOutputButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BrowseOutputButton.Location = New System.Drawing.Point(279, 382)
+        Me.BrowseOutputButton.Name = "BrowseOutputButton"
+        Me.BrowseOutputButton.Size = New System.Drawing.Size(75, 20)
+        Me.BrowseOutputButton.TabIndex = 13
+        Me.BrowseOutputButton.Text = "Browse..."
+        Me.BrowseOutputButton.UseVisualStyleBackColor = True
+        '
+        'RandomizeStatBoosters
+        '
+        Me.RandomizeStatBoosters.AutoSize = True
+        Me.RandomizeStatBoosters.Location = New System.Drawing.Point(183, 155)
+        Me.RandomizeStatBoosters.Name = "RandomizeStatBoosters"
+        Me.RandomizeStatBoosters.Size = New System.Drawing.Size(142, 17)
+        Me.RandomizeStatBoosters.TabIndex = 8
+        Me.RandomizeStatBoosters.Text = "Randomize stat boosters"
+        Me.RandomizeStatBoosters.UseVisualStyleBackColor = True
+        '
+        'RandomizePromotionItems
+        '
+        Me.RandomizePromotionItems.AutoSize = True
+        Me.RandomizePromotionItems.Location = New System.Drawing.Point(9, 155)
+        Me.RandomizePromotionItems.Name = "RandomizePromotionItems"
+        Me.RandomizePromotionItems.Size = New System.Drawing.Size(155, 17)
+        Me.RandomizePromotionItems.TabIndex = 6
+        Me.RandomizePromotionItems.Text = "Randomize promotion items"
+        Me.RandomizePromotionItems.UseVisualStyleBackColor = True
+        '
+        'ShuffleStatBoosters
+        '
+        Me.ShuffleStatBoosters.AutoSize = True
+        Me.ShuffleStatBoosters.Checked = True
+        Me.ShuffleStatBoosters.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ShuffleStatBoosters.Location = New System.Drawing.Point(183, 132)
+        Me.ShuffleStatBoosters.Name = "ShuffleStatBoosters"
+        Me.ShuffleStatBoosters.Size = New System.Drawing.Size(122, 17)
+        Me.ShuffleStatBoosters.TabIndex = 7
+        Me.ShuffleStatBoosters.Text = "Shuffle stat boosters"
+        Me.ShuffleStatBoosters.UseVisualStyleBackColor = True
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(6, 113)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(3)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(35, 13)
+        Me.Label4.TabIndex = 7
+        Me.Label4.Text = "Then:"
+        '
+        'ShufflePromoItems
+        '
+        Me.ShufflePromoItems.AutoSize = True
+        Me.ShufflePromoItems.Checked = True
+        Me.ShufflePromoItems.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ShufflePromoItems.Location = New System.Drawing.Point(9, 132)
+        Me.ShufflePromoItems.Name = "ShufflePromoItems"
+        Me.ShufflePromoItems.Size = New System.Drawing.Size(135, 17)
+        Me.ShufflePromoItems.TabIndex = 5
+        Me.ShufflePromoItems.Text = "Shuffle promotion items"
+        Me.ShufflePromoItems.UseVisualStyleBackColor = True
         '
         'ShuffleVillages
         '
@@ -163,171 +303,31 @@ Partial Class Form1
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "First, shuffle all items that come from:"
         '
-        'ShuffleStatBoosters
+        'ShuffleChests
         '
-        Me.ShuffleStatBoosters.AutoSize = True
-        Me.ShuffleStatBoosters.Checked = True
-        Me.ShuffleStatBoosters.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShuffleStatBoosters.Location = New System.Drawing.Point(183, 132)
-        Me.ShuffleStatBoosters.Name = "ShuffleStatBoosters"
-        Me.ShuffleStatBoosters.Size = New System.Drawing.Size(135, 17)
-        Me.ShuffleStatBoosters.TabIndex = 7
-        Me.ShuffleStatBoosters.Text = "Shuffle all stat boosters"
-        Me.ShuffleStatBoosters.UseVisualStyleBackColor = True
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(6, 113)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(3)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(35, 13)
-        Me.Label4.TabIndex = 7
-        Me.Label4.Text = "Then:"
-        '
-        'ShufflePromoItems
-        '
-        Me.ShufflePromoItems.AutoSize = True
-        Me.ShufflePromoItems.Checked = True
-        Me.ShufflePromoItems.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShufflePromoItems.Location = New System.Drawing.Point(9, 132)
-        Me.ShufflePromoItems.Name = "ShufflePromoItems"
-        Me.ShufflePromoItems.Size = New System.Drawing.Size(148, 17)
-        Me.ShufflePromoItems.TabIndex = 5
-        Me.ShufflePromoItems.Text = "Shuffle all promotion items"
-        Me.ShufflePromoItems.UseVisualStyleBackColor = True
-        '
-        'RandomizePromotionItems
-        '
-        Me.RandomizePromotionItems.AutoSize = True
-        Me.RandomizePromotionItems.Location = New System.Drawing.Point(9, 155)
-        Me.RandomizePromotionItems.Name = "RandomizePromotionItems"
-        Me.RandomizePromotionItems.Size = New System.Drawing.Size(168, 17)
-        Me.RandomizePromotionItems.TabIndex = 6
-        Me.RandomizePromotionItems.Text = "Randomize all promotion items"
-        Me.RandomizePromotionItems.UseVisualStyleBackColor = True
-        '
-        'RandomizeStatBoosters
-        '
-        Me.RandomizeStatBoosters.AutoSize = True
-        Me.RandomizeStatBoosters.Location = New System.Drawing.Point(183, 155)
-        Me.RandomizeStatBoosters.Name = "RandomizeStatBoosters"
-        Me.RandomizeStatBoosters.Size = New System.Drawing.Size(155, 17)
-        Me.RandomizeStatBoosters.TabIndex = 8
-        Me.RandomizeStatBoosters.Text = "Randomize all stat boosters"
-        Me.RandomizeStatBoosters.UseVisualStyleBackColor = True
-        '
-        'PatchButton
-        '
-        Me.PatchButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PatchButton.Location = New System.Drawing.Point(279, 358)
-        Me.PatchButton.Name = "PatchButton"
-        Me.PatchButton.Size = New System.Drawing.Size(75, 23)
-        Me.PatchButton.TabIndex = 6
-        Me.PatchButton.Text = "Patch"
-        Me.PatchButton.UseVisualStyleBackColor = True
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.PromotionItemsList)
-        Me.GroupBox2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox2.Location = New System.Drawing.Point(3, 3)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(168, 142)
-        Me.GroupBox2.TabIndex = 9
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Promotion items"
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.StatBoostersList)
-        Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox3.Location = New System.Drawing.Point(177, 3)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(168, 142)
-        Me.GroupBox3.TabIndex = 10
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Stat boosters"
-        '
-        'Label5
-        '
-        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 335)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(67, 13)
-        Me.Label5.TabIndex = 11
-        Me.Label5.Text = "Output ROM"
-        '
-        'OutputBox
-        '
-        Me.OutputBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OutputBox.Location = New System.Drawing.Point(77, 332)
-        Me.OutputBox.Name = "OutputBox"
-        Me.OutputBox.Size = New System.Drawing.Size(196, 20)
-        Me.OutputBox.TabIndex = 12
-        '
-        'BrowseOutputButton
-        '
-        Me.BrowseOutputButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BrowseOutputButton.Location = New System.Drawing.Point(279, 332)
-        Me.BrowseOutputButton.Name = "BrowseOutputButton"
-        Me.BrowseOutputButton.Size = New System.Drawing.Size(75, 20)
-        Me.BrowseOutputButton.TabIndex = 13
-        Me.BrowseOutputButton.Text = "Browse..."
-        Me.BrowseOutputButton.UseVisualStyleBackColor = True
-        '
-        'PromotionItemsList
-        '
-        Me.PromotionItemsList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PromotionItemsList.Enabled = False
-        Me.PromotionItemsList.FormattingEnabled = True
-        Me.PromotionItemsList.Location = New System.Drawing.Point(3, 16)
-        Me.PromotionItemsList.Name = "PromotionItemsList"
-        Me.PromotionItemsList.Size = New System.Drawing.Size(162, 123)
-        Me.PromotionItemsList.TabIndex = 0
-        '
-        'StatBoostersList
-        '
-        Me.StatBoostersList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.StatBoostersList.Enabled = False
-        Me.StatBoostersList.FormattingEnabled = True
-        Me.StatBoostersList.Location = New System.Drawing.Point(3, 16)
-        Me.StatBoostersList.Name = "StatBoostersList"
-        Me.StatBoostersList.Size = New System.Drawing.Size(162, 123)
-        Me.StatBoostersList.TabIndex = 0
-        '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TableLayoutPanel1.ColumnCount = 2
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.GroupBox2, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.GroupBox3, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(6, 178)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 1
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(348, 148)
-        Me.TableLayoutPanel1.TabIndex = 14
+        Me.ShuffleChests.AutoSize = True
+        Me.ShuffleChests.Checked = True
+        Me.ShuffleChests.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ShuffleChests.Location = New System.Drawing.Point(9, 90)
+        Me.ShuffleChests.Name = "ShuffleChests"
+        Me.ShuffleChests.Size = New System.Drawing.Size(58, 17)
+        Me.ShuffleChests.TabIndex = 0
+        Me.ShuffleChests.Text = "Chests"
+        Me.ShuffleChests.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 411)
+        Me.ClientSize = New System.Drawing.Size(384, 461)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "Form1"
         Me.Text = "Form1"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox3.ResumeLayout(False)
-        Me.TableLayoutPanel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
