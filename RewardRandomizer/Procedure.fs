@@ -7,15 +7,29 @@ module Procedure =
 
     type Mode = Shuffle | Randomize
 
+    type CategoryCollection = CategoryCollection of seq<ItemCategory> | AllCategories
+
+    let isCategoryOf this item =
+        match this with
+        | CategoryCollection c -> Seq.contains item.category c
+        | AllCategories -> true
+
+    type MethodCollection = MethodCollection of seq<Method> | AllMethods
+
+    let isMethodOf this location =
+        match this with
+        | MethodCollection m -> Seq.contains location.method m
+        | AllMethods -> true
+
     let Run mode game categories methods (data: byte[]) =
         let item_ids =
             game.items
-            |> Seq.where (fun x -> Seq.contains x categories)
+            |> Seq.where (isCategoryOf categories)
             |> Seq.map (fun x -> x.id)
             |> Seq.toList
         let location_sets =
             game.locations
-            |> Seq.where (fun x -> Seq.contains x.method methods)
+            |> Seq.where (isMethodOf methods)
             |> Seq.where (fun x -> Seq.contains x.item item_ids)
             |> Correlator.ExtractAll
         let shuffled_sets =

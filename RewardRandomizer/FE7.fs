@@ -124,7 +124,7 @@ module FE7 =
         item 0x67 "GUIDING_RING" Promotion
         item 0x87 "EARTH_SEAL" Promotion
         item 0x89 "HEAVEN_SEAL" Promotion
-        item 0x8a "EMBLEM_SEAL" Other
+        item 0x8a "EMBLEM_SEAL" StatBooster
         item 0x8b "FELL_CONTRACT" Promotion
         item 0x96 "OCEAN_SEAL" Promotion
         item 0x88 "AFA_DROPS" StatBooster
