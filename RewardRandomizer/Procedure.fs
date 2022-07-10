@@ -31,7 +31,7 @@ module Procedure =
             game.locations
             |> Seq.where (isMethodOf methods)
             |> Seq.where (fun x -> Seq.contains x.item item_ids)
-            |> Correlator.ExtractAll
+            |> Correlator.DebugAll game
         let shuffled_sets =
             location_sets
             |> List.sortBy (fun _ -> random.Next())

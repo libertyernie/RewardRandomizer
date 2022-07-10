@@ -19,12 +19,6 @@ module Game =
         locations = FE6.FE6Localization
     }
 
-    let FE6_ProjectEmber = {
-        name = "Project Ember v1.85"
-        items = FE6.Items
-        locations = FE6.ProjectEmber
-    }
-
     let FE7_US = {
         name = "Fire Emblem: The Blazing Blade (U)"
         items = FE7.Items
@@ -40,7 +34,6 @@ module Game =
     let All = [
         FE6_JP
         FE6_Localization
-        FE6_ProjectEmber
         FE7_US
         FE8_US
     ]

@@ -177,6 +177,7 @@ module FE8 =
     let ITGV offset item = reward Village (offset + 4) item 0
     let Unit offset item unit pos = reward StartingInventory (offset + 12 + pos) item unit
     let Chap offset item = reward FE8Story (offset + 12) item 0
+    let Sand offset item = reward FE8Desert (offset + 12) item 0
 
     let US = [
         // Fire Emblem - The Sacred Stones (USA, Australia)
@@ -205,6 +206,7 @@ module FE8 =
         ITGV 0x9F2220 0x5D // SECRET_BOOK
         ITGV 0x9F2258 0x70 // TORCH
         ITGV 0x9F2198 0x0E // ARMORSLAYER
+        Chap 0x9F2134 0x68 // GUIDING_RING
 
         // Chatper 5x: Unbroken Heart
         CHES 0x9E8CC4 0x6D // ELIXIR
@@ -212,8 +214,10 @@ module FE8 =
 
         // Chapter 6: Victims of War
         ITGV 0x9F2AC0 0x6F // ANTITOXIN
+        Chap 0x9F2A48 0x66 // ORION_BOLT
 
         // Chapter 7: Waterside Renvall
+        Unit 0x8B7030 0x5C 0x80 1 // ENERGY_RING
         Unit 0x8B7094 0x65 0x4C 2 // KNIGHT_CREST
 
         // Chapter 8: It's a Trap!
@@ -225,10 +229,15 @@ module FE8 =
             // Chapter 9 (Eirika): Distant Blade
             ITGV 0x9F3FC8 0x60 // DRAGONSHIELD
             ITGV 0x9F4004 0x09 // RAPIER
+            Unit 0x8B7EA0 0x97 0x42 1 // CONQUORER_PROOF
+            Unit 0x8B80F8 0x5E 0x12 1 // SPEEDWINGS
+            Chap 0x9F3F28 0x5B // ANGELIC_ROBE
 
             // Chapter 10 (Eirika): Revolt at Carcino
             Unit 0x8B89A0 0x64 0x14 2 // HERO_CREST
-            Unit 0x8B8644 0x68 0x4F 1 // GUIDING_RINGd
+            Unit 0x8B8644 0x68 0x4F 1 // GUIDING_RING
+            Unit 0x8B89B4 0x5F 0x15 2 // GODDESS_ICON
+            Unit 0x8B8A68 0x61 0xA8 1 // TALISMAN
 
             // Chapter 11 (Eirika): Creeping Darkness
             CHES 0x9E9358 0x50 // RESTORE
@@ -237,14 +246,16 @@ module FE8 =
 
             // Chapter 12 (Eirika): Village of Silence
             ITGV 0x9F5394 0x59 // BARRIER
+            Unit 0x8BA5D0 0x5C 0x18 01 // ENERGY_RING
 
             // Chapter 13 (Eirika): Hamill Canyon
             Unit 0x8BAA4C 0x65 0x51 3 // KNIGHT_CREST
             Unit 0x8BAED4 0x67 0x0E 2 // ELYSIAN_WHIP
+            Unit 0x8BAF10 0x5E 0x12 2 // SPEEDWINGS
+            Unit 0x8BACE0 0x63 0xA9 1 // BODY_RING
 
             // Chapter 14 (Eirika): Queen of White Dunes
             Unit 0x8BBE78 0x64 0x80 1 // HERO_CREST
-            Unit 0x8B7EA0 0x97 0x42 1 // CONQUORER_PROOF
             CHES 0x9E9708 0x57 // HAMMERNE
             CHES 0x9E9714 0x8D // DRAGONSPEAR
             CHES 0x9E9720 0x1D // SPEAR
@@ -254,6 +265,17 @@ module FE8 =
             // Chapter 15 (Eirika): Scorched Sand
             Unit 0x8BC8A4 0x68 0x80 2 // GUIDING_RING
             ITGV 0x9F65F0 0x88 // MASTER_SEAL
+            Sand 0x9F6868 0x89 // METIS_TOME
+            Sand 0x9F68AC 0x54 // WARP
+            Sand 0x9F6978 0x73 // SILVER_CARD
+            Sand 0x9F6934 0x63 // BODY_RING
+            Sand 0x9F67E0 0x0F // WYRMSLAYER
+            Sand 0x9F69BC 0x31 // KILLER_BOW
+            Sand 0x9F6824 0x62 // BOOTS
+            Sand 0x9F68F0 0x48 // ECLIPSE
+            Sand 0x9F6A00 0x51 // SILENCE
+            Chap 0x9F64B8 0x4A // GLEIPNIR
+            Chap 0x9F64CC 0x93 // GARM
 
             // Chapter 16 (Eirika): Ruled by Madness
             Unit 0x8BD088 0x64 0x8D 1 // HERO_CREST
@@ -263,6 +285,7 @@ module FE8 =
 
             // Chapter 17 (Eirika): River of Regrets
             Unit 0x8BE038 0x68 0x8D 1 // GUIDING_RING
+            Unit 0x8BE13C 0x60 0x8D 1 // DRAGONSHIELD
 
             // Chapter 18 (Eirika): Two Faces of Evil
 
@@ -272,6 +295,7 @@ module FE8 =
             CHES 0x9E9E90 0x4F // FORTIFY
             CHES 0x9E9EC0 0x5E // SPEEDWINGS
             CHES 0x9E9ECC 0x3B // BOLTING
+            Unit 0x8C0470 0x5F 0x8D 1 // GODDESS_ICON
 
             // Chapter 20 (Eirika): Darkling Woods
 
@@ -286,12 +310,14 @@ module FE8 =
             // Chapter 9 (Ephraim): Fort Rigwald
             CHES 0x9EA2A0 0x50 // RESTORE
             CHES 0x9EA2E8 0x97 // CONQUORER_PROOF
+            Unit 0x8C26B0 0x5E 0x12 1 // SPEEDWINGS
 
             // Chapter 10 (Ephraim): Turning Traitor
             Unit 0x8C2EE8 0x5D 0x80 1 // SECRET_BOOK
             Unit 0x8C3050 0x67 0x0E 2 // ELYSIAN_WHIP
             ITGV 0x9FAF7C 0x56 // TORCH_STAFF
             ITGV 0x9FAFB8 0x64 // HERO_CREST
+            Chap 0x9FAD7C 0x65 // KNIGHT_CREST
 
             // Chapter 11 (Ephraim): Phantom Ship
 
@@ -300,9 +326,9 @@ module FE8 =
             Unit 0x8C4AB4 0x60 0x18 1 // DRAGONSHIELD
 
             // Chapter 13 (Ephraim): Fluorspar's Oath
-            //Unit 0x8C4FF4 0x80 0x5C 2 // ENERGY_RING
-            //Unit 0x8C50BC 0x80 0x8D 0 // DRAGONSPEAR
-            //Unit 0x8C524C 0x80 0x5E 1 // SPEEDWING
+            Unit 0x8C4FF4 0x5C 0x80 2 // ENERGY_RING
+            Unit 0x8C524C 0x5E 0x80 1 // SPEEDWINGS
+            Unit 0x8C5288 0x5F 0x15 0 // GODDESS_ICON
             Unit 0x8C529C 0x64 0x14 1 // HERO_CREST
             ITGV 0x9FBDB8 0x59 // BARRIER
             ITGV 0x9FBDF4 0x61 // TALISMAN
@@ -313,10 +339,24 @@ module FE8 =
             CHES 0x9EA9DC 0x57 // HAMMERNE
             CHES 0x9EA9F4 0x1D // SPEAR
             CHES 0x9EAA00 0x5B // ANGELIC_ROBE
+            Unit 0x8C62F0 0x63 0x80 1 // BODY_RING
+            Chap 0x9FC48C 0x4A // GLEIPNIR
+            Chap 0x9FC4A0 0x93 // GARM
 
             // Chapter 15 (Ephraim): Scorched Sand
             Unit 0x8C70F8 0x68 0x80 2 // GUIDING_RING
             ITGV 0x9FC92C 0x88 // MASTER_SEAL
+            Sand 0x9FCB74 0x89 // METIS_TOME
+            Sand 0x9FCBB8 0x54 // WARP
+            Sand 0x9FCC84 0x73 // SILVER_CARD
+            Sand 0x9FCC40 0x63 // BODY_RING
+            Sand 0x9FCAEC 0x0F // WYRMSLAYER
+            Sand 0x9FCCC8 0x31 // KILLER_BOW
+            Sand 0x9FCB30 0x62 // BOOTS
+            Sand 0x9FCBFC 0x48 // ECLIPSE
+            Sand 0x9FCD0C 0x51 // SILENCE
+            Chap 0x9F64F4 0x91 // AUDHULMA
+            Chap 0x9F6508 0x3E // EXCALIBUR
 
             // Chapter 16 (Ephraim): Ruled by Madness
             Unit 0x8C779C 0x64 0x8F 1 // HERO_CREST
@@ -326,6 +366,7 @@ module FE8 =
 
             // Chapter 17 (Ephraim): River of Regrets
             Unit 0x8C7E7C 0x68 0x8D 1 // GUIDING_RING
+            Unit 0x8C7F80 0x60 0x8D 1 // DRAGONSHIELD
 
             // Chapter 18 (Ephraim): Two Faces of Evil
 
@@ -335,6 +376,7 @@ module FE8 =
             CHES 0x9EB1A4 0x4F // FORTIFY
             CHES 0x9EB1D4 0x5E // SPEEDWINGS
             CHES 0x9EB1E0 0x3B // BOLTING
+            Unit 0x8C9E90 0x5F 0x8D 1 // GODDESS_ICON
 
             // Chapter 20 (Ephraim): Darkling Woods
 
@@ -345,34 +387,13 @@ module FE8 =
             // Final (Ephraim): Sacred Stone (Part 2)
         ]
 
-        // End-of-chapter items
-
-        // Chapter 5
-        Chap 0x9F2134 0x68 // GUIDING_RING
-
-        // Chapter 9 (Eirika)
-        Chap 0x9F3F28 0x5B |> route Eirika // ANGELIC_ROBE
+        // Extra end-of-chapter items
 
         // Chapter 14 (Eirika)
         Chap 0x9F5FDC 0x91 |> route JoshuaAlive // AUDHULMA
         Chap 0x9F5FF0 0x3E |> route JoshuaAlive // EXCALIBUR
         Chap 0x9F6024 0x91 |> route JoshuaDead // AUDHULMA
         Chap 0x9F6038 0x3E |> route JoshuaDead // EXCALIBUR
-
-        // Chapter 15 (Eirika)
-        Chap 0x9F64B8 0x4A |> route Eirika // GLEIPNIR
-        Chap 0x9F64CC 0x93 |> route Eirika // GARM
-
-        // Chapter 10 (Ephraim)
-        Chap 0x9FAD7C 0x65 |> route Ephraim // KNIGHT_CREST
-
-        // Chpater 14 (Ephraim)
-        Chap 0x9FC48C 0x4A |> route Ephraim // GLEIPNIR
-        Chap 0x9FC4A0 0x93 |> route Ephraim // GARM
-
-        // Chpater 15 (Ephraim)
-        Chap 0x9F64F4 0x91 |> route Ephraim // AUDHULMA
-        Chap 0x9F6508 0x3E |> route Ephraim // EXCALIBUR
 
         // Chapter 16
         Chap 0x9F71E4 0x92 // SIEGMUND

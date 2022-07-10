@@ -7,6 +7,7 @@ type Method =
 | FE6Story
 | FE7Story
 | FE8Story
+| FE8Desert
 
 type Route =
 | All

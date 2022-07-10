@@ -231,6 +231,7 @@ module FE6 =
             ITGC 0x673864 0x62 0x2E // ELYSIAN_WHIP
 
             // Chapter 11B: Escape to Freedom
+            Unit 0x6826A4 0x58 0x34 1 // ANGELIC_ROBE
             ITGV 0x673BE8 0x7B // RED_GEM
             ITGC 0x673CB0 0x5A 0x01 // ENERGY_RING
         ]
@@ -324,6 +325,10 @@ module FE6 =
 
             // Chapter 20Ax: The Spear of Ice
             ITGC 0x6756E0 0x17 0x01 // MALTET
+
+            // Chapter 21: The Binding Blade
+            Unit 0x680764 0x2F 0x12 2 // MURGLEIS
+            Unit 0x680764 0x77 0x12 3 // HOLY_MAIDEN
         ]
 
         yield! List.map (route Sacae) [
@@ -351,6 +356,10 @@ module FE6 =
 
             // Chapter 20Bx: The Bow of the Winds
             ITGC 0x675B1C 0x2F 0x01 // MURGLEIS
+
+            // Chapter 21: The Binding Blade
+            Unit 0x680744 0x17 0x12 2 // MALTET
+            Unit 0x680744 0x77 0x12 3 // HOLY_MAIDEN
         ]
 
         // Chapter 21: The Binding Blade
@@ -478,6 +487,7 @@ module FE6 =
             ITGC 0x800418 0x5F 0x01 // HERO_CREST
 
             // Chapter 11B: Escape to Freedom
+            Unit 0x6826A4 0x58 0x34 1 // ANGELIC_ROBE
             ITGV 0x673BE8 0x7B // RED_GEM
             ITGC 0x673CB0 0x5A 0x01 // ENERGY_RING
         ]
@@ -571,6 +581,10 @@ module FE6 =
 
             // Chapter 20Ax: The Spear of Ice
             ITGC 0x8001EC 0x17 0x01 // MALTET
+
+            // Chapter 21: The Binding Blade
+            Unit 0x680764 0x2F 0x12 2 // MURGLEIS
+            Unit 0x680764 0x77 0x12 3 // HOLY_MAIDEN
         ]
 
         yield! List.map (route Sacae) [
@@ -598,6 +612,10 @@ module FE6 =
 
             // Chapter 20Bx: The Bow of the Winds
             ITGC 0x800894 0x2F 0x01 // MURGLEIS
+
+            // Chapter 21: The Binding Blade
+            Unit 0x680744 0x17 0x12 2 // MALTET
+            Unit 0x680744 0x77 0x12 3 // HOLY_MAIDEN
         ]
 
         // Chapter 21: The Binding Blade
@@ -626,263 +644,6 @@ module FE6 =
 
         // Chapter 23: The Ghost of Bern
         Unit 0x6815C0 0x63 0x63 2 // GUIDING_RING
-
-        // Chapter 24: The Truth of the Legend
-
-        // Final: Beyond Darkness
-    ]
-
-    let ProjectEmber = [
-        // Chapter 1: Dawn of Destiny
-
-        // Chapter 2: The Princess of Bern
-        ITGV 0x66BD40 0x0A // ARMORSLAYER
-
-        // Chapter 3: Late Arrival
-        CHES 0xC258FC 0x26 // HALBERD
-        ITGV 0x66C2A0 0x44 // MEND
-
-        // Chapter 4: Collapse of the Alliance
-        ITGV 0x66C718 0x58 // ANGELIC_ROBE
-        ITGV 0x66C688 0x65 // DOOR_KEY
-        ITGV 0x66C6D0 0x72 // STEEL_BLADE
-
-        // Chapter 5: The Emblem of Fire
-        ITGV 0x66CA14 0x75 // GANT_LANCE
-
-        // Chapter 6: The Trap
-        CHES 0x667C64 0x2D // SHORT_BOW
-        CHES 0x667C70 0x57 // GODDESS_ICON
-        CHES 0x667C7C 0x23 // KILLER_AXE
-        CHES 0x667C94 0x12 // SILVER_LANCE
-        CHES 0x667CA0 0x51 // UNLOCK
-        CHES 0x667CB8 0x3B // LIGHTNING
-
-        // Chapter 7: The Rebellion of Ostia
-        Unit 0x67B760 0x60 0x50 2 // KNIGHT_CREST
-        CHES 0x667F0C 0x0B // RAPIER
-        CHES 0x667F18 0x52 // BARRIER
-        ITGV 0x66D2D8 0x4D // TORCH_STAFF
-        ITGV 0x66D320 0x69 // ELIXIR
-        ITGV 0x66D368 0x7B // RED_GEM
-        ITGV 0x66D3B0 0x46 // PHYSIC
-        ITGV 0x66D3F8 0x0C // KILLING_EDGE
-        ITGV 0x66D440 0x5F // HERO_CREST
-        ITGV 0x66D488 0x18 // HORSESLAYER
-        ITGV 0x66D290 0x28 // STEEL_BOW
-
-        // Chapter 8: The Reunion
-        CHES 0x668070 0x62 // ELYSIAN_WHIP
-        CHES 0x66807C 0x5A // ENERGY_RING
-        CHES 0x668088 0x56 // SECRET_BOOK
-        CHES 0x668094 0x63 // GUIDING_RING
-        CHES 0x6680A0 0x08 // LIGHT_BRAND
-        CHES 0x6680AC 0x2B // KILLER_BOW
-        CHES 0x6680B8 0x36 // ELFIRE
-        CHES 0x6680C4 0x60 // KNIGHT_CREST
-        ITGV 0x148CF00 0x06 // POISON_SWORD
-        ITGV 0x66D6D8 0x34 // THUNDER
-        ITGV 0xEDB94C 0x36 // ELFIRE
-
-        // Chapter 8x: The Blazing Sword
-        Unit 0xEE0380 0x5F 0xB3 1 // HERO_CREST
-        ITGC 0x674C38 0x09 0x01 // DURANDAL
-
-        // Chapter 9: The Misty Isles
-        Unit 0x67C584 0x61 0x7A 1 // ORION_BOLT
-        ITGV 0x66DDDC 0x4A // RESTORE
-        ITGV 0x66DE2C 0x2B // KILLER_BOW
-        ITGV 0x66DD94 0x07 // BRAVE_SWORD
-        
-        yield! List.map (route Echidna) [
-            // Chapter 10A: The Resistance Forces
-            Unit 0x67CBD8 0x5F 0x40 2 // HERO_CREST
-            ITGV 0x66E260 0x24 // SWORDREAVER
-            ITGC 0x66E2E4 0x78 0x01 // WYRMSLAYER
-
-            // Chapter 11A: The Hero of the Western Isles
-            Unit 0x67D02C 0x60 0x7F 1 // KNIGHT_CREST
-            ITGV 0x66EADC 0x5B // SPEEDWING
-            ITGV 0x66EB24 0x58 // ANGELIC_ROBE
-            ITGV 0x66EB6C 0x1F // BRAVE_AXE
-            ITGV 0x66EBB4 0x18 // HORSESLAYER
-            ITGV 0x66E9BC 0x59 // DRAGON_SHIELD
-            ITGV 0x66EA04 0x4C // SLEEP
-            ITGV 0x66EA94 0x4A // RESTORE
-            ITGC 0x800A3C 0x5F 0x01 // HERO_CREST
-            ITGC 0x800B04 0x62 0x2E // ELYSIAN_WHIP
-            ITGC 0x800AA0 0x61 0x0F // ORION_BOLT
-        ]
-        
-        yield! List.map (route Bartre) [
-            // Chapter 10B: Caught in the Middle
-            ITGV 0x673658 0x59 // DRAGON_SHIELD
-            ITGV 0x673420 0x4C // SLEEP
-            ITGV 0x6736A0 0x24 // SWORDREAVER
-            ITGV 0x673468 0x61 // ORION_BOLT
-            ITGV 0x6735BC 0x69 |> route SpecialBehavior // ELIXIR
-            ITGV 0x673604 0x5B |> route SpecialBehavior // SPEEDWING
-            ITGV 0x6734B0 0x52 // BARRIER
-            ITGV 0x67350C 0x65 |> route SpecialBehavior // DOOR_KEY
-            ITGV 0x673554 0x24 |> route SpecialBehavior // SWORDREAVER
-            ITGC 0x8004D0 0x62 0x2E // ELYSIAN_WHIP
-            ITGC 0x800474 0x61 0x0F // ORION_BOLT
-            ITGC 0x800418 0x5F 0x01 // HERO_CREST
-            ITGC 0x8003A0 0x78 0x01 // WYRMSLAYER
-
-            // Chapter 11B: Escape to Freedom
-            Unit 0x6829F4 0x5F 0x40 2 // HERO_CREST
-            ITGV 0x673BE8 0x7B // RED_GEM
-            ITGC 0x673CB0 0x5A 0x01 // ENERGY_RING
-        ]
-
-        // Chapter 12: The True Enemy
-        Unit 0xF09BB4 0x5F 0x84 1 // HERO_CREST
-        CHES 0x668678 0x82 // KNIFE
-        CHES 0x668684 0x88 // STORM_SWORD
-        CHES 0x668690 0x7A // BLUE_GEM
-        CHES 0x66869C 0x62 // ELYSIAN_WHIP
-        CHES 0x6686A8 0x2C // BRAVE_BOW
-        CHES 0x6686B4 0x0D // LANCEREAVER
-
-        // Chapter 12x: The Axe of Thunder
-        CHES 0x669FE4 0x69 // ELIXIR
-        CHES 0x669FF0 0x90 // TOMAHAWK
-        CHES 0x669FFC 0x6B // TORCH
-        CHES 0x66A008 0x56 // SECRET_BOOK
-        CHES 0x66A014 0x69 // ELIXIR
-        CHES 0x66A020 0x67 // LOCKPICK
-        CHES 0x66A02C 0x7B // RED_GEM
-        CHES 0x66A038 0x7A // BLUE_GEM
-        CHES 0x66A044 0x5F // HERO_CREST
-        CHES 0x66A050 0x64 // CHEST_KEY_5
-        CHES 0x66A05C 0x69 // ELIXIR
-        CHES 0x66A068 0x79 // WHITE_GEM
-        ITGC 0x67504C 0x21 0x01 // ARMADS
-
-        // Chapter 13: The Rescue Plan
-        Unit 0xF2D398 0x60 0x87 1 // KNIGHT_CREST
-        ITGV 0x66F9F8 0x5E // BODY_RING
-        ITGV 0x66FA40 0x74 // AL_SWORD
-        ITGC 0x66FBCC 0x60 0x1D |> route EarlyPercival // KNIGHT_CREST
-
-        // Chapter 14: Arcadia
-        ITGV 0x66FE44 0x4B // SILENCE
-        ITGV 0x66FE84 0x5C // TALISMAN
-        ITGV 0x66FEC4 0x5D // BOOTS
-        ITGV 0x66FF04 0x73 // SILVER_BLADE
-        ITGV 0x66FF44 0x5B // SPEEDWING
-        ITGV 0x66FF84 0x6E // SILVER_CARD
-        ITGV 0x66FFC4 0x48 // WARP
-        ITGV 0x670018 0x63 // GUIDING_RING
-
-        // Chapter 14x: The Infernal Element
-        CHES 0x12ACA90 0x1F // BRAVE_AXE
-        CHES 0x12ACA9C 0x3D // PURGE
-        CHES 0x12ACAA8 0x40 // NOSFERATU
-        ITGC 0x6752F4 0x3A 0x01 // FORBLAZE
-
-        // Chapter 15: The Dragon Girl
-        ITGV 0x67045C 0x4E // HAMMERNE
-        ITGV 0x670414 0x3C // DIVINE
-        ITGC 0x1640560 0x60 0x1D |> route LatePercival // KNIGHT_CREST
-
-        // Chapter 16: Retaking the Capital
-        CHES 0xF4B98C 0x45 // RECOVER
-        CHES 0xF4B998 0x82 // KNIFE
-        CHES 0xF4B9A4 0x07 // BRAVE_SWORD
-        CHES 0xF4B9B0 0x39 // BOLTING
-        CHES 0xF4B9C8 0x49 // RESCUE
-        CHES 0xF4B9D4 0x29 // SILVER_BOW
-        CHES 0xF4B9E0 0x88 // STORM_SWORD
-        CHES 0xF4B9EC 0x60 // KNIGHT_CREST
-        CHES 0xF4B9F8 0x50 // BERSERK
-
-        // Chapter 16x: The Pinnacle of Light
-        ITGC 0xF7F86C 0x3E 0x01 // AUREOLA
-
-        yield! List.map (route Ilia) [
-            // Chapter 17A: The Path Through the Ocean
-            ITGV 0x670DEC 0x76 // TINA_STAFF
-
-            // Chapter 18A: The Frozen River
-            ITGV 0x6711DC 0x56 // SECRET_BOOK
-            ITGV 0x67114C 0x57 // GODDESS_ICON
-            ITGV 0x671194 0x63 // GUIDING_RING
-
-            // Chapter 19A: Bitter Cold
-            Unit 0x67FC78 0x60 0x9A 2 // KNIGHT_CREST
-            ITGV 0x671498 0x37 // AIRCALIBUR
-            ITGV 0x6714E0 0x5A // ENERGY_RING
-
-            // Chapter 20A: The Liberation of Ilia
-            CHES 0x669114 0x5B // SPEEDWING
-            CHES 0x669120 0x1A // AXEREAVER
-            CHES 0x66912C 0x2E // LONGBOW
-            CHES 0x669138 0x1F // BRAVE_AXE
-            CHES 0x669144 0x3D // PURGE
-            CHES 0x669150 0x4C // SLEEP
-            CHES 0x66915C 0x82 // KNIFE
-            CHES 0x669168 0x78 // WYRMSLAYER
-            ITGC 0x1275AFC 0x58 0x01 |> route SpecialBehavior // ANGELIC_ROBE
-            ITGC 0x1275BB8 0x58 0x01 |> route SpecialBehavior // ANGELIC_ROBE
-
-            // Chapter 20Ax: The Spear of Ice
-            ITGC 0x16624FC 0x17 0x01 // MALTET
-        ]
-
-        yield! List.map (route Sacae) [
-            // Chapter 17B: The Bishop's Teaching
-            ITGV 0x673DFC 0x76 // TINA_STAFF
-            ITGV 0x673E44 0x89 // TEMPEST_BLADE
-
-            // Chapter 18B: The Laws of Sacae
-
-            // Chapter 19B: Battle in Bulgar
-            ITGV 0x67463C 0x78 // WYRMSLAYER
-            ITGV 0x67475C 0x2E // LONGBOW
-            ITGV 0x674684 0x5A // ENERGY_RING
-            ITGV 0x6746CC 0x57 // GODDESS_ICON
-            ITGV 0x674714 0x0E // WO_DAO
-
-            // Chapter 20B: The Silver Wolf
-            Unit 0x6840C4 0x61 0x70 1 // ORION_BOLT
-            CHES 0x669ED4 0x4C // SLEEP
-            CHES 0x669EE0 0x1A // AXEREAVER
-            CHES 0x669EEC 0x5F // HERO_CREST
-            CHES 0x669EF8 0x7A // BLUE_GEM
-            CHES 0x669F04 0x82 // KNIFE
-            CHES 0x669F10 0x59 // DRAGON_SHIELD
-
-            // Chapter 20Bx: The Bow of the Winds
-            Unit 0x685770 0x60 0x92 1 // KNIGHT_CREST
-            ITGC 0x17BBD34 0x2F 0x01 // MURGLEIS
-        ]
-
-        // Chapter 21: The Binding Blade
-        ITGC 0x130E40C 0x0F 0x01 |> route SpecialBehavior // BINDING_BLADE
-
-        // Chapter 21x: The Silencing Darkness
-        CHES 0x127646C 0x9E // SAINT_SCROLL
-        CHES 0x1276478 0x7D // RUNE_SWORD
-        ITGV 0x675E14 0x48 // WARP
-        ITGV 0x675DD0 0x89 // TEMPEST_BLADE
-        ITGV 0x675E58 0x47 // FORTIFY
-        ITGV 0x675D04 0x5D // BOOTS
-        ITGV 0x675D8C 0x7C // DELPHI_SHIELD
-        ITGV 0x675D48 0x54 // DIVINE_DRAGON_STONE
-        ITGC 0x130DE28 0x42 0x01 // APOCALYPSE
-        ITGC 0x130DF10 0x0F 0x01 |> route SpecialBehavior // BINDING_BLADE
-
-        // Chapter 22: The Neverending Dream
-        CHES 0x669430 0x4C // SLEEP
-        CHES 0x66943C 0x79 // WHITE_GEM
-        CHES 0x669448 0x40 // NOSFERATU
-        CHES 0x669454 0x78 // WYRMSLAYER
-        CHES 0x669460 0x59 // DRAGON_SHIELD
-        CHES 0x66946C 0x24 // SWORDREAVER
-
-        // Chapter 23: The Ghost of Bern
 
         // Chapter 24: The Truth of the Legend
 

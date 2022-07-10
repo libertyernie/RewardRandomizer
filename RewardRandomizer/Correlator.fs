@@ -1,7 +1,9 @@
 ﻿namespace RewardRandomizer
 
 module Correlator =
-    let ExtractAll rewards = [
+    let ExtractAll reward_source = [
+        let mutable rewards = Set.ofSeq reward_source
+
         // Determines which items are the "same"
         // Groups of the "same" item are collected into lists
         let ExtractMatches routes = [
@@ -12,8 +14,10 @@ module Correlator =
             for p in primary_rewards do
                 // This function will find the best match for this item on the route given
                 let find_matching route =
-                    rewards
-                    |> Seq.where (fun r -> r.route = route)
+                    let ofr =
+                        rewards
+                        |> Seq.where (fun r -> r.route = route)
+                    ofr
                     |> Seq.where (fun r -> r.item = p.item)
                     |> Seq.sortBy (fun r -> [
                         if r.unit = p.unit then 1 else 2
@@ -25,12 +29,14 @@ module Correlator =
                 // If no match, that route will simply not have that item (or whatever item the randomizer ends up replacing it with)
                 let matching_set =
                     routes
-                    |> List.map find_matching
-                    |> List.choose id
+                    |> Seq.map find_matching
+                    |> Seq.choose id
+                    |> Set.ofSeq
 
                 // Only add this list of "same" items if there is more than one item in it
-                if List.length matching_set > 1 then
+                if Set.count matching_set > 1 then
                     yield matching_set
+                    rewards <- Set.difference rewards matching_set
         ]
 
         // Get all lists of "same" items
@@ -44,5 +50,17 @@ module Correlator =
         // Any items that aren't route-specific get their own lists, where they are the only item
         for x in rewards do
             if x.route = All then
-                yield [x]
+                yield Set.singleton x
     ]
+
+    let DebugAll game rewards =
+        let o = Set.ofSeq rewards
+        for m in o do
+            if m.item = 0x64uy then
+                printfn "%A" m
+        let n = ExtractAll o
+        for r in o do
+            match [for u1 in n do for u2 in u1 do if u2 = r then u2] with
+            | [] -> printfn "%O (%O): not matched" r [for i in game.items do if i.id = r.item then i]
+            | _::_ -> ()
+        n

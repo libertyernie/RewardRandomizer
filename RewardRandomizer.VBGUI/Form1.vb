@@ -75,50 +75,57 @@ Public Class Form1
             step1.Add(Method.Village)
         End If
 
-        If step1.Any() Then
-            Procedure.Run(
+        'If step1.Any() Then
+        '    Procedure.Run(
+        '        Procedure.Mode.Shuffle,
+        '        game,
+        '        Procedure.ItemCollection.AllItems,
+        '        Procedure.MethodCollection.NewMethodCollection(step1),
+        '        newData)
+        'End If
+
+        'If ShufflePromoItems.Checked Then
+        '    Procedure.Run(
+        '        Procedure.Mode.Shuffle,
+        '        game,
+        '        Procedure.ItemCollection.NewItemCollection(PromotionItemsList.SelectedItems.Cast(Of Item)()),
+        '        Procedure.MethodCollection.AllMethods,
+        '        newData)
+        'End If
+
+        'If ShuffleStatBoosters.Checked Then
+        '    Procedure.Run(
+        '        Procedure.Mode.Shuffle,
+        '        game,
+        '        Procedure.ItemCollection.NewItemCollection(StatBoostersList.SelectedItems.Cast(Of Item)()),
+        '        Procedure.MethodCollection.AllMethods,
+        '        newData)
+        'End If
+
+        'If RandomizePromotionItems.Checked Then
+        '    Procedure.Run(
+        '        Procedure.Mode.Randomize,
+        '        game,
+        '        Procedure.ItemCollection.NewItemCollection(PromotionItemsList.SelectedItems.Cast(Of Item)()),
+        '        Procedure.MethodCollection.AllMethods,
+        '        newData)
+        'End If
+
+        'If RandomizeStatBoosters.Checked Then
+        '    Procedure.Run(
+        '        Procedure.Mode.Randomize,
+        '        game,
+        '        Procedure.ItemCollection.NewItemCollection(StatBoostersList.SelectedItems.Cast(Of Item)()),
+        '        Procedure.MethodCollection.AllMethods,
+        '        newData)
+        'End If
+
+        Procedure.Run(
                 Procedure.Mode.Shuffle,
                 game,
                 Procedure.ItemCollection.AllItems,
-                Procedure.MethodCollection.NewMethodCollection(step1),
-                newData)
-        End If
-
-        If ShufflePromoItems.Checked Then
-            Procedure.Run(
-                Procedure.Mode.Shuffle,
-                game,
-                Procedure.ItemCollection.NewItemCollection(PromotionItemsList.SelectedItems.Cast(Of Item)()),
                 Procedure.MethodCollection.AllMethods,
                 newData)
-        End If
-
-        If ShuffleStatBoosters.Checked Then
-            Procedure.Run(
-                Procedure.Mode.Shuffle,
-                game,
-                Procedure.ItemCollection.NewItemCollection(StatBoostersList.SelectedItems.Cast(Of Item)()),
-                Procedure.MethodCollection.AllMethods,
-                newData)
-        End If
-
-        If RandomizePromotionItems.Checked Then
-            Procedure.Run(
-                Procedure.Mode.Randomize,
-                game,
-                Procedure.ItemCollection.NewItemCollection(PromotionItemsList.SelectedItems.Cast(Of Item)()),
-                Procedure.MethodCollection.AllMethods,
-                newData)
-        End If
-
-        If RandomizeStatBoosters.Checked Then
-            Procedure.Run(
-                Procedure.Mode.Randomize,
-                game,
-                Procedure.ItemCollection.NewItemCollection(StatBoostersList.SelectedItems.Cast(Of Item)()),
-                Procedure.MethodCollection.AllMethods,
-                newData)
-        End If
 
         File.WriteAllBytes(path, newData)
 
