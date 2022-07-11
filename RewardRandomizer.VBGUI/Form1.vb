@@ -1,23 +1,19 @@
 ﻿Imports System.IO
 
 Public Class Form1
-    Private Shared Function IsGame(data As Byte(), candidate As Game) As Boolean
-        For Each itemLocation In candidate.locations
-            If itemLocation.offset < data.Length Then
-                If data(itemLocation.offset) <> itemLocation.item Then
-                    Return False
-                End If
+    Private Function GetGame(data As Byte()) As Game
+        For Each g In GameModule.All
+            If GameModule.IsCertainlyMatch(data, g) Then
+                Return g
             End If
         Next
-        Return True
-    End Function
-
-    Private Shared Function GetGame(data As Byte()) As Game
-        For Each candidate In GameModule.All
-            If IsGame(data, candidate) Then
-                Return candidate
+        For Each g In GameModule.All
+            If GameModule.IsProbablyMatch(data, g) Then
+                MsgBox("The game could not be determined with absolute certainty (it may have additional patches applied), but all item locations appear to be in the correct place.")
+                Return g
             End If
         Next
+        MsgBox("The game could not be determined. It may not be supported.")
         Return Nothing
     End Function
 
@@ -41,11 +37,15 @@ Public Class Form1
         Dim data = File.ReadAllBytes(fileName)
         Dim game = GetGame(data)
 
-        If game IsNot Nothing Then
+        PromotionItemsList.Items.Clear()
+        StatBoostersList.Items.Clear()
+
+        If game Is Nothing Then
+            InputBox.Text = ""
+            TextBox2.Text = ""
+        Else
             InputBox.Text = fileName
             TextBox2.Text = game.name
-            PromotionItemsList.Items.Clear()
-            StatBoostersList.Items.Clear()
             For Each x In game.items
                 If x.category Is ItemCategory.Promotion Then
                     PromotionItemsList.Items.Add(x)
