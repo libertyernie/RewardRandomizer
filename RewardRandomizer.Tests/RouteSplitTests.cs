@@ -6,7 +6,7 @@ namespace RewardRandomizer.Tests
     public class RouteSplitTests
     {
         [TestMethod]
-        public void TestFE66JP()
+        public void TestFE6()
         {
             foreach (var game in new[] { GameModule.FE6_JP, GameModule.FE6_Localization })
             {
@@ -74,7 +74,7 @@ namespace RewardRandomizer.Tests
         }
 
         [TestMethod]
-        public void TestFE8US()
+        public void TestFE8()
         {
             var game = GameModule.FE8_US;
             var locations = game.Rewards;

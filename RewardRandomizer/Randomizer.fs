@@ -31,17 +31,17 @@ module Randomizer =
     with
         member this.Split (max_length: int) =
             match this.WriteData.Length with
-            | 0 -> []
-            | x when x <= max_length -> [this]
+            | 0 ->
+                []
+            | x when x <= max_length ->
+                [this]
             | _ ->
-                let initial = {
-                    Offset = this.Offset
-                    WriteData = Array.take max_length this.WriteData
-                }
-                let remainder = {
-                    Offset = this.Offset + max_length
-                    WriteData = Array.skip max_length this.WriteData
-                }
+                let initial =
+                    { Offset = this.Offset
+                      WriteData = Array.take max_length this.WriteData }
+                let remainder = 
+                    { Offset = this.Offset + max_length
+                      WriteData = Array.skip max_length this.WriteData }
                 initial :: remainder.Split max_length
 
     let private random = new Random()
