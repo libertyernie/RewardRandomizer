@@ -76,19 +76,11 @@ module Randomizer =
                     { Offset = old_location.offset; WriteData = [| new_item |] }
     }
 
-    let PerformOperations (data: byte[]) (operations: seq<Operation>) =
+    let ApplyOperations (data: byte[]) (operations: seq<Operation>) =
         let arr = Array.copy data
         for x in operations do
             Array.Copy(x.WriteData, 0, arr, x.Offset, x.WriteData.Length)
         arr
-
-    [<Obsolete>]
-    let Run mode game items methods data =
-        let patched =
-            [{ Mode = mode; Items = items; Methods = methods }]
-            |> GenerateOperations game
-            |> PerformOperations data
-        Array.Copy(patched, data, patched.Length)
 
     let CreateIPS (operations: seq<Operation>) = [|
         yield! Encoding.UTF8.GetBytes "PATCH"
