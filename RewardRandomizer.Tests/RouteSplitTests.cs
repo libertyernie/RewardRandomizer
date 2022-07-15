@@ -10,7 +10,7 @@ namespace RewardRandomizer.Tests
         {
             foreach (var game in new[] { GameModule.FE6_JP, GameModule.FE6_Localization })
             {
-                var locations = game.locations;
+                var locations = game.rewards;
                 var correlations = Correlator.ExtractAll(locations);
                 var correlated = correlations.SelectMany(x => x);
                 var expected_exclusives = new[]
@@ -77,7 +77,7 @@ namespace RewardRandomizer.Tests
         public void TestFE8US()
         {
             var game = GameModule.FE8_US;
-            var locations = game.locations;
+            var locations = game.rewards;
             var correlations = Correlator.ExtractAll(locations);
             var correlated = correlations.SelectMany(x => x);
             var expected_exclusives = new[]

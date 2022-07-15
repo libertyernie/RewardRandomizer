@@ -1,7 +1,7 @@
 ﻿namespace RewardRandomizer
 
 module Correlator =
-    let ExtractAll game reward_source = [
+    let ExtractAll reward_source = [
         let mutable rewards = Set.ofSeq reward_source
 
         // Determines which items are the "same"
@@ -49,6 +49,4 @@ module Correlator =
         for x in rewards do
             if x.route = All then
                 yield Set.singleton x
-            else
-                printfn "Not touching route-specific item %O (%O)" [for y in game.items do if y.id = x.item then y.name] x
     ]

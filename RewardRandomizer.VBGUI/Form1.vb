@@ -49,12 +49,12 @@ Public Class Form1
             For Each x In game.items
                 If x.category Is ItemCategory.Promotion Then
                     PromotionItemsList.Items.Add(x)
-                    If game.locations.Any(Function(y) y.item = x.id) Then
+                    If game.rewards.Any(Function(y) y.item = x.id) Then
                         PromotionItemsList.SelectedItems.Add(x)
                     End If
                 ElseIf x.category Is ItemCategory.StatBooster Then
                     StatBoostersList.Items.Add(x)
-                    If game.locations.Any(Function(y) y.item = x.id) Then
+                    If game.rewards.Any(Function(y) y.item = x.id) Then
                         StatBoostersList.SelectedItems.Add(x)
                     End If
                 End If
@@ -90,54 +90,54 @@ Public Class Form1
         End If
 
         If step1.Any() Then
-            Procedure.Run(
-                Procedure.Mode.Shuffle,
+            Randomizer.Run(
+                Randomizer.Mode.Shuffle,
                 game,
-                Procedure.ItemCollection.AllItems,
-                Procedure.MethodCollection.NewMethodCollection(step1),
+                Randomizer.ItemCollection.AllItems,
+                Randomizer.MethodCollection.NewMethodCollection(step1),
                 newData)
         End If
 
-        Dim selectedPromotionItems = Procedure.ItemCollection.NewItemCollection(PromotionItemsList.SelectedItems.Cast(Of Item)())
-        Dim selectedStatBoosters = Procedure.ItemCollection.NewItemCollection(StatBoostersList.SelectedItems.Cast(Of Item)())
+        Dim selectedPromotionItems = Randomizer.ItemCollection.NewItemCollection(PromotionItemsList.SelectedItems.Cast(Of Item)())
+        Dim selectedStatBoosters = Randomizer.ItemCollection.NewItemCollection(StatBoostersList.SelectedItems.Cast(Of Item)())
 
         If ShufflePromoItems.Checked Then
             Console.WriteLine("Shuffling promotion items")
-            Procedure.Run(
-                Procedure.Mode.Shuffle,
+            Randomizer.Run(
+                Randomizer.Mode.Shuffle,
                 game,
                 selectedPromotionItems,
-                Procedure.MethodCollection.AllMethods,
+                Randomizer.MethodCollection.AllMethods,
                 newData)
         End If
 
         If ShuffleStatBoosters.Checked Then
             Console.WriteLine("Shuffling stat boosters")
-            Procedure.Run(
-                Procedure.Mode.Shuffle,
+            Randomizer.Run(
+                Randomizer.Mode.Shuffle,
                 game,
                 selectedStatBoosters,
-                Procedure.MethodCollection.AllMethods,
+                Randomizer.MethodCollection.AllMethods,
                 newData)
         End If
 
         If RandomizePromotionItems.Checked Then
             Console.WriteLine("Randomizing: promotion items")
-            Procedure.Run(
-                Procedure.Mode.Randomize,
+            Randomizer.Run(
+                Randomizer.Mode.Randomize,
                 game,
                 selectedPromotionItems,
-                Procedure.MethodCollection.AllMethods,
+                Randomizer.MethodCollection.AllMethods,
                 newData)
         End If
 
         If RandomizeStatBoosters.Checked Then
             Console.WriteLine("Randomizing stat boosters")
-            Procedure.Run(
-                Procedure.Mode.Randomize,
+            Randomizer.Run(
+                Randomizer.Mode.Randomize,
                 game,
                 selectedStatBoosters,
-                Procedure.MethodCollection.AllMethods,
+                Randomizer.MethodCollection.AllMethods,
                 newData)
         End If
 

@@ -19,4 +19,16 @@
     <ProjectReference Include="..\RewardRandomizer\RewardRandomizer.fsproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="test1.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test1_modified.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test1_original.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
