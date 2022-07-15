@@ -2,16 +2,13 @@
 
 type ItemCategory = Promotion | StatBooster | Other
 
-type Item = {
-    id: byte
-    name: string
-    category: ItemCategory
-} with
-    override this.ToString() = sprintf "%02X %s" this.id this.name
+type Item =
+    { Id: byte
+      Name: string
+      Category: ItemCategory }
 
-module Item =
-    let item id name cat = {
-        id = byte id
-        name = name
-        category = cat
-    }
+module internal Item =
+    let item id name cat =
+        { Id = byte id
+          Name = name
+          Category = cat }

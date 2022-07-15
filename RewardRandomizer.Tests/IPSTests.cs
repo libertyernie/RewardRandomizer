@@ -17,16 +17,19 @@ namespace RewardRandomizer.Tests
             random.NextBytes(randomData);
             var operations = new[]
             {
-                new Randomizer.Operation(offset: 0x30, writeData: new byte[] { 1, 2, 3 }),
-                new Randomizer.Operation(offset: 0x10000, writeData: randomData),
+                new Randomizer.WriteOperation(offset: 0x30, writeData: new byte[] { 1, 2, 3 }),
+                new Randomizer.WriteOperation(offset: 0x10000, writeData: randomData),
             };
             if (!File.Exists("Lunar IPS.exe"))
                 Assert.Inconclusive();
-            var modified = Randomizer.PerformOperations(data1, operations);
+            var modified = Randomizer.ApplyOperations(data1, operations);
             File.WriteAllBytes("original_file", data1);
             File.WriteAllBytes("modified_file", modified);
             Process.Start("Lunar IPS.exe", "-CreateIPS patched_file original_file modified_file").WaitForExit();
             var expected = File.ReadAllBytes("patched_file");
+            File.Delete("original_file");
+            File.Delete("modified_file");
+            File.Delete("patched_file");
             var actual = Randomizer.CreateIPS(operations);
             Assert.AreEqual(
                 ListModule.OfArray(expected),

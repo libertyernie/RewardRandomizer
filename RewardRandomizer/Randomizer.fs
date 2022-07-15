@@ -20,16 +20,15 @@ module Randomizer =
             | MethodCollection c -> Seq.contains method c
             | AllMethods -> true
 
-    type RandomizationParameters = {
-        Mode: Mode
-        Items: ItemCollection
-        Methods: MethodCollection
-    }
+    type RandomizationParameters =
+        { Mode: Mode
+          Items: ItemCollection
+          Methods: MethodCollection }
 
-    type Operation = {
-        Offset: int
-        WriteData: byte[]
-    } with
+    type WriteOperation =
+        { Offset: int
+          WriteData: byte[] }
+    with
         member this.Split (max_length: int) =
             match this.WriteData.Length with
             | 0 -> []
@@ -50,14 +49,14 @@ module Randomizer =
     let GenerateOperations (game: Game) (parameters: RandomizationParameters seq) = seq {
         for p in parameters do
             let item_ids =
-                game.items
+                game.Items
                 |> Seq.where (fun x -> p.Items.Contains x)
-                |> Seq.map (fun x -> x.id)
+                |> Seq.map (fun x -> x.Id)
                 |> Seq.toList
             let reward_sets =
-                game.rewards
-                |> Seq.where (fun x -> p.Methods.Contains x.method)
-                |> Seq.where (fun x -> Seq.contains x.item item_ids)
+                game.Rewards
+                |> Seq.where (fun x -> p.Methods.Contains x.Method)
+                |> Seq.where (fun x -> Seq.contains x.ItemId item_ids)
                 |> Correlator.ExtractAll
             let shuffled_sets =
                 reward_sets
@@ -67,23 +66,24 @@ module Randomizer =
                     match p.Mode with
                     | Shuffle ->
                         new_set
-                        |> Seq.map (fun x -> x.item)
+                        |> Seq.map (fun x -> x.ItemId)
                         |> Seq.distinct
                         |> Seq.exactlyOne
                     | Randomize ->
                         item_ids[random.Next (List.length item_ids)]
                 for old_location in old_set do
-                    { Offset = old_location.offset; WriteData = [| new_item |] }
+                    { Offset = old_location.Offset; WriteData = [| new_item |] }
     }
 
-    let ApplyOperations (data: byte[]) (operations: seq<Operation>) =
+    let ApplyOperations (data: byte[]) (operations: seq<WriteOperation>) =
         let arr = Array.copy data
         for x in operations do
             Array.Copy(x.WriteData, 0, arr, x.Offset, x.WriteData.Length)
         arr
 
-    let CreateIPS (operations: seq<Operation>) = [|
+    let CreateIPS (operations: seq<WriteOperation>) = [|
         yield! Encoding.UTF8.GetBytes "PATCH"
+
         for operation in operations do
             for x in operation.Split 0xFFFF do
                 if x.Offset >>> 24 <> 0 then

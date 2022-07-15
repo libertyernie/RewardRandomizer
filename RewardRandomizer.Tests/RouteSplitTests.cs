@@ -10,7 +10,7 @@ namespace RewardRandomizer.Tests
         {
             foreach (var game in new[] { GameModule.FE6_JP, GameModule.FE6_Localization })
             {
-                var locations = game.rewards;
+                var locations = game.Rewards;
                 var correlations = Correlator.ExtractAll(locations);
                 var correlated = correlations.SelectMany(x => x);
                 var expected_exclusives = new[]
@@ -57,8 +57,8 @@ namespace RewardRandomizer.Tests
                 {
                     foreach (var x in leftover)
                     {
-                        string itemName = game.items.Where(y => y.id == x.item).Select(y => y.name).DefaultIfEmpty("(name unknown)").Single();
-                        if (x.route == route && itemName == name)
+                        string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).DefaultIfEmpty("(name unknown)").Single();
+                        if (x.Route == route && itemName == name)
                         {
                             leftover.Remove(x);
                             break;
@@ -67,7 +67,7 @@ namespace RewardRandomizer.Tests
                 }
                 foreach (var x in leftover)
                 {
-                    string itemName = game.items.Where(y => y.id == x.item).Select(y => y.name).Single();
+                    string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).Single();
                     Assert.Fail($"No match found for item: {x} {itemName}");
                 }
             }
@@ -77,7 +77,7 @@ namespace RewardRandomizer.Tests
         public void TestFE8US()
         {
             var game = GameModule.FE8_US;
-            var locations = game.rewards;
+            var locations = game.Rewards;
             var correlations = Correlator.ExtractAll(locations);
             var correlated = correlations.SelectMany(x => x);
             var expected_exclusives = new[]
@@ -94,8 +94,8 @@ namespace RewardRandomizer.Tests
             {
                 foreach (var x in leftover)
                 {
-                    string itemName = game.items.Where(y => y.id == x.item).Select(y => y.name).Single();
-                    if (x.route == route && itemName == name)
+                    string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).Single();
+                    if (x.Route == route && itemName == name)
                     {
                         leftover.Remove(x);
                         break;
@@ -104,7 +104,7 @@ namespace RewardRandomizer.Tests
             }
             foreach (var x in leftover)
             {
-                string itemName = game.items.Where(y => y.id == x.item).Select(y => y.name).Single();
+                string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).Single();
                 Assert.Fail($"No match found for item: {x} {itemName}");
             }
         }

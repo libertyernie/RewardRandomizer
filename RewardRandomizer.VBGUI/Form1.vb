@@ -2,22 +2,6 @@
 Imports RewardRandomizer.Randomizer
 
 Public Class Form1
-    Private Function GetGame(data As Byte()) As Game
-        For Each g In GameModule.All
-            If GameModule.IsCertainlyMatch(data, g) Then
-                Return g
-            End If
-        Next
-        For Each g In GameModule.All
-            If GameModule.IsProbablyMatch(data, g) Then
-                MsgBox("The game could not be determined with absolute certainty (it may have additional patches applied), but all item locations appear to be in the correct place.")
-                Return g
-            End If
-        Next
-        MsgBox("The game could not be determined. It may not be supported.")
-        Return Nothing
-    End Function
-
     Private Sub Form1_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         For Each g In GameModule.All
             ComboBox1.Items.Add(g)
@@ -44,7 +28,7 @@ Public Class Form1
         Dim data = File.ReadAllBytes(fileName)
 
         For Each g As Game In ComboBox1.Items
-            If GameModule.IsCertainlyMatch(data, g) Then
+            If g.Rewards.All(Function(r) r.Offset < data.Length AndAlso data(r.Offset) = r.ItemId) Then
                 ComboBox1.SelectedItem = g
                 Exit Sub
             End If
@@ -63,15 +47,15 @@ Public Class Form1
             Exit Sub
         End If
 
-        For Each x In game.items
-            If x.category Is ItemCategory.Promotion Then
+        For Each x In game.Items
+            If x.Category Is ItemCategory.Promotion Then
                 PromotionItemsList.Items.Add(x)
-                If game.rewards.Any(Function(y) y.item = x.id) Then
+                If game.Rewards.Any(Function(y) y.ItemId = x.Id) Then
                     PromotionItemsList.SelectedItems.Add(x)
                 End If
-            ElseIf x.category Is ItemCategory.StatBooster Then
+            ElseIf x.Category Is ItemCategory.StatBooster Then
                 StatBoostersList.Items.Add(x)
-                If game.rewards.Any(Function(y) y.item = x.id) Then
+                If game.Rewards.Any(Function(y) y.ItemId = x.Id) Then
                     StatBoostersList.SelectedItems.Add(x)
                 End If
             End If
@@ -163,7 +147,7 @@ Public Class Form1
                         MsgBox("Input ROM not found. (Maybe you want to save an IPS patch instead?)")
                     Else
                         Dim oldData = File.ReadAllBytes(InputBox.Text)
-                        If game.rewards.Any(Function(r) r.offset > oldData.Length OrElse oldData(r.offset) <> r.item) Then
+                        If game.Rewards.Any(Function(r) r.Offset > oldData.Length OrElse oldData(r.Offset) <> r.ItemId) Then
                             MsgBox("Input ROM data does not match the selected game. It may be a different region or have incompatible patches.")
                         Else
                             Dim newData = ApplyOperations(oldData, operations)

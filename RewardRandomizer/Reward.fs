@@ -16,35 +16,25 @@ type Route =
 | Eirika | Ephraim | JoshuaAlive | JoshuaDead
 | SpecialBehavior
 
-type Reward = {
-    method: Method
-    item: byte
-    unit: byte
-    offset: int
-    route: Route
-} with
-    override this.ToString() = String.concat " " [
-        sprintf "%A" this.route
-        sprintf "%A" this.method
-        sprintf "%06X" this.offset
-        sprintf "%02X" this.item
-        if this.unit <> 0uy then
-            sprintf "unit %02X" this.unit
-    ]
+type Reward =
+    { Method: Method
+      ItemId: byte
+      Unit: byte
+      Offset: int
+      Route: Route }
 
-module Reward =
+module internal Reward =
     let consolidate routes =
         match routes |> List.except [All] |> List.distinct with
         | [] -> All
         | [single] -> single
         | _::_::_ -> SpecialBehavior
 
-    let route new_route object = { object with route = consolidate [object.route; new_route] }
+    let route new_route object = { object with Route = consolidate [object.Route; new_route] }
 
-    let reward method offset item unit = {
-        method = method
-        item = byte item
-        unit = byte unit
-        offset = offset
-        route = All
-    }
+    let reward method offset item unit =
+        { Method = method
+          ItemId = byte item
+          Unit = byte unit
+          Offset = offset
+          Route = All }
