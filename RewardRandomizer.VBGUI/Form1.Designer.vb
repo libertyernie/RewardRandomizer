@@ -151,7 +151,7 @@ Partial Class Form1
         Me.SaveButton.Location = New System.Drawing.Point(297, 400)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
-        Me.SaveButton.TabIndex = 6
+        Me.SaveButton.TabIndex = 13
         Me.SaveButton.Text = "Apply"
         Me.SaveButton.UseVisualStyleBackColor = True
         '
@@ -161,7 +161,7 @@ Partial Class Form1
         Me.RandomizeStatBoosters.Location = New System.Drawing.Point(198, 149)
         Me.RandomizeStatBoosters.Name = "RandomizeStatBoosters"
         Me.RandomizeStatBoosters.Size = New System.Drawing.Size(142, 17)
-        Me.RandomizeStatBoosters.TabIndex = 8
+        Me.RandomizeStatBoosters.TabIndex = 12
         Me.RandomizeStatBoosters.Text = "Randomize stat boosters"
         Me.RandomizeStatBoosters.UseVisualStyleBackColor = True
         '
@@ -171,7 +171,7 @@ Partial Class Form1
         Me.RandomizePromotionItems.Location = New System.Drawing.Point(15, 149)
         Me.RandomizePromotionItems.Name = "RandomizePromotionItems"
         Me.RandomizePromotionItems.Size = New System.Drawing.Size(155, 17)
-        Me.RandomizePromotionItems.TabIndex = 6
+        Me.RandomizePromotionItems.TabIndex = 10
         Me.RandomizePromotionItems.Text = "Randomize promotion items"
         Me.RandomizePromotionItems.UseVisualStyleBackColor = True
         '
@@ -183,7 +183,7 @@ Partial Class Form1
         Me.ShuffleStatBoosters.Location = New System.Drawing.Point(198, 126)
         Me.ShuffleStatBoosters.Name = "ShuffleStatBoosters"
         Me.ShuffleStatBoosters.Size = New System.Drawing.Size(122, 17)
-        Me.ShuffleStatBoosters.TabIndex = 7
+        Me.ShuffleStatBoosters.TabIndex = 11
         Me.ShuffleStatBoosters.Text = "Shuffle stat boosters"
         Me.ShuffleStatBoosters.UseVisualStyleBackColor = True
         '
@@ -194,7 +194,7 @@ Partial Class Form1
         Me.Label4.Margin = New System.Windows.Forms.Padding(3)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(35, 13)
-        Me.Label4.TabIndex = 7
+        Me.Label4.TabIndex = 8
         Me.Label4.Text = "Then:"
         '
         'ShufflePromoItems
@@ -205,7 +205,7 @@ Partial Class Form1
         Me.ShufflePromoItems.Location = New System.Drawing.Point(15, 126)
         Me.ShufflePromoItems.Name = "ShufflePromoItems"
         Me.ShufflePromoItems.Size = New System.Drawing.Size(135, 17)
-        Me.ShufflePromoItems.TabIndex = 5
+        Me.ShufflePromoItems.TabIndex = 9
         Me.ShufflePromoItems.Text = "Shuffle promotion items"
         Me.ShufflePromoItems.UseVisualStyleBackColor = True
         '
@@ -217,7 +217,7 @@ Partial Class Form1
         Me.ShuffleVillages.Location = New System.Drawing.Point(79, 84)
         Me.ShuffleVillages.Name = "ShuffleVillages"
         Me.ShuffleVillages.Size = New System.Drawing.Size(62, 17)
-        Me.ShuffleVillages.TabIndex = 1
+        Me.ShuffleVillages.TabIndex = 7
         Me.ShuffleVillages.Text = "Villages"
         Me.ShuffleVillages.UseVisualStyleBackColor = True
         '
@@ -228,7 +228,7 @@ Partial Class Form1
         Me.Label3.Margin = New System.Windows.Forms.Padding(3)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(179, 13)
-        Me.Label3.TabIndex = 4
+        Me.Label3.TabIndex = 5
         Me.Label3.Text = "First, shuffle all items that come from:"
         '
         'ShuffleChests
@@ -239,7 +239,7 @@ Partial Class Form1
         Me.ShuffleChests.Location = New System.Drawing.Point(15, 84)
         Me.ShuffleChests.Name = "ShuffleChests"
         Me.ShuffleChests.Size = New System.Drawing.Size(58, 17)
-        Me.ShuffleChests.TabIndex = 0
+        Me.ShuffleChests.TabIndex = 6
         Me.ShuffleChests.Text = "Chests"
         Me.ShuffleChests.UseVisualStyleBackColor = True
         '
@@ -250,7 +250,7 @@ Partial Class Form1
         Me.Label6.Location = New System.Drawing.Point(12, 426)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(69, 13)
-        Me.Label6.TabIndex = 15
+        Me.Label6.TabIndex = 14
         Me.Label6.Text = "Version 1.0.0"
         '
         'Label7
@@ -260,7 +260,7 @@ Partial Class Form1
         Me.Label7.Location = New System.Drawing.Point(12, 439)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(248, 13)
-        Me.Label7.TabIndex = 16
+        Me.Label7.TabIndex = 15
         Me.Label7.Text = "https://github.com/libertyernie/RewardRandomizer"
         '
         'ComboBox1
