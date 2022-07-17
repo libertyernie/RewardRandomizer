@@ -8,7 +8,7 @@ module Correlator =
             printfn "%A %d" tag (Seq.length group)
             match tag with
             | None -> yield! group
-            | Some _ ->
+            | Some t ->
                 let without_offsets =
                     group
                     |> Seq.map (fun x -> { x with Offsets = [] })
@@ -17,14 +17,14 @@ module Correlator =
                 match without_offsets with
                 | [] -> failwith "Empty group"
                 | [single] -> yield { single with Tag = None; Offsets = [for x in group do yield! x.Offsets] }
-                | _::_ -> ()
+                | _::_ -> printfn "Skipping object(s) with tag %s due to mismatch" t
     ]
 
     let IsOnRoute x r = r.Route = Some x && r.Difficulty = None
     let IsOnDifficulty x r = r.Route = None && r.Difficulty = Some x
     let IsOnNeither r = r.Route = None && r.Difficulty = None
 
-    let GetMutuallyExclusiveFilterSets reward_source: ((Reward -> bool) list * (Reward -> bool) list) list = [
+    let GetMutuallyExclusiveFilterSets reward_source = [
         let rewards = Set.ofSeq reward_source
 
         // Handle route splits
@@ -52,10 +52,12 @@ module Correlator =
         yield ([IsOnNeither], [])
     ]
 
+    let private remove (item: 'T) (set: HashSet<'T>) = set.Remove(item) |> ignore
+
     // Determines which items are the "same".
     // Groups of the "same" item are collected into sets.
     // Any items found are removed from the set.
-    let GetMatches (rewards: HashSet<Reward>) (required: (Reward -> bool) list) (optional: (Reward -> bool) list) = [
+    let GetMatches rewards required optional = [
         // Pick one of the routes/difficulty levels, and scan for items that appear in a special place there
         let primary_filter = List.head required
         let primary_rewards = rewards |> Seq.where primary_filter
@@ -81,7 +83,7 @@ module Correlator =
 
             // Remove matched items from the pool for further operations.
             for x in matching_set do
-                rewards.Remove x |> ignore
+                rewards |> remove x
 
             // Make sure no required filters lacked a match.
             // If any of them did, this item won't be included in the randomizer.
@@ -99,8 +101,15 @@ module Correlator =
     ]
 
     let ExtractAll (reward_source: seq<Reward>): Set<Reward> list = [
+        // Combine objects that have the same tag and other parameters match
+        // Discard objects that have the same tag if there are mismatches
+        // Create a HashSet to store objects to be processed
         let untagged_reward_set = reward_source |> Untag |> HashSet
+        // Get a list of filters that are mutually exclusive with each other (e.g. "is Sacae" and "is Ilia")
+        // One of these will simply be "all routes, all difficulty levels"
         let reward_groups = GetMutuallyExclusiveFilterSets untagged_reward_set
+        // Pass each to GetMatches, which will remove processed items from the HashSet,
+        // and return the results
         for (required, optional) in reward_groups do
             yield! GetMatches untagged_reward_set required optional
     ]

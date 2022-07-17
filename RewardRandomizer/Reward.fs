@@ -38,10 +38,13 @@ module internal Reward =
           Tag = None }
 
     let route new_route reward =
+        if reward.Route <> None then failwith "Object already has route"
         { reward with Route = Some new_route }
 
     let difficulty new_difficulty reward =
+        if reward.Difficulty <> None then failwith "Object already has difficulty"
         { reward with Difficulty = Some new_difficulty }
 
     let tag tag reward =
+        if reward.Tag <> None then failwith "Object already has tag"
         { reward with Tag = Some tag }
