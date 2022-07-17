@@ -207,9 +207,9 @@ module FE7 =
         CHES 0xCA2894 0x57 // UNLOCK
         CHES 0xCA28A0 0x63 // HERO_CREST
         Chap 0xCB1950 0x75 // RED_GEM
-        Chap 0xCB1950 0x75 |> condition "Three Caelin soldiers survive" true // RED_GEM
-        Chap 0xCB197C 0x7A |> condition "Two Caelin soldiers survive" true // LIGHT_RUNE
-        Chap 0xCB19A8 0x79 |> condition "One Caelin soldier survives" true // MINE
+        Chap 0xCB1950 0x75 |> special // RED_GEM
+        Chap 0xCB197C 0x7A |> special // LIGHT_RUNE
+        Chap 0xCB19A8 0x79 |> special // MINE
 
         // Chapter 17x: The Port of Badon
         ITGV 0xCB1F10 0x12 // LANCEREAVER
@@ -226,7 +226,6 @@ module FE7 =
 
         Unit 0xCCC31C 0x5D 0x4A 1 |> difficulty Normal // SPEEDWINGS
         Unit 0xCCC44C 0x5D 0x4A 1 |> difficulty Hard // SPEEDWINGS
-        Unit 0xCCCB8C 0x5D 0x4A 1 |> condition "Cutscene" true // SPEEDWINGS
 
         // Chapter 19: The Dread Isle
         Unit 0xCCD054 0x65 0x4B 3 |> difficulty Normal // ORION_BOLT
@@ -286,7 +285,7 @@ module FE7 =
         CHES 0xCA3E3C 0x07 // SILVER_BLADE
         CHES 0xCA3E48 0x5C // SECRET_BOOK
         CHES 0xCA3E54 0x52 // BERSERK
-        Chap 0xCB6118 0x88 |> condition "Tactician present" true // AFA_DROPS
+        Chap 0xCB6118 0x88 |> special // AFA_DROPS
 
         // Chapter 24: Four Fanged Offense (Lloyd)
         yield! List.map (route Lloyd) [
@@ -309,7 +308,7 @@ module FE7 =
         ]
 
         // Chapter 26: Unfulfilled Heart
-        Chap 0xCB87F8 0x89 |> condition "Hawkeye not defeated prior to Four-Fanged Offense" true // HEAVEN_SEAL
+        Chap 0xCB87F8 0x89 |> special // HEAVEN_SEAL
         Unit 0xCD568C 0x64 0x6D 1 |> difficulty Normal // KNIGHT_CREST
         Unit 0xCD599C 0x64 0x6D 1 |> difficulty Hard // KNIGHT_CREST
         Unit 0xCD580C 0x64 0x6D 1 |> difficulty HectorNormal // KNIGHT_CREST
@@ -347,7 +346,6 @@ module FE7 =
         Unit 0xCD9A90 0x8B 0x5B 2 |> difficulty Hard // FELL_CONTRACT
         Unit 0xCD9880 0x8B 0x5B 2 |> difficulty HectorNormal // FELL_CONTRACT
         Unit 0xCD9CE0 0x8B 0x5B 2 |> difficulty HectorHard // FELL_CONTRACT
-        Unit 0xCDA3C0 0x8B 0x5B 2 |> condition "Cutscene" true // FELL_CONTRACT
         Unit 0xCD96F0 0x5A 0x70 2 |> difficulty Normal // ANGELIC_ROBE
         Unit 0xCD9AD0 0x5A 0x70 2 |> difficulty Hard // ANGELIC_ROBE
         Unit 0xCD98C0 0x5A 0x70 2 |> difficulty HectorNormal // ANGELIC_ROBE

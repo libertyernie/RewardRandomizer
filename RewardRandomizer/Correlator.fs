@@ -3,31 +3,6 @@
 open System.Collections.Generic
 
 module Correlator =
-    // Find all condition names on the given route.
-    let GetConditionNames route rewards = set [
-        for x in rewards do
-            if x.Branch.Route = route then
-                match x.Branch.Condition with
-                | Some (name, _) -> name
-                | None -> ()
-    ]
-
-    // Given a route, find all pairs of mutually exclusive conditions (like
-    // "saved all civilians" or "visited with a certain character") and yield
-    // the pairs in lists.
-    // A singleton list, with a branch object that matches the route with no
-    // special conditions, will also be included.
-    let GetMutuallyExclusiveConditionBranchSetsForRoute route rewards = [
-        let br = { Branch.none with Route = route }
-        yield [br]
-
-        let names = rewards |> GetConditionNames route
-        for x in names do
-            let b1 = { br with Condition = Some (x, true) }
-            let b2 = { br with Condition = Some (x, false) }
-            yield [b1; b2]
-    ]
-
     type MututallyExclusiveBranchSet =
         { RequiredBranches: Branch list
           OptionalBranches: Branch list }
@@ -46,25 +21,13 @@ module Correlator =
             (Kenneth, Jerme)
             (Eirika, Ephraim)
         ] do
-            // Create branch objects for each route, grouped into lists based on which ones are mutually exclusive
-            // e.g. [A] [A1 A2]
-            let mutexBranchGroupsA = rewards |> GetMutuallyExclusiveConditionBranchSetsForRoute (Some routeA)
-            // e.g. [B] [BX BY]
-            let mutexBranchGroupsB = rewards |> GetMutuallyExclusiveConditionBranchSetsForRoute (Some routeB)
-            // Go through all sets whose items, together, are all mutually exlcusive
-            // e.g. [A B]     [A1 A2 B]
-            //      [A BX BY] [A1 A2 BX BY]
-            for (groupA, groupB) in List.allPairs mutexBranchGroupsA mutexBranchGroupsB do
-                let combinedMutexBranchGroup = groupA @ groupB
-                yield mutex combinedMutexBranchGroup []
+            let xA = { Branch.none with Route = Some routeA }
+            let xB = { Branch.none with Route = Some routeB }
+            yield mutex [xA; xB] []
 
-        // Peform the same process for items outside of any route split
-        let mutexBranchGroups = rewards |> GetMutuallyExclusiveConditionBranchSetsForRoute None
-        for group in mutexBranchGroups do
-            yield mutex group []
+        yield mutex [Branch.none] []
 
         // Handle items specific to a difficulty level
-        // Items specific to both a difficulty level, and to a route and/or condition
         let alternate_levels =
             rewards
             |> Seq.choose (fun x -> x.Branch.Difficulty)
@@ -92,7 +55,7 @@ module Correlator =
                 |> Seq.where (fun r -> r.ItemId = p.ItemId)
                 |> Seq.sortBy (fun r -> [
                     if r.Unit = p.Unit then 1 else 2 // First, prefer an item who's "give to this unit" flag is the same as this one
-                    abs (r.Offset - p.Offset) // In case of a tie, prefer the item whose location in the ROM is closer to this one
+                    abs (r.Offsets.Head - p.Offsets.Head) // In case of a tie, prefer the item whose location in the ROM is closer to this one
                 ])
                 |> Seq.tryHead
 
@@ -123,7 +86,14 @@ module Correlator =
     ]
 
     let ExtractAll (reward_source: seq<Reward>): Set<Reward> list = [
-        let rewards = reward_source |> HashSet
-        for x in GetMutuallyExclusiveBranchSets rewards do
-            yield! GetMatches rewards x
+        let rewards = reward_source |> Reward.untag |> HashSet
+        let tagged = [for m in rewards do if m.Tag.IsSome then m]
+        if not (List.isEmpty tagged) then failwithf "%A" tagged
+        let sets = GetMutuallyExclusiveBranchSets rewards
+        for x in sets do
+            let o = GetMatches rewards x
+            printfn "%A +%d" x (List.length o)
+            let tagged = [for m in rewards do if m.Tag.IsSome then m]
+            if not (List.isEmpty tagged) then failwithf "%A" tagged
+            yield! o
     ]

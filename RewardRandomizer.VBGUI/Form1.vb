@@ -28,7 +28,13 @@ Public Class Form1
         Dim data = File.ReadAllBytes(fileName)
 
         For Each g As Game In ComboBox1.Items
-            If g.Rewards.All(Function(r) r.Offset < data.Length AndAlso data(r.Offset) = r.ItemId) Then
+            If g.Rewards.All(Function(r)
+                                 For Each x In r.Offsets
+                                     If x >= data.Length Then Return False
+                                     If data(x) <> r.ItemId Then Return False
+                                 Next
+                                 Return True
+                             End Function) Then
                 ComboBox1.SelectedItem = g
                 Exit Sub
             End If
@@ -147,7 +153,13 @@ Public Class Form1
                         MsgBox("Input ROM not found. (Maybe you want to save an IPS patch instead?)")
                     Else
                         Dim oldData = File.ReadAllBytes(InputBox.Text)
-                        If game.Rewards.Any(Function(r) r.Offset > oldData.Length OrElse oldData(r.Offset) <> r.ItemId) Then
+                        If game.Rewards.Any(Function(r)
+                                                For Each x In r.Offsets
+                                                    If x >= oldData.Length Then Return False
+                                                    If oldData(x) <> r.ItemId Then Return False
+                                                Next
+                                                Return True
+                                            End Function) Then
                             MsgBox("Input ROM data does not match the selected game. It may be a different region or have incompatible patches.")
                         Else
                             Dim newData = ApplyOperations(oldData, operations)

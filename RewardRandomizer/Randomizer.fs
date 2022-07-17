@@ -72,7 +72,8 @@ module Randomizer =
                     | Randomize ->
                         item_ids[random.Next (List.length item_ids)]
                 for old_location in old_set do
-                    { Offset = old_location.Offset; WriteData = [| new_item |] }
+                    for offset in old_location.Offsets do
+                        { Offset = offset; WriteData = [| new_item |] }
     }
 
     let ApplyOperations (data: byte[]) (operations: seq<WriteOperation>) =
