@@ -164,12 +164,12 @@ module FE7 =
     let ChTo offset item unit = reward FE7Story (offset + 16) item unit
 
     let US = [
-        // Fire Emblem (USA, Australia).gba
+        // Fire Emblem (USA, Australia)
 
         // Chapter 11 (Eliwood): Taking Leave
         yield! List.map (route Eliwood) [
             ITGV 0xCAE43C 0x5F // DRAGONSHIELD
-            Unit 0xCC7C5C 0x5B 0x08 1 // ENERGY_RING (Eliwood mode only)
+            Unit 0xCC7C5C 0x5B 0x08 1 // ENERGY_RING
         ]
 
         // Chapter 11 (Hector): Another Journey

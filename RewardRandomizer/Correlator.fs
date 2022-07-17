@@ -48,6 +48,7 @@ module Correlator =
 
         yield ([IsOnDifficulty Normal], [for x in alternate_levels do IsOnDifficulty x])
 
+        // Handle items that are neither
         yield ([IsOnNeither], [])
     ]
 
