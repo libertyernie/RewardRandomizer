@@ -57,7 +57,7 @@ namespace RewardRandomizer.Tests
                     foreach (var x in leftover)
                     {
                         string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).DefaultIfEmpty("(name unknown)").Single();
-                        if (x.Branch.Route.Equals(FSharpOption<Route>.Some(route)) && itemName == name)
+                        if (x.Route.Equals(FSharpOption<Route>.Some(route)) && itemName == name)
                         {
                             leftover.Remove(x);
                             break;
@@ -95,7 +95,7 @@ namespace RewardRandomizer.Tests
                 foreach (var x in leftover)
                 {
                     string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).Single();
-                    if (x.Branch.Route.Equals(FSharpOption<Route>.Some(route)) && itemName == name)
+                    if (x.Route.Equals(FSharpOption<Route>.Some(route)) && itemName == name)
                     {
                         leftover.Remove(x);
                         break;
@@ -125,10 +125,8 @@ namespace RewardRandomizer.Tests
                 itemId,
                 0,
                 ListModule.OfArray(new[] { offset }),
-                new Branch(
-                    route ?? FSharpOption<Route>.None,
-                    difficulty ?? FSharpOption<Difficulty>.None,
-                    false),
+                route ?? FSharpOption<Route>.None,
+                difficulty ?? FSharpOption<Difficulty>.None,
                 tag ?? FSharpOption<string>.None);
         }
 

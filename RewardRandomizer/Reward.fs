@@ -9,12 +9,22 @@ type Method =
 | FE8Story
 | FE8Desert
 
+type Route =
+| Bartre | Echidna | Ilia | Sacae
+| Eliwood | Hector
+| Lloyd | Linus
+| Kenneth | Jerme
+| Eirika | Ephraim
+
+type Difficulty = Normal | Hard | HectorNormal | HectorHard
+
 type Reward =
     { Method: Method
       ItemId: byte
       Unit: byte
       Offsets: int list
-      Branch: Branch
+      Route: Route option
+      Difficulty: Difficulty option
       Tag: string option }
 
 module Reward =
@@ -23,22 +33,18 @@ module Reward =
           ItemId = byte item
           Unit = byte unit
           Offsets = [offset]
-          Branch = Branch.none
+          Route = None
+          Difficulty = None
           Tag = None }
 
-    let route new_route object =
-        { object with Branch = object.Branch |> Branch.route new_route }
+    let route new_route reward =
+        { reward with Route = Some new_route }
 
-    let difficulty new_difficulty object =
-        { object with Branch = object.Branch |> Branch.difficulty new_difficulty }
-
-    let special object =
-        { object with Branch = object.Branch |> Branch.special }
+    let difficulty new_difficulty reward =
+        { reward with Difficulty = Some new_difficulty }
 
     let tag tag reward =
-        if reward.Tag <> None
-        then failwith "Cannot tag reward more than once"
-        else { reward with Tag = Some tag }
+        { reward with Tag = Some tag }
 
     let untag rewards = [
         for (tag, group) in rewards |> Seq.groupBy (fun r -> r.Tag) do

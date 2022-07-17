@@ -207,9 +207,9 @@ module FE7 =
         CHES 0xCA2894 0x57 // UNLOCK
         CHES 0xCA28A0 0x63 // HERO_CREST
         Chap 0xCB1950 0x75 // RED_GEM
-        Chap 0xCB1950 0x75 |> special // RED_GEM
-        Chap 0xCB197C 0x7A |> special // LIGHT_RUNE
-        Chap 0xCB19A8 0x79 |> special // MINE
+        Chap 0xCB1950 0x75 |> tag "Caelin soliders" // RED_GEM
+        Chap 0xCB197C 0x7A |> tag "Caelin soliders" // LIGHT_RUNE
+        Chap 0xCB19A8 0x79 |> tag "Caelin soliders" // MINE
 
         // Chapter 17x: The Port of Badon
         ITGV 0xCB1F10 0x12 // LANCEREAVER
@@ -285,7 +285,7 @@ module FE7 =
         CHES 0xCA3E3C 0x07 // SILVER_BLADE
         CHES 0xCA3E48 0x5C // SECRET_BOOK
         CHES 0xCA3E54 0x52 // BERSERK
-        Chap 0xCB6118 0x88 |> special // AFA_DROPS
+        Chap 0xCB6118 0x88 // AFA_DROPS - only if tactician is present
 
         // Chapter 24: Four Fanged Offense (Lloyd)
         yield! List.map (route Lloyd) [
@@ -308,7 +308,7 @@ module FE7 =
         ]
 
         // Chapter 26: Unfulfilled Heart
-        Chap 0xCB87F8 0x89 |> special // HEAVEN_SEAL
+        Chap 0xCB87F8 0x89 // HEAVEN_SEAL - only if Hawkeye got to Four Fanged Offense
         Unit 0xCD568C 0x64 0x6D 1 |> difficulty Normal // KNIGHT_CREST
         Unit 0xCD599C 0x64 0x6D 1 |> difficulty Hard // KNIGHT_CREST
         Unit 0xCD580C 0x64 0x6D 1 |> difficulty HectorNormal // KNIGHT_CREST

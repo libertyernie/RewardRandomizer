@@ -476,11 +476,11 @@ module FE6 =
             ITGV 0x673420 0x4C // SLEEP
             ITGV 0x6736A0 0x24 // SWORDREAVER
             ITGV 0x673468 0x61 // ORION_BOLT
-            ITGV 0x6735BC 0x69 |> special // ELIXIR
-            ITGV 0x673604 0x5B |> special // SPEEDWING
+            ITGV 0x6735BC 0x69 |> tag "Western" // ELIXIR
+            ITGV 0x673604 0x5B |> tag "Western" // SPEEDWING
             ITGV 0x6734B0 0x52 // BARRIER
-            ITGV 0x67350C 0x65 |> special // DOOR_KEY
-            ITGV 0x673554 0x24 |> special // SWORDREAVER
+            ITGV 0x67350C 0x65 |> tag "Eastern" // DOOR_KEY
+            ITGV 0x673554 0x24 |> tag "Eastern" // SWORDREAVER
             ITGC 0x8003A0 0x78 0x01 // WYRMSLAYER
             ITGC 0x8004D0 0x62 0x2E // ELYSIAN_WHIP
             ITGC 0x800474 0x61 0x0F // ORION_BOLT
