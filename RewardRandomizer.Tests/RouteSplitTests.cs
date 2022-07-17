@@ -56,7 +56,7 @@ namespace RewardRandomizer.Tests
                     foreach (var x in leftover)
                     {
                         string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).DefaultIfEmpty("(name unknown)").Single();
-                        if (x.Route.Equals(FSharpOption<Route>.Some(route)) && itemName == name)
+                        if (x.Branch.Route.Equals(FSharpOption<Route>.Some(route)) && itemName == name)
                         {
                             leftover.Remove(x);
                             break;
@@ -93,7 +93,7 @@ namespace RewardRandomizer.Tests
                 foreach (var x in leftover)
                 {
                     string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).Single();
-                    if (x.Route.Equals(FSharpOption<Route>.Some(route)) && itemName == name)
+                    if (x.Branch.Route.Equals(FSharpOption<Route>.Some(route)) && itemName == name)
                     {
                         leftover.Remove(x);
                         break;
@@ -114,14 +114,14 @@ namespace RewardRandomizer.Tests
         [TestMethod]
         public void TestRouteCorrleation()
         {
-            var eirikaVersion = new Reward(Method.Chest, 3, 0, 0x3100, FSharpOption<Route>.Some(Route.Eirika), NoCondition, NoDifficulty);
-            var ephraimVersion = new Reward(Method.Chest, 3, 0, 0x3200, FSharpOption<Route>.Some(Route.Ephraim), NoCondition, NoDifficulty);
-            var eirikaExclusive = new Reward(Method.Chest, 4, 0, 0x4100, FSharpOption<Route>.Some(Route.Eirika), NoCondition, NoDifficulty);
-            var ephraimExclusive = new Reward(Method.Chest, 5, 0, 0x5200, FSharpOption<Route>.Some(Route.Ephraim), NoCondition, NoDifficulty);
+            var eirikaVersion = new Reward(Method.Chest, 3, 0, 0x3100, new Branch(FSharpOption<Route>.Some(Route.Eirika), NoCondition, NoDifficulty));
+            var ephraimVersion = new Reward(Method.Chest, 3, 0, 0x3200, new Branch(FSharpOption<Route>.Some(Route.Ephraim), NoCondition, NoDifficulty));
+            var eirikaExclusive = new Reward(Method.Chest, 4, 0, 0x4100, new Branch(FSharpOption<Route>.Some(Route.Eirika), NoCondition, NoDifficulty));
+            var ephraimExclusive = new Reward(Method.Chest, 5, 0, 0x5200, new Branch(FSharpOption<Route>.Some(Route.Ephraim), NoCondition, NoDifficulty));
             var locations = new Reward[]
             {
-                new Reward(Method.Chest, 1, 0, 0x1000, NoRoute, NoCondition, NoDifficulty),
-                new Reward(Method.Chest, 2, 0, 0x2000, NoRoute, NoCondition, NoDifficulty),
+                new Reward(Method.Chest, 1, 0, 0x1000, BranchModule.none),
+                new Reward(Method.Chest, 2, 0, 0x2000, BranchModule.none),
                 eirikaVersion,
                 ephraimVersion,
                 eirikaExclusive,
@@ -142,16 +142,16 @@ namespace RewardRandomizer.Tests
         [TestMethod]
         public void TestDifficultyCorrleation()
         {
-            var normalSword = new Reward(Method.Chest, 1, 0, 0x1000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Normal));
-            var hardSword = new Reward(Method.Chest, 1, 0, 0x2000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Hard));
-            var hectorNormalSword = new Reward(Method.Chest, 1, 0, 0x3000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.HectorNormal));
-            var hectorHardSword = new Reward(Method.Chest, 1, 0, 0x4000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.HectorHard));
+            var normalSword = new Reward(Method.Chest, 1, 0, 0x1000, new Branch(NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Normal)));
+            var hardSword = new Reward(Method.Chest, 1, 0, 0x2000, new Branch(NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Hard)));
+            var hectorNormalSword = new Reward(Method.Chest, 1, 0, 0x3000, new Branch(NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.HectorNormal)));
+            var hectorHardSword = new Reward(Method.Chest, 1, 0, 0x4000, new Branch(NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.HectorHard)));
 
-            var hardLance = new Reward(Method.Chest, 20, 0, 0x7000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Hard));
-            var hectorHardLance = new Reward(Method.Chest, 20, 0, 0x7000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.HectorHard));
+            var hardLance = new Reward(Method.Chest, 20, 0, 0x7000, new Branch(NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Hard)));
+            var hectorHardLance = new Reward(Method.Chest, 20, 0, 0x7000, new Branch(NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.HectorHard)));
 
-            var normalItem = new Reward(Method.Chest, 50, 0, 0x6000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Normal));
-            var hardItem = new Reward(Method.Chest, 50, 0, 0x7000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Hard));
+            var normalItem = new Reward(Method.Chest, 50, 0, 0x6000, new Branch(NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Normal)));
+            var hardItem = new Reward(Method.Chest, 50, 0, 0x7000, new Branch(NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Hard)));
 
             var locations = new Reward[]
             {
@@ -180,10 +180,10 @@ namespace RewardRandomizer.Tests
         [TestMethod]
         public void TestConditionCorrleation()
         {
-            var quickSword = new Reward(Method.Chest, 1, 0, 0x1000, NoRoute, FSharpOption<Tuple<string, bool>>.Some(new Tuple<string, bool>("Cleared quickly", true)), NoDifficulty);
-            var slowSword = new Reward(Method.Chest, 1, 0, 0x1000, NoRoute, FSharpOption<Tuple<string, bool>>.Some(new Tuple<string, bool>("Cleared quickly", false)), NoDifficulty);
+            var quickSword = new Reward(Method.Chest, 1, 0, 0x1000, new Branch(NoRoute, FSharpOption<Tuple<string, bool>>.Some(new Tuple<string, bool>("Cleared quickly", true)), NoDifficulty));
+            var slowSword = new Reward(Method.Chest, 1, 0, 0x1000, new Branch(NoRoute, FSharpOption<Tuple<string, bool>>.Some(new Tuple<string, bool>("Cleared quickly", false)), NoDifficulty));
 
-            var quickLance = new Reward(Method.Chest, 20, 0, 0x1000, NoRoute, FSharpOption<Tuple<string, bool>>.Some(new Tuple<string, bool>("Cleared quickly", true)), NoDifficulty);
+            var quickLance = new Reward(Method.Chest, 20, 0, 0x1000, new Branch(NoRoute, FSharpOption<Tuple<string, bool>>.Some(new Tuple<string, bool>("Cleared quickly", true)), NoDifficulty));
 
             var locations = new Reward[]
             {

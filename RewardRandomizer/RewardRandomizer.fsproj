@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Compile Include="Item.fs" />
+    <Compile Include="Branch.fs" />
     <Compile Include="Reward.fs" />
     <Compile Include="FE6.fs" />
     <Compile Include="FE7.fs" />
