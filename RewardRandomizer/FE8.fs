@@ -261,6 +261,10 @@ module FE8 =
             CHES 0x9E9720 0x1D // SPEAR
             CHES 0x9E9738 0x5C // ENERGY_RING
             CHES 0x9E9744 0x68 // GUIDING_RING
+            Chap 0x9F5FDC 0x91 |> condition "Joshua alive" true // AUDHULMA
+            Chap 0x9F5FF0 0x3E |> condition "Joshua alive" true // EXCALIBUR
+            Chap 0x9F6024 0x91 |> condition "Joshua alive" false // AUDHULMA
+            Chap 0x9F6038 0x3E |> condition "Joshua alive" false // EXCALIBUR
 
             // Chapter 15 (Eirika): Scorched Sand
             Unit 0x8BC8A4 0x68 0x80 2 // GUIDING_RING
@@ -388,12 +392,6 @@ module FE8 =
         ]
 
         // Extra end-of-chapter items
-
-        // Chapter 14 (Eirika)
-        Chap 0x9F5FDC 0x91 |> route JoshuaAlive // AUDHULMA
-        Chap 0x9F5FF0 0x3E |> route JoshuaAlive // EXCALIBUR
-        Chap 0x9F6024 0x91 |> route JoshuaDead // AUDHULMA
-        Chap 0x9F6038 0x3E |> route JoshuaDead // EXCALIBUR
 
         // Chapter 16
         Chap 0x9F71E4 0x92 // SIEGMUND

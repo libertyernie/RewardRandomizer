@@ -220,11 +220,11 @@ module FE6 =
             ITGV 0x673420 0x4C // SLEEP
             ITGV 0x6736A0 0x24 // SWORDREAVER
             ITGV 0x673468 0x61 // ORION_BOLT
-            ITGV 0x6735BC 0x69 |> route SpecialBehavior // ELIXIR
-            ITGV 0x673604 0x5B |> route SpecialBehavior // SPEEDWING
+            ITGV 0x6735BC 0x69 |> condition "Lot/Ward" false // ELIXIR
+            ITGV 0x673604 0x5B |> condition "Lot/Ward" true // SPEEDWING
             ITGV 0x6734B0 0x52 // BARRIER
-            ITGV 0x67350C 0x65 |> route SpecialBehavior // DOOR_KEY
-            ITGV 0x673554 0x24 |> route SpecialBehavior // SWORDREAVER
+            ITGV 0x67350C 0x65 |> condition "Lot/Ward" false // DOOR_KEY
+            ITGV 0x673554 0x24 |> condition "Lot/Ward" true // SWORDREAVER
             ITGC 0x673808 0x61 0x0F // ORION_BOLT
             ITGC 0x6737AC 0x5F 0x01 // HERO_CREST
             ITGC 0x673734 0x78 0x01 // WYRMSLAYER
@@ -262,7 +262,7 @@ module FE6 =
         // Chapter 13: The Rescue Plan
         ITGV 0x66F9F8 0x5E // BODY_RING
         ITGV 0x66FA40 0x74 // AL_SWORD
-        ITGC 0x66FBCC 0x60 0x1D |> route EarlyPercival // KNIGHT_CREST
+        ITGC 0x66FBCC 0x60 0x1D |> condition "Early Percival recruitment" true // KNIGHT_CREST
 
         // Chapter 14: Arcadia
         ITGV 0x66FE44 0x4B // SILENCE
@@ -280,7 +280,7 @@ module FE6 =
         // Chapter 15: The Dragon Girl
         ITGV 0x67045C 0x4E // HAMMERNE
         ITGV 0x670414 0x3C // DIVINE
-        ITGC 0x670590 0x60 0x1D |> route LatePercival // KNIGHT_CREST
+        ITGC 0x670590 0x60 0x1D |> condition "Early Percival recruitment" false // KNIGHT_CREST
 
         // Chapter 16: Retaking the Capital
         CHES 0x668BC0 0x45 // RECOVER
@@ -320,8 +320,8 @@ module FE6 =
             CHES 0x669150 0x4C // SLEEP
             CHES 0x66915C 0x40 // NOSFERATU
             CHES 0x669168 0x78 // WYRMSLAYER
-            ITGC 0x671A4C 0x58 0x01 |> route SpecialBehavior // ANGELIC_ROBE
-            ITGC 0x671B08 0x58 0x01 |> route SpecialBehavior // ANGELIC_ROBE
+            ITGC 0x671A4C 0x58 0x01 |> condition "Chapter 20x achieved" true // ANGELIC_ROBE
+            ITGC 0x671B08 0x58 0x01 |> condition "Chapter 20x achieved" false // ANGELIC_ROBE
 
             // Chapter 20Ax: The Spear of Ice
             ITGC 0x6756E0 0x17 0x01 // MALTET
@@ -365,7 +365,7 @@ module FE6 =
         // Chapter 21: The Binding Blade
         Unit 0x680454 0x60 0x62 1 // KNIGHT_CREST
         ITGV 0x671F40 0x60 // KNIGHT_CREST
-        ITGC 0x6720A4 0x0F 0x01 |> route SpecialBehavior // BINDING_BLADE
+        ITGC 0x6720A4 0x0F 0x01 |> condition "Chapter 21x achieved" false // BINDING_BLADE
 
         // Chapter 21x: The Silencing Darkness
         ITGV 0x675D04 0x69 // ELIXIR
@@ -374,7 +374,7 @@ module FE6 =
         ITGV 0x675D8C 0x69 // ELIXIR
         ITGV 0x675D48 0x69 // ELIXIR
         ITGV 0x675E58 0x69 // ELIXIR
-        ITGC 0x675FB0 0x0F 0x01 |> route SpecialBehavior // BINDING_BLADE
+        ITGC 0x675FB0 0x0F 0x01 |> condition "Chapter 21x achieved" true // BINDING_BLADE
         ITGC 0x675EC8 0x42 0x01 // APOCALYPSE
 
         // Chapter 22: The Neverending Dream
@@ -476,11 +476,11 @@ module FE6 =
             ITGV 0x673420 0x4C // SLEEP
             ITGV 0x6736A0 0x24 // SWORDREAVER
             ITGV 0x673468 0x61 // ORION_BOLT
-            route SpecialBehavior <| ITGV 0x6735BC 0x69 // ELIXIR
-            route SpecialBehavior <| ITGV 0x673604 0x5B // SPEEDWING
+            ITGV 0x6735BC 0x69 |> condition "Lot/Ward" false // ELIXIR
+            ITGV 0x673604 0x5B |> condition "Lot/Ward" true // SPEEDWING
             ITGV 0x6734B0 0x52 // BARRIER
-            route SpecialBehavior <| ITGV 0x67350C 0x65 // DOOR_KEY
-            route SpecialBehavior <| ITGV 0x673554 0x24 // SWORDREAVER
+            ITGV 0x67350C 0x65 |> condition "Lot/Ward" false // DOOR_KEY
+            ITGV 0x673554 0x24 |> condition "Lot/Ward" true // SWORDREAVER
             ITGC 0x8003A0 0x78 0x01 // WYRMSLAYER
             ITGC 0x8004D0 0x62 0x2E // ELYSIAN_WHIP
             ITGC 0x800474 0x61 0x0F // ORION_BOLT
@@ -518,7 +518,7 @@ module FE6 =
         // Chapter 13: The Rescue Plan
         ITGV 0x66F9F8 0x5E // BODY_RING
         ITGV 0x66FA40 0x74 // AL_SWORD
-        ITGC 0x66FBCC 0x60 0x1D |> route EarlyPercival // KNIGHT_CREST
+        ITGC 0x66FBCC 0x60 0x1D |> condition "Early Percival recruitment" true // KNIGHT_CREST
 
         // Chapter 14: Arcadia
         ITGV 0x66FE44 0x4B // SILENCE
@@ -536,7 +536,7 @@ module FE6 =
         // Chapter 15: The Dragon Girl
         ITGV 0x67045C 0x4E // HAMMERNE
         ITGV 0x670414 0x3C // DIVINE
-        ITGC 0x670590 0x60 0x1D |> route LatePercival // KNIGHT_CREST
+        ITGC 0x670590 0x60 0x1D |> condition "Early Percival recruitment" false // KNIGHT_CREST
 
         // Chapter 16: Retaking the Capital
         CHES 0x668BC0 0x45 // RECOVER
@@ -576,8 +576,8 @@ module FE6 =
             CHES 0x669150 0x4C // SLEEP
             CHES 0x66915C 0x40 // NOSFERATU
             CHES 0x669168 0x78 // WYRMSLAYER
-            ITGC 0x8305B8 0x58 0x01 |> route SpecialBehavior // ANGELIC_ROBE
-            ITGC 0x83067C 0x58 0x01 |> route SpecialBehavior // ANGELIC_ROBE
+            ITGC 0x8305B8 0x58 0x01 |> condition "Chapter 20x achieved" true // ANGELIC_ROBE
+            ITGC 0x83067C 0x58 0x01 |> condition "Chapter 20x achieved" false // ANGELIC_ROBE
 
             // Chapter 20Ax: The Spear of Ice
             ITGC 0x8001EC 0x17 0x01 // MALTET
@@ -621,7 +621,7 @@ module FE6 =
         // Chapter 21: The Binding Blade
         Unit 0x680454 0x60 0x62 1 // KNIGHT_CREST
         ITGV 0x671F40 0x60 // KNIGHT_CREST
-        ITGC 0x6720A4 0x0F 0x01 |> route SpecialBehavior // BINDING_BLADE
+        ITGC 0x6720A4 0x0F 0x01 |> condition "Chapter 21x achieved" false // BINDING_BLADE
 
         // Chapter 21x: The Silencing Darkness
         ITGV 0x675D04 0x69 // ELIXIR
@@ -631,7 +631,7 @@ module FE6 =
         ITGV 0x675D48 0x69 // ELIXIR
         ITGV 0x675E58 0x69 // ELIXIR
         ITGC 0x675EC8 0x42 0x01 // APOCALYPSE
-        ITGC 0x675FB0 0x0F 0x01 |> route SpecialBehavior // BINDING_BLADE
+        ITGC 0x675FB0 0x0F 0x01 |> condition "Chapter 21x achieved" true // BINDING_BLADE
 
         // Chapter 22: The Neverending Dream
         Unit 0x680F50 0x5F 0x64 1 // HERO_CREST

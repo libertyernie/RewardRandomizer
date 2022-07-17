@@ -10,31 +10,46 @@ type Method =
 | FE8Desert
 
 type Route =
-| All
-| Bartre | Echidna | Ilia | Sacae | EarlyPercival | LatePercival
-| EliwoodNormal | EliwoodHard | HectorNormal | HectorHard
-| Eirika | Ephraim | JoshuaAlive | JoshuaDead
-| SpecialBehavior
+| Bartre | Echidna | Ilia | Sacae
+| Eliwood | Hector
+| Lloyd | Linus
+| Kenneth | Jerme
+| Eirika | Ephraim
+
+type Condition = string * bool
+
+type Difficulty = Normal | Hard | HectorNormal | HectorHard
 
 type Reward =
     { Method: Method
       ItemId: byte
       Unit: byte
       Offset: int
-      Route: Route }
+      Route: Route option
+      Condition: Condition option
+      Difficulty: Difficulty option }
 
 module internal Reward =
-    let consolidate routes =
-        match routes |> List.except [All] |> List.distinct with
-        | [] -> All
-        | [single] -> single
-        | _::_::_ -> SpecialBehavior
+    let route new_route object =
+        if object.Route = None
+        then { object with Route = Some new_route }
+        else failwith "Cannot assign two routes to the same reward"
 
-    let route new_route object = { object with Route = consolidate [object.Route; new_route] }
+    let condition name value object =
+        if object.Condition = None
+        then { object with Condition = Some (name, value) }
+        else failwith "Cannot assign two conditions to the same reward"
+
+    let difficulty new_difficulty object =
+        if object.Difficulty = None
+        then { object with Difficulty = Some new_difficulty }
+        else failwith "Cannot assign two difficulty levels to the same reward"
 
     let reward method offset item unit =
         { Method = method
           ItemId = byte item
           Unit = byte unit
           Offset = offset
-          Route = All }
+          Route = None
+          Condition = None
+          Difficulty = None }

@@ -1,3 +1,4 @@
+using Microsoft.FSharp.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RewardRandomizer.Tests
@@ -25,10 +26,10 @@ namespace RewardRandomizer.Tests
                     (Route.Bartre, "ENERGY_RING"), // For saving civilians
 
                     // Lot and Ward's houses on Bartre route chapter 10
-                    (Route.SpecialBehavior, "ELIXIR"),
-                    (Route.SpecialBehavior, "SPEEDWING"),
-                    (Route.SpecialBehavior, "DOOR_KEY"),
-                    (Route.SpecialBehavior, "SWORDREAVER"),
+                    (Route.Bartre, "ELIXIR"),
+                    (Route.Bartre, "SPEEDWING"),
+                    (Route.Bartre, "DOOR_KEY"),
+                    (Route.Bartre, "SWORDREAVER"),
 
                     (Route.Ilia, "SECRET_BOOK"),
                     (Route.Ilia, "KNIGHT_CREST"), // This confuses me
@@ -43,14 +44,11 @@ namespace RewardRandomizer.Tests
                     (Route.Sacae, "ECLIPSE"),
 
                     // Appears twice in Ilia chapter 20 due to different dialogue branches
-                    (Route.SpecialBehavior, "ANGELIC_ROBE"),
-                    (Route.SpecialBehavior, "ANGELIC_ROBE"),
+                    (Route.Ilia, "ANGELIC_ROBE"),
+                    (Route.Ilia, "ANGELIC_ROBE"),
 
                     (Route.Ilia, "ELYSIAN_WHIP"),
                     (Route.Sacae, "ORION_BOLT"),
-
-                    (Route.SpecialBehavior, "BINDING_BLADE"),
-                    (Route.SpecialBehavior, "BINDING_BLADE"),
                 };
                 var leftover = locations.Except(correlated).ToHashSet();
                 foreach (var (route, name) in expected_exclusives)
@@ -58,7 +56,7 @@ namespace RewardRandomizer.Tests
                     foreach (var x in leftover)
                     {
                         string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).DefaultIfEmpty("(name unknown)").Single();
-                        if (x.Route == route && itemName == name)
+                        if (x.Route.Equals(FSharpOption<Route>.Some(route)) && itemName == name)
                         {
                             leftover.Remove(x);
                             break;
@@ -95,7 +93,7 @@ namespace RewardRandomizer.Tests
                 foreach (var x in leftover)
                 {
                     string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).Single();
-                    if (x.Route == route && itemName == name)
+                    if (x.Route.Equals(FSharpOption<Route>.Some(route)) && itemName == name)
                     {
                         leftover.Remove(x);
                         break;
@@ -107,6 +105,100 @@ namespace RewardRandomizer.Tests
                 string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).Single();
                 Assert.Fail($"No match found for item: {x} {itemName}");
             }
+        }
+
+        private static readonly FSharpOption<Route> NoRoute = FSharpOption<Route>.None;
+        private static readonly FSharpOption<Tuple<string, bool>> NoCondition = FSharpOption<Tuple<string, bool>>.None;
+        private static readonly FSharpOption<Difficulty> NoDifficulty = FSharpOption<Difficulty>.None;
+
+        [TestMethod]
+        public void TestRouteCorrleation()
+        {
+            var eirikaVersion = new Reward(Method.Chest, 3, 0, 0x3100, FSharpOption<Route>.Some(Route.Eirika), NoCondition, NoDifficulty);
+            var ephraimVersion = new Reward(Method.Chest, 3, 0, 0x3200, FSharpOption<Route>.Some(Route.Ephraim), NoCondition, NoDifficulty);
+            var eirikaExclusive = new Reward(Method.Chest, 4, 0, 0x4100, FSharpOption<Route>.Some(Route.Eirika), NoCondition, NoDifficulty);
+            var ephraimExclusive = new Reward(Method.Chest, 5, 0, 0x5200, FSharpOption<Route>.Some(Route.Ephraim), NoCondition, NoDifficulty);
+            var locations = new Reward[]
+            {
+                new Reward(Method.Chest, 1, 0, 0x1000, NoRoute, NoCondition, NoDifficulty),
+                new Reward(Method.Chest, 2, 0, 0x2000, NoRoute, NoCondition, NoDifficulty),
+                eirikaVersion,
+                ephraimVersion,
+                eirikaExclusive,
+                ephraimExclusive,
+            };
+            var correlations = Correlator.ExtractAll(locations);
+            Assert.AreEqual(3, correlations.Count(), $"{correlations}");
+            var correlated = correlations.SelectMany(x => x);
+            Assert.AreEqual(4, correlated.Count());
+            Assert.IsTrue(correlated.Contains(eirikaVersion));
+            Assert.IsTrue(correlated.Contains(ephraimVersion));
+            var leftover = locations.Except(correlated).ToHashSet();
+            Assert.AreEqual(2, leftover.Count);
+            Assert.IsTrue(leftover.Contains(eirikaExclusive));
+            Assert.IsTrue(leftover.Contains(ephraimExclusive));
+        }
+
+        [TestMethod]
+        public void TestDifficultyCorrleation()
+        {
+            var normalSword = new Reward(Method.Chest, 1, 0, 0x1000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Normal));
+            var hardSword = new Reward(Method.Chest, 1, 0, 0x2000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Hard));
+            var hectorNormalSword = new Reward(Method.Chest, 1, 0, 0x3000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.HectorNormal));
+            var hectorHardSword = new Reward(Method.Chest, 1, 0, 0x4000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.HectorHard));
+
+            var hardLance = new Reward(Method.Chest, 20, 0, 0x7000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Hard));
+            var hectorHardLance = new Reward(Method.Chest, 20, 0, 0x7000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.HectorHard));
+
+            var normalItem = new Reward(Method.Chest, 50, 0, 0x6000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Normal));
+            var hardItem = new Reward(Method.Chest, 50, 0, 0x7000, NoRoute, NoCondition, FSharpOption<Difficulty>.Some(Difficulty.Hard));
+
+            var locations = new Reward[]
+            {
+                normalSword,
+                hardSword,
+                hectorNormalSword,
+                hectorHardSword,
+                hardLance,
+                hectorHardLance,
+                normalItem,
+                hardItem
+            };
+
+            var correlations = Correlator.ExtractAll(locations);
+            Assert.AreEqual(2, correlations.Length, $"{correlations}");
+            Assert.AreEqual(1, correlations[0].Select(x => x.ItemId).Distinct().Single());
+            Assert.AreEqual(50, correlations[1].Select(x => x.ItemId).Distinct().Single());
+            var correlated = correlations.SelectMany(x => x);
+            Assert.AreEqual(6, correlated.Count());
+            var leftover = locations.Except(correlated).ToHashSet();
+            Assert.IsTrue(leftover.Contains(hardLance));
+            Assert.IsTrue(leftover.Contains(hectorHardLance));
+            Assert.AreEqual(2, leftover.Count);
+        }
+
+        [TestMethod]
+        public void TestConditionCorrleation()
+        {
+            var quickSword = new Reward(Method.Chest, 1, 0, 0x1000, NoRoute, FSharpOption<Tuple<string, bool>>.Some(new Tuple<string, bool>("Cleared quickly", true)), NoDifficulty);
+            var slowSword = new Reward(Method.Chest, 1, 0, 0x1000, NoRoute, FSharpOption<Tuple<string, bool>>.Some(new Tuple<string, bool>("Cleared quickly", false)), NoDifficulty);
+
+            var quickLance = new Reward(Method.Chest, 20, 0, 0x1000, NoRoute, FSharpOption<Tuple<string, bool>>.Some(new Tuple<string, bool>("Cleared quickly", true)), NoDifficulty);
+
+            var locations = new Reward[]
+            {
+                quickSword,
+                slowSword,
+                quickLance
+            };
+
+            var correlations = Correlator.ExtractAll(locations);
+            Assert.AreEqual(1, correlations.Count(), $"{correlations}");
+            var correlated = correlations.SelectMany(x => x);
+            Assert.AreEqual(2, correlated.Count());
+            var leftover = locations.Except(correlated).ToHashSet();
+            Assert.AreEqual(1, leftover.Count);
+            Assert.IsTrue(leftover.Contains(quickLance));
         }
     }
 }
