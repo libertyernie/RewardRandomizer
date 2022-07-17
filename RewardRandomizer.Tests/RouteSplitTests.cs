@@ -46,12 +46,11 @@ namespace RewardRandomizer.Tests
 
                     // Appears twice in Ilia chapter 20 due to different dialogue branches
                     (Route.Ilia, "ANGELIC_ROBE"),
-                    (Route.Ilia, "ANGELIC_ROBE"),
 
                     (Route.Ilia, "ELYSIAN_WHIP"),
                     (Route.Sacae, "ORION_BOLT"),
                 };
-                var leftover = RewardModule.untag(locations).Except(correlated).ToHashSet();
+                var leftover = Correlator.Untag(locations).Except(correlated).ToHashSet();
                 foreach (var (route, name) in expected_exclusives)
                 {
                     foreach (var x in leftover)
@@ -89,7 +88,7 @@ namespace RewardRandomizer.Tests
                 (Route.Eirika, "ENERGY_RING"), // Eirika has two (Ewan + chapter 14 chest), Ephraim has just one (off an enemy)
                 (Route.Ephraim, "KNIGHT_CREST"), // Ephraim has two (reward for saving Dussel's cavs + another off Vigarde), Eirika has one (off Aias)
             };
-            var leftover = RewardModule.untag(locations).Except(correlated).ToHashSet();
+            var leftover = Correlator.Untag(locations).Except(correlated).ToHashSet();
             foreach (var (route, name) in expected_exclusives)
             {
                 foreach (var x in leftover)

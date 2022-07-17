@@ -3,6 +3,23 @@
 open System.Collections.Generic
 
 module Correlator =
+    let Untag rewards = [
+        for (tag, group) in rewards |> Seq.groupBy (fun r -> r.Tag) do
+            printfn "%A %d" tag (Seq.length group)
+            match tag with
+            | None -> yield! group
+            | Some _ ->
+                let without_offsets =
+                    group
+                    |> Seq.map (fun x -> { x with Offsets = [] })
+                    |> Seq.distinct
+                    |> Seq.toList
+                match without_offsets with
+                | [] -> failwith "Empty group"
+                | [single] -> yield { single with Tag = None; Offsets = [for x in group do yield! x.Offsets] }
+                | _::_ -> ()
+    ]
+
     let IsOnRoute x r = r.Route = Some x && r.Difficulty = None
     let IsOnDifficulty x r = r.Route = None && r.Difficulty = Some x
     let IsOnNeither r = r.Route = None && r.Difficulty = None
@@ -81,7 +98,8 @@ module Correlator =
     ]
 
     let ExtractAll (reward_source: seq<Reward>): Set<Reward> list = [
-        let rewards = reward_source |> Reward.untag |> HashSet
-        for (required, optional) in GetMutuallyExclusiveFilterSets rewards do
-            yield! GetMatches rewards required optional
+        let untagged_reward_set = reward_source |> Untag |> HashSet
+        let reward_groups = GetMutuallyExclusiveFilterSets untagged_reward_set
+        for (required, optional) in reward_groups do
+            yield! GetMatches untagged_reward_set required optional
     ]

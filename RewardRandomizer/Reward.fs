@@ -27,7 +27,7 @@ type Reward =
       Difficulty: Difficulty option
       Tag: string option }
 
-module Reward =
+module internal Reward =
     let reward method offset item unit =
         { Method = method
           ItemId = byte item
@@ -45,20 +45,3 @@ module Reward =
 
     let tag tag reward =
         { reward with Tag = Some tag }
-
-    let untag rewards = [
-        for (tag, group) in rewards |> Seq.groupBy (fun r -> r.Tag) do
-            printfn "%A %d" tag (Seq.length group)
-            match tag with
-            | None -> yield! group
-            | Some _ ->
-                let without_offsets =
-                    group
-                    |> Seq.map (fun x -> { x with Offsets = [] })
-                    |> Seq.distinct
-                    |> Seq.toList
-                match without_offsets with
-                | [] -> failwith "Empty group"
-                | [single] -> yield { single with Tag = None; Offsets = [for x in group do yield! x.Offsets] }
-                | _::_ -> ()
-    ]
