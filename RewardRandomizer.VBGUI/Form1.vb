@@ -175,4 +175,10 @@ Public Class Form1
             End If
         End Using
     End Sub
+
+    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles Label7.Click
+        If sender.Text.StartsWith("https://") Then
+            Process.Start(sender.Text)
+        End If
+    End Sub
 End Class
