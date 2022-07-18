@@ -176,8 +176,8 @@ module FE8 =
     let CHES offset item = reward Chest (offset + 4) item 0
     let ITGV offset item = reward Village (offset + 4) item 0
     let Unit offset item unit pos = reward StartingInventory (offset + 12 + pos) item unit
-    let Chap offset item = reward FE8Story (offset + 12) item 0
-    let Sand offset item = reward FE8Desert (offset + 12) item 0
+    let Chap offset item = reward Story (offset + 12) item 0
+    let Sand offset item = reward Sand (offset + 12) item 0
 
     let US = [
         // Fire Emblem - The Sacred Stones (USA, Australia)

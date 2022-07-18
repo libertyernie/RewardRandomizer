@@ -4,14 +4,14 @@ type Method =
 | Chest
 | Village
 | StartingInventory
-| FE6Story
-| FE7Story
-| FE8Story
-| FE8Desert
+| Story
+| Sand
 
 type Route =
-| Bartre | Echidna | Ilia | Sacae
+| Bartre | Echidna
+| Ilia | Sacae
 | Eliwood | Hector
+| Tactician | NoTactician
 | Lloyd | Linus
 | Kenneth | Jerme
 | Eirika | Ephraim

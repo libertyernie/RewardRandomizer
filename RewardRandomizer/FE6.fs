@@ -135,8 +135,9 @@ module FE6 =
 
     let CHES offset item = reward Chest (offset + 4) item 0
     let ITGV offset item = reward Village (offset + 4) item 0
-    let ITGC offset item unit = reward FE6Story (offset + 8) item unit
+    let ITGC offset item unit = reward Story (offset + 8) item unit
     let Unit offset item unit pos = reward StartingInventory (offset + 8 + pos) item unit
+    let Sand offset item = reward Sand (offset + 4) item 0
 
     let JP = [
         // Fire Emblem - Fuuin no Tsurugi (Japan)
@@ -265,14 +266,14 @@ module FE6 =
         ITGC 0x66FBCC 0x60 0x1D |> tag "Percival Knight Crest" // KNIGHT_CREST
 
         // Chapter 14: Arcadia
-        ITGV 0x66FE44 0x4B // SILENCE
-        ITGV 0x66FE84 0x5C // TALISMAN
-        ITGV 0x66FEC4 0x5D // BOOTS
-        ITGV 0x66FF04 0x73 // SILVER_BLADE
-        ITGV 0x66FF44 0x5B // SPEEDWING
-        ITGV 0x66FF84 0x6E // SILVER_CARD
-        ITGV 0x66FFC4 0x48 // WARP
-        ITGV 0x670018 0x63 // GUIDING_RING
+        Sand 0x66FE44 0x4B // SILENCE
+        Sand 0x66FE84 0x5C // TALISMAN
+        Sand 0x66FEC4 0x5D // BOOTS
+        Sand 0x66FF04 0x73 // SILVER_BLADE
+        Sand 0x66FF44 0x5B // SPEEDWING
+        Sand 0x66FF84 0x6E // SILVER_CARD
+        Sand 0x66FFC4 0x48 // WARP
+        Sand 0x670018 0x63 // GUIDING_RING
 
         // Chapter 14x: The Infernal Element
         ITGC 0x6752F4 0x3A 0x01 // FORBLAZE

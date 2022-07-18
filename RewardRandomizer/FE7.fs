@@ -160,8 +160,9 @@ module FE7 =
     let CHES offset item = reward Chest (offset + 4) item 0
     let ITGV offset item = reward Village (offset + 4) item 0
     let Unit offset item unit pos = reward StartingInventory (offset + 8 + pos) item unit
-    let Chap offset item = reward FE7Story (offset + 12) item 0
-    let ChTo offset item unit = reward FE7Story (offset + 16) item unit
+    let Chap offset item = reward Story (offset + 12) item 0
+    let ChTo offset item unit = reward Story (offset + 16) item unit
+    let Sand offset item = reward Sand (offset + 4) item 0
 
     let US = [
         // Fire Emblem (USA, Australia)
@@ -274,18 +275,18 @@ module FE7 =
         Unit 0xCD1FFC 0x67 0xE8 1 |> difficulty Hard // GUIDING_RING
         Unit 0xCD1DFC 0x67 0x54 2 |> difficulty HectorNormal // GUIDING_RING
         Unit 0xCD21DC 0x67 0xE8 1 |> difficulty HectorHard // GUIDING_RING
-        ITGV 0xCB5CEC 0x63 // HERO_CREST
-        ITGV 0xCB5D2C 0x10 // LIGHT_BRAND
-        ITGV 0xCB5D6C 0x7C // FILLA_MIGHT
-        ITGV 0xCB5DAC 0x47 // ECLIPSE
-        ITGV 0xCB5DEC 0x96 // OCEAN_SEAL
-        ITGV 0xCB5E2C 0x62 // BODY_RING
+        Sand 0xCB5CEC 0x63 // HERO_CREST
+        Sand 0xCB5D2C 0x10 // LIGHT_BRAND
+        Sand 0xCB5D6C 0x7C // FILLA_MIGHT
+        Sand 0xCB5DAC 0x47 // ECLIPSE
+        Sand 0xCB5DEC 0x96 // OCEAN_SEAL
+        Sand 0xCB5E2C 0x62 // BODY_RING
 
         // Chapter 23x: Genesis
         CHES 0xCA3E3C 0x07 // SILVER_BLADE
         CHES 0xCA3E48 0x5C // SECRET_BOOK
         CHES 0xCA3E54 0x52 // BERSERK
-        Chap 0xCB6118 0x88 // AFA_DROPS - only if tactician is present
+        Chap 0xCB6118 0x88 |> route Tactician // AFA_DROPS
 
         // Chapter 24: Four Fanged Offense (Lloyd)
         yield! List.map (route Lloyd) [

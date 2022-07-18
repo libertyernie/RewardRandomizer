@@ -56,12 +56,12 @@ Public Class Form1
         For Each x In game.Items
             If x.Category Is ItemCategory.Promotion Then
                 PromotionItemsList.Items.Add(x)
-                If game.Rewards.Any(Function(y) y.ItemId = x.Id) Then
+                If Correlator.IsItemRandomizable(x.Id, game.Rewards) Then
                     PromotionItemsList.SelectedItems.Add(x)
                 End If
             ElseIf x.Category Is ItemCategory.StatBooster Then
                 StatBoostersList.Items.Add(x)
-                If game.Rewards.Any(Function(y) y.ItemId = x.Id) Then
+                If Correlator.IsItemRandomizable(x.Id, game.Rewards) Then
                     StatBoostersList.SelectedItems.Add(x)
                 End If
             End If
@@ -84,13 +84,15 @@ Public Class Form1
                 Dim step1 As New List(Of Method)
 
                 If ShuffleChests.Checked Then
-                    Console.WriteLine("Shuffling chests")
                     step1.Add(Method.Chest)
                 End If
 
                 If ShuffleVillages.Checked Then
-                    Console.WriteLine("Shuffling villages")
                     step1.Add(Method.Village)
+                End If
+
+                If ShuffleDesert.Checked Then
+                    step1.Add(Method.Sand)
                 End If
 
                 Dim steps As New List(Of RandomizationParameters)

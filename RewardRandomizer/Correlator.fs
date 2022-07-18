@@ -32,6 +32,7 @@ module Correlator =
             (Bartre, Echidna)
             (Ilia, Sacae)
             (Eliwood, Hector)
+            (Tactician, NoTactician)
             (Lloyd, Linus)
             (Kenneth, Jerme)
             (Eirika, Ephraim)
@@ -60,7 +61,7 @@ module Correlator =
     let GetMatches rewards required optional = [
         // Pick one of the routes/difficulty levels, and scan for items that appear in a special place there
         let primary_filter = List.head required
-        let primary_rewards = rewards |> Seq.where primary_filter
+        let primary_rewards = rewards |> Seq.where primary_filter |> Seq.toList
 
         for p in primary_rewards do
             // This function will find the best match for this item on the route given.
@@ -100,7 +101,7 @@ module Correlator =
                 yield matching_set
     ]
 
-    let ExtractAll (reward_source: seq<Reward>): Set<Reward> list = [
+    let ExtractAll reward_source: Set<Reward> list = [
         // Combine objects that have the same tag and other parameters match
         // Discard objects that have the same tag if there are mismatches
         // Create a HashSet to store objects to be processed
@@ -113,3 +114,8 @@ module Correlator =
         for (required, optional) in reward_groups do
             yield! GetMatches untagged_reward_set required optional
     ]
+
+    let IsItemRandomizable itemId reward_source =
+        ExtractAll reward_source
+        |> Seq.collect id
+        |> Seq.exists (fun x -> x.ItemId = itemId)
