@@ -49,13 +49,13 @@ module Game =
                 if o < 0 || o >= data.Length then
                     raise (RewardIndexOutOfBoundsException o)
                 else if data[o] <> x.ItemId then
-                    sprintf "%6X: %s -> %s" o (itemName x.ItemId) (itemName data[o])
+                    sprintf "%6X (%O): %s -> %s" o x.Method (itemName x.ItemId) (itemName data[o])
         ""
         "Unchanged:"
         for x in game.Rewards do
             for o in x.Offsets do
                 if data[o] = x.ItemId then
-                    sprintf "%6X: %s" o (itemName data[o])
+                    sprintf "%6X (%O): %s" o x.Method (itemName data[o])
     }
 
     let SummarizeDifferences game data =

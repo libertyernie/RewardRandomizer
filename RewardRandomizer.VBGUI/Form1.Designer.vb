@@ -232,7 +232,7 @@ Partial Class Form1
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(179, 13)
         Me.Label3.TabIndex = 6
-        Me.Label3.Text = "First, shuffle all items that come from:"
+        Me.Label3.Text = "Shuffle all items that come from:"
         '
         'ShuffleChests
         '

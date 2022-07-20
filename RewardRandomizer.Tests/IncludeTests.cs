@@ -27,8 +27,15 @@ namespace RewardRandomizer.Tests
                         Randomizer.ItemCollection.NewAllItemsInCategory(ItemCategory.Promotion),
                         Randomizer.MethodCollection.AllMethods)
                 });
-                var offsets = ops.Select(x => x.Offset);
-                promoOffsets = promoOffsets.Except(offsets).ToList();
+                foreach (var o in ops)
+                {
+                    int expectedItem = locations
+                        .Where(x => x.Offsets.Contains(o.Offset))
+                        .Select(x => x.ItemId)
+                        .Single();
+                    if (o.WriteData[0] != expectedItem)
+                        promoOffsets.Remove(o.Offset);
+                }
                 if (promoOffsets.Count == 0) break;
             }
             if (promoOffsets.Any())

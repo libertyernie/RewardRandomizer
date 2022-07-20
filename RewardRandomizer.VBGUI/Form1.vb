@@ -165,18 +165,6 @@ Public Class Form1
                         Dim newData = ApplyOperations(oldData, operations)
                         File.WriteAllBytes(dialog.FileName, newData)
                         MsgBox("Output ROM written.")
-
-                        Using summaryDialog As New Form
-                            Using textbox As New TextBox
-                                textbox.Dock = DockStyle.Fill
-                                textbox.ScrollBars = ScrollBars.Both
-                                textbox.Text = GameModule.SummarizeDifferences(game, newData)
-                                textbox.ReadOnly = True
-                                textbox.Multiline = True
-                                summaryDialog.Controls.Add(textbox)
-                                summaryDialog.ShowDialog(Me)
-                            End Using
-                        End Using
                     End If
                 Else
                     MsgBox("File extension not recognized: " + extension)
@@ -194,6 +182,12 @@ Public Class Form1
     Private Sub ValidateButton_Click(sender As Object, e As EventArgs) Handles ValidateButton.Click
         Dim game = TryCast(ComboBox1.SelectedItem, Game)
         If game Is Nothing Then
+            MsgBox("No game is selected.")
+            Exit Sub
+        End If
+
+        If Not File.Exists(InputBox.Text) Then
+            MsgBox("No ROM image has been selected to validate.")
             Exit Sub
         End If
 
