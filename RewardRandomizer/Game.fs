@@ -32,3 +32,35 @@ module Game =
           FE6_Localization
           FE7_US
           FE8_US ]
+
+    exception RewardIndexOutOfBoundsException of int
+
+    let EnumerateDifferences (game: Game) (data: byte[]) = seq {
+        let itemName id =
+            game.Items
+            |> Seq.where (fun x -> x.Id = id)
+            |> Seq.map (fun x -> x.Name)
+            |> Seq.tryHead
+            |> Option.defaultValue (sprintf "%2X" id)
+
+        "Changed:"
+        for x in game.Rewards do
+            for o in x.Offsets do
+                if o < 0 || o >= data.Length then
+                    raise (RewardIndexOutOfBoundsException o)
+                else if data[o] <> x.ItemId then
+                    sprintf "%6X: %s -> %s" o (itemName x.ItemId) (itemName data[o])
+        ""
+        "Unchanged:"
+        for x in game.Rewards do
+            for o in x.Offsets do
+                if data[o] = x.ItemId then
+                    sprintf "%6X: %s" o (itemName data[o])
+    }
+
+    let SummarizeDifferences game data =
+        try
+            EnumerateDifferences game data
+            |> String.concat System.Environment.NewLine
+        with
+        | (RewardIndexOutOfBoundsException offset) -> sprintf "Out of bounds: %6X" offset

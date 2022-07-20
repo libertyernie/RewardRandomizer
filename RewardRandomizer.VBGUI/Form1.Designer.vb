@@ -44,6 +44,7 @@ Partial Class Form1
         Me.Label7 = New System.Windows.Forms.Label()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.ShuffleDesert = New System.Windows.Forms.CheckBox()
+        Me.ValidateButton = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -152,7 +153,7 @@ Partial Class Form1
         Me.SaveButton.Location = New System.Drawing.Point(297, 400)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
-        Me.SaveButton.TabIndex = 13
+        Me.SaveButton.TabIndex = 15
         Me.SaveButton.Text = "Apply"
         Me.SaveButton.UseVisualStyleBackColor = True
         '
@@ -274,7 +275,7 @@ Partial Class Form1
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(83, 38)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(289, 21)
+        Me.ComboBox1.Size = New System.Drawing.Size(208, 21)
         Me.ComboBox1.TabIndex = 4
         '
         'ShuffleDesert
@@ -285,15 +286,26 @@ Partial Class Form1
         Me.ShuffleDesert.Location = New System.Drawing.Point(147, 84)
         Me.ShuffleDesert.Name = "ShuffleDesert"
         Me.ShuffleDesert.Size = New System.Drawing.Size(57, 17)
-        Me.ShuffleDesert.TabIndex = 16
+        Me.ShuffleDesert.TabIndex = 8
         Me.ShuffleDesert.Text = "Desert"
         Me.ShuffleDesert.UseVisualStyleBackColor = True
+        '
+        'ValidateButton
+        '
+        Me.ValidateButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ValidateButton.Location = New System.Drawing.Point(297, 38)
+        Me.ValidateButton.Name = "ValidateButton"
+        Me.ValidateButton.Size = New System.Drawing.Size(75, 21)
+        Me.ValidateButton.TabIndex = 5
+        Me.ValidateButton.Text = "Validate"
+        Me.ValidateButton.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(384, 461)
+        Me.Controls.Add(Me.ValidateButton)
         Me.Controls.Add(Me.ShuffleDesert)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.Label7)
@@ -344,4 +356,5 @@ Partial Class Form1
     Friend WithEvents Label7 As Label
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents ShuffleDesert As CheckBox
+    Friend WithEvents ValidateButton As Button
 End Class

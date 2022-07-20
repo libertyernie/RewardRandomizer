@@ -181,4 +181,25 @@ Public Class Form1
             Process.Start(sender.Text)
         End If
     End Sub
+
+    Private Sub ValidateButton_Click(sender As Object, e As EventArgs) Handles ValidateButton.Click
+        Dim game = TryCast(ComboBox1.SelectedItem, Game)
+        If game Is Nothing Then
+            Exit Sub
+        End If
+
+        Dim oldData = File.ReadAllBytes(InputBox.Text)
+
+        Using dialog As New Form
+            Using textbox As New TextBox
+                textbox.Dock = DockStyle.Fill
+                textbox.ScrollBars = ScrollBars.Both
+                textbox.Text = GameModule.SummarizeDifferences(game, oldData)
+                textbox.ReadOnly = True
+                textbox.Multiline = True
+                dialog.Controls.Add(textbox)
+                dialog.ShowDialog(Me)
+            End Using
+        End Using
+    End Sub
 End Class
