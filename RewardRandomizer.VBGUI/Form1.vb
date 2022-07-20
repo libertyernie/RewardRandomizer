@@ -84,7 +84,6 @@ Public Class Form1
                 Dim steps As New List(Of RandomizationParameters)
 
                 If ShufflePromoItems.Checked Then
-                    Console.WriteLine("Shuffling promotion items")
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Shuffle,
@@ -93,7 +92,6 @@ Public Class Form1
                 End If
 
                 If ShuffleStatBoosters.Checked Then
-                    Console.WriteLine("Shuffling stat boosters")
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Shuffle,
@@ -102,7 +100,6 @@ Public Class Form1
                 End If
 
                 If RandomizePromotionItems.Checked Then
-                    Console.WriteLine("Randomizing promotion items")
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Randomize,
@@ -111,7 +108,6 @@ Public Class Form1
                 End If
 
                 If RandomizeStatBoosters.Checked Then
-                    Console.WriteLine("Randomizing stat boosters")
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Randomize,

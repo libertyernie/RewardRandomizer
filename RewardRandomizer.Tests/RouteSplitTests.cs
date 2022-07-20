@@ -120,7 +120,7 @@ namespace RewardRandomizer.Tests
                 method,
                 itemId,
                 0,
-                ListModule.OfArray(new[] { offset }),
+                SetModule.OfArray(new[] { offset }),
                 route ?? FSharpOption<Route>.None,
                 difficulty ?? FSharpOption<Difficulty>.None,
                 tag ?? FSharpOption<string>.None);
@@ -209,9 +209,9 @@ namespace RewardRandomizer.Tests
 
             var correlations = Correlator.ExtractAll(locations);
             Assert.AreEqual(1, correlations[0].Count);
-            Assert.AreEqual(2, correlations[0].Single().Offsets.Length);
+            Assert.AreEqual(2, correlations[0].Single().Offsets.Count);
             Assert.AreEqual(1, correlations[1].Count);
-            Assert.AreEqual(1, correlations[1].Single().Offsets.Length);
+            Assert.AreEqual(1, correlations[1].Single().Offsets.Count);
         }
     }
 }

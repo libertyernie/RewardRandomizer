@@ -5,18 +5,17 @@ open System.Collections.Generic
 module Correlator =
     let Untag rewards = [
         for (tag, group) in rewards |> Seq.groupBy (fun r -> r.Tag) do
-            printfn "%A %d" tag (Seq.length group)
             match tag with
             | None -> yield! group
             | Some t ->
                 let without_offsets =
                     group
-                    |> Seq.map (fun x -> { x with Offsets = [] })
+                    |> Seq.map (fun x -> { x with Offsets = Set.empty })
                     |> Seq.distinct
                     |> Seq.toList
                 match without_offsets with
                 | [] -> failwith "Empty group"
-                | [single] -> yield { single with Tag = None; Offsets = [for x in group do yield! x.Offsets] }
+                | [single] -> yield { single with Tag = None; Offsets = set [for x in group do yield! x.Offsets] }
                 | _::_ -> printfn "Skipping object(s) with tag %s due to mismatch" t
     ]
 
@@ -71,7 +70,7 @@ module Correlator =
                 |> Seq.where (fun r -> r.ItemId = p.ItemId)
                 |> Seq.sortBy (fun r -> [
                     if r.Unit = p.Unit then 1 else 2 // First, prefer an item who's "give to this unit" flag is the same as this one
-                    abs (r.Offsets.Head - p.Offsets.Head) // In case of a tie, prefer the item whose location in the ROM is closer to this one
+                    abs (Set.minElement r.Offsets - Set.minElement p.Offsets) // In case of a tie, prefer the item whose location in the ROM is closer to this one
                 ])
                 |> Seq.tryHead
 

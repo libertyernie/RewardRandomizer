@@ -31,11 +31,12 @@ namespace RewardRandomizer.Tests
                 foreach (var o in operations)
                 {
                     int expectedItem = locations
-                        .Where(x => x.Offsets.Contains(o.Offset))
+                        .Where(x => x.Offsets.Equals(o.Offsets))
                         .Select(x => x.ItemId)
                         .Single();
-                    if (o.WriteData.Single() != expectedItem)
-                        promotionItemOffsets.Remove(o.Offset);
+                    if (o.WriteData != expectedItem)
+                        foreach (int x in o.Offsets)
+                            promotionItemOffsets.Remove(x);
                 }
                 if (promotionItemOffsets.Count == 0)
                     break;
@@ -67,41 +68,39 @@ namespace RewardRandomizer.Tests
             var arr2 = new[] { ShufflePromotionItemsEverywhere, ShuffleChestsAndVillages };
             foreach (var arr in new[] { arr1, arr2 })
             {
-                var generatedOperations = Randomizer.GenerateOperations(game, arr);
-                if (generatedOperations.GroupBy(x => x.Offset).Any(g => g.Count() > 1))
+                var operations = Randomizer.GenerateOperations(game, arr);
+                if (operations.SelectMany(x => x.Offsets).GroupBy(x => x).Any(g => g.Count() > 1))
                     Assert.Fail("Multiple writes to same index");
-                if (!generatedOperations.All(x => x.WriteData.Length == 1))
-                    Assert.Inconclusive("Writes of lengths other than one byte");
-                var operations = generatedOperations
-                    .GroupBy(x => x.Offset)
-                    .Select(g => g.Last());
-                int previousPromoItemChestsAndVillages = 0;
-                int previousPromoItemChestsAndVillagesWithPromoItemsStill = 0;
-                int previousPromoItemOtherLocations = 0;
-                int previousPromoItemOtherLocationsWithPromoItemsStill = 0;
+                int ChestsAndVillages = 0;
+                int ChestsAndVillagesWithPromoItemsStill = 0;
+                int OtherLocations = 0;
+                int OtherLocationsWithPromoItemsStill = 0;
                 foreach (var operation in operations)
                 {
-                    var item = game.Items.Single(x => x.Id == operation.WriteData.Single());
-                    if (promotionItemOffsetsInChestsAndVillages.Contains(operation.Offset))
+                    var item = game.Items.Single(x => x.Id == operation.WriteData);
+                    foreach (int o in operation.Offsets)
                     {
-                        previousPromoItemChestsAndVillages++;
-                        if (item.Category.IsPromotion)
-                            previousPromoItemChestsAndVillagesWithPromoItemsStill++;
-                    }
-                    if (otherPromotionItemOffsets.Contains(operation.Offset))
-                    {
-                        previousPromoItemOtherLocations++;
-                        if (item.Category.IsPromotion)
-                            previousPromoItemOtherLocationsWithPromoItemsStill++;
+                        if (promotionItemOffsetsInChestsAndVillages.Contains(o))
+                        {
+                            ChestsAndVillages++;
+                            if (item.Category.IsPromotion)
+                                ChestsAndVillagesWithPromoItemsStill++;
+                        }
+                        if (otherPromotionItemOffsets.Contains(o))
+                        {
+                            OtherLocations++;
+                            if (item.Category.IsPromotion)
+                                OtherLocationsWithPromoItemsStill++;
+                        }
                     }
                 }
-                if (previousPromoItemOtherLocations != previousPromoItemOtherLocationsWithPromoItemsStill)
+                if (ChestsAndVillages == ChestsAndVillagesWithPromoItemsStill)
                     Assert.Inconclusive();
-                if (previousPromoItemOtherLocations == 0)
+                if (ChestsAndVillagesWithPromoItemsStill == 0)
                     Assert.Inconclusive();
-                if (previousPromoItemChestsAndVillages == previousPromoItemChestsAndVillagesWithPromoItemsStill)
+                if (OtherLocations != OtherLocationsWithPromoItemsStill)
                     Assert.Inconclusive();
-                if (previousPromoItemChestsAndVillagesWithPromoItemsStill == 0)
+                if (OtherLocationsWithPromoItemsStill == 0)
                     Assert.Inconclusive();
             }
         }

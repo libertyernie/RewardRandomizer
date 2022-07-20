@@ -22,7 +22,7 @@ type Reward =
     { Method: Method
       ItemId: byte
       Unit: byte
-      Offsets: int list
+      Offsets: Set<int>
       Route: Route option
       Difficulty: Difficulty option
       Tag: string option }
@@ -32,7 +32,7 @@ module internal Reward =
         { Method = method
           ItemId = byte item
           Unit = byte unit
-          Offsets = [offset]
+          Offsets = Set.singleton offset
           Route = None
           Difficulty = None
           Tag = None }

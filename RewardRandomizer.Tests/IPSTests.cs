@@ -11,14 +11,12 @@ namespace RewardRandomizer.Tests
         public void TestGeneration()
         {
             var random = new Random();
-            var data1 = new byte[0x200000];
+            var data1 = new byte[0x100];
             random.NextBytes(data1);
-            byte[] randomData = new byte[0x1E0000];
-            random.NextBytes(randomData);
             var operations = new[]
             {
-                new Randomizer.WriteOperation(offset: 0x30, writeData: new byte[] { 1, 2, 3 }),
-                new Randomizer.WriteOperation(offset: 0x10000, writeData: randomData),
+                new Randomizer.WriteOperation(offsets: SetModule.OfArray(new[] { 0x30, 0x50, 0x51 }), writeData: 7),
+                new Randomizer.WriteOperation(offsets: SetModule.OfArray(new[] { 0x99 }), writeData: 100),
             };
             if (!File.Exists("Lunar IPS.exe"))
                 Assert.Inconclusive();
