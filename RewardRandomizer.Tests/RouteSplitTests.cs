@@ -108,9 +108,6 @@ namespace RewardRandomizer.Tests
             }
         }
 
-        private static readonly FSharpOption<Route> NoRoute = FSharpOption<Route>.None;
-        private static readonly FSharpOption<Difficulty> NoDifficulty = FSharpOption<Difficulty>.None;
-
         private static Reward BuildReward(
             Method method,
             byte itemId,
@@ -146,7 +143,7 @@ namespace RewardRandomizer.Tests
                 ephraimExclusive,
             };
             var correlations = Correlator.ExtractAll(locations);
-            Assert.AreEqual(3, correlations.Count(), $"{correlations}");
+            Assert.AreEqual(3, correlations.Length, $"{correlations}");
             var correlated = correlations.SelectMany(x => x);
             Assert.AreEqual(4, correlated.Count());
             Assert.IsTrue(correlated.Contains(eirikaVersion));
