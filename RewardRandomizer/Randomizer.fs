@@ -7,14 +7,12 @@ module Randomizer =
     type Mode = Shuffle | Randomize
 
     type ItemCollection =
-    | ItemCollection of seq<Item>
     | AllItemsInCategory of ItemCategory
     | AllItemsNotInCategory of ItemCategory
     | AllItems
 
     let private itemIsIn itemCollection item =
         match itemCollection with
-        | ItemCollection c -> Seq.contains item c
         | AllItemsInCategory c -> item.Category = c
         | AllItemsNotInCategory c -> item.Category <> c
         | AllItems -> true
@@ -38,20 +36,25 @@ module Randomizer =
     let private random = new Random()
 
     let private GenerateSingleRandomization (game: Game) (parameters: RandomizationParameters) = [
+        // Get all item IDs in the categories specified by the randomization parameters
         let item_ids =
             game.Items
             |> Seq.where (itemIsIn parameters.Items)
             |> Seq.map (fun x -> x.Id)
             |> Seq.toList
+        // Get all rewards using the methods specified by the randomization parameters, and correlate them across route splits
         let reward_sets =
             game.Rewards
             |> Seq.where (rewardMethodIsIn parameters.Methods)
             |> Seq.where (fun x -> Seq.contains x.ItemId item_ids)
             |> Correlator.ExtractAll
+        // Take the correlated sets of rewards and shuffle them randomly
         let shuffled_sets =
             reward_sets
             |> List.sortBy (fun _ -> random.Next())
+        // Go through both the original and shuffled lists
         for (old_set, new_set) in Seq.zip reward_sets shuffled_sets do
+            // Get the item from the shuffled list (or a random item, if that option is selected)
             let new_item =
                 match parameters.Mode with
                 | Shuffle ->
@@ -61,36 +64,48 @@ module Randomizer =
                     |> Seq.exactlyOne
                 | Randomize ->
                     item_ids[random.Next (List.length item_ids)]
+            // Request a write to the offset(s) for the corresponding item in the original list
             for old_location in old_set do
                 { Offsets = old_location.Offsets; WriteData = new_item }
     ]
 
     let private ApplyRandomizationsToBaseline game operations =
+        // Copy all rewards to an array
         let array = Seq.toArray game.Rewards
+        // Look at each operation
         for x in operations do
+            // For each operation, look at all array items
             for y in 0 .. array.Length - 1 do
                 let reward = array[y]
+                // If the operation and array item have the same set of offsets, replace the "expected item" with this new one
                 if reward.Offsets = x.Offsets then
                     array[y] <- { reward with ItemId = x.WriteData }
+        // Return a game object representing the original game *after* the operations have been applied
+        // This allows us to generate another set of randomizations on top
         { game with Rewards = Array.toList array }
 
     let rec private GenerateMultipleRandomizations game parameters = [
         match parameters with
         | [] -> ()
         | head::tail ->
+            // Generate a list of writes that must be made to randomize this game using the first parameter set
             let old_operations = GenerateSingleRandomization game head
 
+            // Take that as a new baseline, and get a list of writes needed to apply the rest of the randomizations
             let new_game = ApplyRandomizationsToBaseline game old_operations
             let new_operations = GenerateMultipleRandomizations new_game tail
 
             for o in old_operations do
+                // Determine whether the new operations list has a write to this offset
                 let no_matches =
                     new_operations
                     |> Seq.where (fun x -> x.Offsets = o.Offsets)
                     |> Seq.isEmpty
+                // If the new list does not write to this offset, then the old write should still be performed
                 if no_matches then
                     yield o
 
+            // Add all writes from the new list
             yield! new_operations
     ]
 
