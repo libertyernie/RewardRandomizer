@@ -6,11 +6,17 @@ open System.Text
 module Randomizer =
     type Mode = Shuffle | Randomize
 
-    type ItemCollection = ItemCollection of seq<Item> | AllItems
+    type ItemCollection =
+    | ItemCollection of seq<Item>
+    | AllItemsInCategory of ItemCategory
+    | AllItemsNotInCategory of ItemCategory
+    | AllItems
     with
         member this.Contains item =
             match this with
             | ItemCollection c -> Seq.contains item c
+            | AllItemsInCategory c -> item.Category = c
+            | AllItemsNotInCategory c -> item.Category <> c
             | AllItems -> true
 
     type MethodCollection = MethodCollection of seq<Method> | AllMethods

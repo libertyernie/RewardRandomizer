@@ -81,39 +81,14 @@ Public Class Form1
                     Exit Sub
                 End If
 
-                Dim step1 As New List(Of Method)
-
-                If ShuffleChests.Checked Then
-                    step1.Add(Method.Chest)
-                End If
-
-                If ShuffleVillages.Checked Then
-                    step1.Add(Method.Village)
-                End If
-
-                If ShuffleDesert.Checked Then
-                    step1.Add(Method.Sand)
-                End If
-
                 Dim steps As New List(Of RandomizationParameters)
-
-                If step1.Any() Then
-                    steps.Add(
-                        New RandomizationParameters(
-                            Mode.Shuffle,
-                            ItemCollection.AllItems,
-                            MethodCollection.NewMethodCollection(step1)))
-                End If
-
-                Dim selectedPromotionItems = ItemCollection.NewItemCollection(PromotionItemsList.SelectedItems.Cast(Of Item)())
-                Dim selectedStatBoosters = ItemCollection.NewItemCollection(StatBoostersList.SelectedItems.Cast(Of Item)())
 
                 If ShufflePromoItems.Checked Then
                     Console.WriteLine("Shuffling promotion items")
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Shuffle,
-                            selectedPromotionItems,
+                            ItemCollection.NewAllItemsInCategory(ItemCategory.Promotion),
                             MethodCollection.AllMethods))
                 End If
 
@@ -122,7 +97,7 @@ Public Class Form1
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Shuffle,
-                            selectedStatBoosters,
+                            ItemCollection.NewAllItemsInCategory(ItemCategory.StatBooster),
                             MethodCollection.AllMethods))
                 End If
 
@@ -131,7 +106,7 @@ Public Class Form1
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Randomize,
-                            selectedPromotionItems,
+                            ItemCollection.NewAllItemsInCategory(ItemCategory.Promotion),
                             MethodCollection.AllMethods))
                 End If
 
@@ -140,8 +115,32 @@ Public Class Form1
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Randomize,
-                            selectedStatBoosters,
+                            ItemCollection.NewAllItemsInCategory(ItemCategory.StatBooster),
                             MethodCollection.AllMethods))
+                End If
+
+                Dim step3 As New List(Of Method)
+
+                If ShuffleChests.Checked Then
+                    step3.Add(Method.Chest)
+                End If
+
+                If ShuffleVillages.Checked Then
+                    step3.Add(Method.Village)
+                End If
+
+                If ShuffleDesert.Checked Then
+                    step3.Add(Method.Sand)
+                End If
+
+                If step3.Any() Then
+                    steps.Add(
+                        New RandomizationParameters(
+                            Mode.Shuffle,
+                            If(ExcludeConsumables.Checked,
+                                ItemCollection.NewAllItemsNotInCategory(ItemCategory.Consumable),
+                                ItemCollection.AllItems),
+                            MethodCollection.NewMethodCollection(step3)))
                 End If
 
                 Dim operations = GenerateOperations(game, steps)
@@ -155,19 +154,29 @@ Public Class Form1
                         MsgBox("Input ROM not found. (Maybe you want to save an IPS patch instead?)")
                     Else
                         Dim oldData = File.ReadAllBytes(InputBox.Text)
-                        If game.Rewards.Any(Function(r)
-                                                For Each x In r.Offsets
-                                                    If x >= oldData.Length Then Return False
-                                                    If oldData(x) <> r.ItemId Then Return False
-                                                Next
-                                                Return True
-                                            End Function) Then
-                            MsgBox("Input ROM data does not match the selected game. It may be a different region or have incompatible patches.")
-                        Else
-                            Dim newData = ApplyOperations(oldData, operations)
-                            File.WriteAllBytes(dialog.FileName, newData)
-                            MsgBox("Output ROM written.")
-                        End If
+                        For Each r In game.Rewards
+                            For Each x In r.Offsets
+                                If x >= oldData.Length Or oldData(x) <> r.ItemId Then
+                                    MsgBox("Input ROM data does not match the selected game. It may be a different region or have incompatible patches.")
+                                    Return
+                                End If
+                            Next
+                        Next
+                        Dim newData = ApplyOperations(oldData, operations)
+                        File.WriteAllBytes(dialog.FileName, newData)
+                        MsgBox("Output ROM written.")
+
+                        Using summaryDialog As New Form
+                            Using textbox As New TextBox
+                                textbox.Dock = DockStyle.Fill
+                                textbox.ScrollBars = ScrollBars.Both
+                                textbox.Text = GameModule.SummarizeDifferences(game, newData)
+                                textbox.ReadOnly = True
+                                textbox.Multiline = True
+                                summaryDialog.Controls.Add(textbox)
+                                summaryDialog.ShowDialog(Me)
+                            End Using
+                        End Using
                     End If
                 Else
                     MsgBox("File extension not recognized: " + extension)
@@ -190,15 +199,15 @@ Public Class Form1
 
         Dim oldData = File.ReadAllBytes(InputBox.Text)
 
-        Using dialog As New Form
+        Using summaryDialog As New Form
             Using textbox As New TextBox
                 textbox.Dock = DockStyle.Fill
                 textbox.ScrollBars = ScrollBars.Both
                 textbox.Text = GameModule.SummarizeDifferences(game, oldData)
                 textbox.ReadOnly = True
                 textbox.Multiline = True
-                dialog.Controls.Add(textbox)
-                dialog.ShowDialog(Me)
+                summaryDialog.Controls.Add(textbox)
+                summaryDialog.ShowDialog(Me)
             End Using
         End Using
     End Sub

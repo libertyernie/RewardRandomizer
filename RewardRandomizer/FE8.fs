@@ -146,10 +146,10 @@ module FE8 =
         item 0x6a "DOOR_KEY" Other
         item 0x6b "LOCKPICK" Other
         item 0x79 "CHEST_KEY_5" Other
-        item 0x6c "VULNERARY" Other
-        item 0x6d "ELIXIR" Other
-        item 0x6e "PURE_WATER" Other
-        item 0x6f "ANTITOXIN" Other
+        item 0x6c "VULNERARY" Consumable
+        item 0x6d "ELIXIR" Consumable
+        item 0x6e "PURE_WATER" Consumable
+        item 0x6f "ANTITOXIN" Consumable
         item 0x70 "TORCH" Other
         item 0x71 "FILI_SHIELD" Other
         item 0x72 "MEMBER_CARD" Other

@@ -114,11 +114,11 @@ module FE6 =
         item 0x64 "CHEST_KEY_5" Other
         item 0x65 "DOOR_KEY" Other
         item 0x67 "LOCKPICK" Other
-        item 0x68 "VULNERARY" Other
-        item 0x69 "ELIXIR" Other
-        item 0x6a "PURE_WATER" Other
+        item 0x68 "VULNERARY" Consumable
+        item 0x69 "ELIXIR" Consumable
+        item 0x6a "PURE_WATER" Consumable
         item 0x6b "TORCH" Other
-        item 0x6c "ANTITOXIN" Other
+        item 0x6c "ANTITOXIN" Consumable
         item 0x6d "MEMBER_CARD" Other
         item 0x6e "SILVER_CARD" Other
         item 0x79 "WHITE_GEM" Other

@@ -132,10 +132,10 @@ module FE7 =
         item 0x78 "CHEST_KEY_5" Other
         item 0x69 "DOOR_KEY" Other
         item 0x6a "LOCKPICK" Other
-        item 0x6b "VULNERARY" Other
-        item 0x6c "ELIXIR" Other
-        item 0x6d "PURE_WATER" Other
-        item 0x6e "ANTITOXIN" Other
+        item 0x6b "VULNERARY" Consumable
+        item 0x6c "ELIXIR" Consumable
+        item 0x6d "PURE_WATER" Consumable
+        item 0x6e "ANTITOXIN" Consumable
         item 0x6f "TORCH" Other
         item 0x79 "MINE" Other
         item 0x7a "LIGHT_RUNE" Other
