@@ -52,35 +52,64 @@ module Randomizer =
 
     let private random = new Random()
 
-    let GenerateOperations (game: Game) (parameters: RandomizationParameters seq) = seq {
-        for p in parameters do
-            let item_ids =
-                game.Items
-                |> Seq.where (fun x -> p.Items.Contains x)
-                |> Seq.map (fun x -> x.Id)
-                |> Seq.toList
-            let reward_sets =
-                game.Rewards
-                |> Seq.where (fun x -> p.Methods.Contains x.Method)
-                |> Seq.where (fun x -> Seq.contains x.ItemId item_ids)
-                |> Correlator.ExtractAll
-            let shuffled_sets =
-                reward_sets
-                |> List.sortBy (fun _ -> random.Next())
-            for (old_set, new_set) in Seq.zip reward_sets shuffled_sets do
-                let new_item =
-                    match p.Mode with
-                    | Shuffle ->
-                        new_set
-                        |> Seq.map (fun x -> x.ItemId)
-                        |> Seq.distinct
-                        |> Seq.exactlyOne
-                    | Randomize ->
-                        item_ids[random.Next (List.length item_ids)]
-                for old_location in old_set do
-                    for offset in old_location.Offsets do
-                        { Offset = offset; WriteData = [| new_item |] }
-    }
+    let GenerateOperationsForSingleParameterSet (game: Game) (parameters: RandomizationParameters) = [
+        let item_ids =
+            game.Items
+            |> Seq.where (fun x -> parameters.Items.Contains x)
+            |> Seq.map (fun x -> x.Id)
+            |> Seq.toList
+        let reward_sets =
+            game.Rewards
+            |> Seq.where (fun x -> parameters.Methods.Contains x.Method)
+            |> Seq.where (fun x -> Seq.contains x.ItemId item_ids)
+            |> Correlator.ExtractAll
+        let shuffled_sets =
+            reward_sets
+            |> List.sortBy (fun _ -> random.Next())
+        for (old_set, new_set) in Seq.zip reward_sets shuffled_sets do
+            let new_item =
+                match parameters.Mode with
+                | Shuffle ->
+                    new_set
+                    |> Seq.map (fun x -> x.ItemId)
+                    |> Seq.distinct
+                    |> Seq.exactlyOne
+                | Randomize ->
+                    item_ids[random.Next (List.length item_ids)]
+            for old_location in old_set do
+                for offset in old_location.Offsets do
+                    { Offset = offset; WriteData = [| new_item |] }
+    ]
+
+    let ApplyToGame (game: Game) (operations: WriteOperation list) =
+        let resizeArray = ResizeArray game.Rewards
+        let write offset byte =
+            for i in 0 .. resizeArray.Count - 1 do
+                let reward = resizeArray[i]
+                for j in reward.Offsets do
+                    if j = offset then
+                        resizeArray[i] <- { reward with ItemId = byte }
+        for x in operations do
+            for y in 0 .. x.WriteData.Length - 1 do
+                write (x.Offset + y) x.WriteData[y]
+        { game with Rewards = Seq.toList resizeArray }
+
+    let rec GenerateOperationsForParameterSets game parameters = [
+        match parameters with
+        | [] -> ()
+        | head::tail ->
+            let operations = GenerateOperationsForSingleParameterSet game head
+            let new_game = ApplyToGame game operations
+            let new_operations = GenerateOperationsForParameterSets new_game tail
+            let old_operations_to_keep =
+                operations
+                |> Seq.where (fun x -> new_operations |> Seq.where (fun y -> y.Offset = x.Offset) |> Seq.isEmpty)
+            yield! old_operations_to_keep
+            yield! new_operations
+    ]
+
+    let GenerateOperations (game: Game) (parameters: RandomizationParameters seq) =
+        GenerateOperationsForParameterSets game (List.ofSeq parameters)
 
     let ApplyOperations (data: byte[]) (operations: seq<WriteOperation>) =
         let arr = Array.copy data
