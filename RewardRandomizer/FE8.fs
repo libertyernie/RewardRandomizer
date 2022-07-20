@@ -139,8 +139,8 @@ module FE8 =
         item 0x68 "GUIDING_RING" Promotion
         item 0x88 "MASTER_SEAL" Promotion
         item 0x97 "CONQUORER_PROOF" Promotion
-        item 0x98 "MOON_BRACELET" Promotion
-        item 0x99 "SUN_BRACELET" Promotion
+        item 0x98 "MOON_BRACELET" Other
+        item 0x99 "SUN_BRACELET" Other
         item 0x8a "HEAVEN_SEAL" Other
         item 0x69 "CHEST_KEY" Other
         item 0x6a "DOOR_KEY" Other

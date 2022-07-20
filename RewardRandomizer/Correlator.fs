@@ -113,8 +113,3 @@ module Correlator =
         for (required, optional) in reward_groups do
             yield! GetMatches untagged_reward_set required optional
     ]
-
-    let IsItemRandomizable itemId reward_source =
-        ExtractAll reward_source
-        |> Seq.collect id
-        |> Seq.exists (fun x -> x.ItemId = itemId)

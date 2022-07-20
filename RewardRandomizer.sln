@@ -8,11 +8,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87A3EDE1-8636-4BFD-8CBF-81983C88BC2D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RewardRandomizer.VBGUI", "RewardRandomizer.VBGUI\RewardRandomizer.VBGUI.vbproj", "{0E740DDA-5657-4F77-A472-D7C0397599B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RewardRandomizer.Tests", "RewardRandomizer.Tests\RewardRandomizer.Tests.csproj", "{31671B27-6651-48E1-BBB1-F797DEABF2E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RewardRandomizer.Tests", "RewardRandomizer.Tests\RewardRandomizer.Tests.csproj", "{31671B27-6651-48E1-BBB1-F797DEABF2E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
