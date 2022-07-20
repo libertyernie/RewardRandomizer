@@ -183,7 +183,6 @@ module FE8 =
         // Fire Emblem - The Sacred Stones (USA, Australia)
 
         // Prologue: The Fall of Renais
-        ITGV 0x9EF084 0x09 // RAPIER
 
         // Chapter 1: Escape!
 
