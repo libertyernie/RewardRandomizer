@@ -35,7 +35,7 @@ module Randomizer =
 
     let private random = new Random()
 
-    let private GenerateSingleRandomization (game: Game) (parameters: RandomizationParameters) = [
+    let private GenerateSingleRandomization (game: Game) (parameters: RandomizationParameters) = seq {
         // Get all item IDs in the categories specified by the randomization parameters
         let item_ids =
             game.Items
@@ -67,7 +67,7 @@ module Randomizer =
             // Request a write to the offset(s) for the corresponding item in the original list
             for old_location in old_set do
                 { Offsets = old_location.Offsets; WriteData = new_item }
-    ]
+    }
 
     let private ApplyRandomizationsToBaseline game operations =
         // Copy all rewards to an array
@@ -84,33 +84,24 @@ module Randomizer =
         // This allows us to generate another set of randomizations on top
         { game with Rewards = Array.toList array }
 
-    let rec private GenerateMultipleRandomizations game parameters = [
+    let rec private GenerateMultipleRandomizations game parameters = seq {
         match parameters with
         | [] -> ()
         | head::tail ->
             // Generate a list of writes that must be made to randomize this game using the first parameter set
             let old_operations = GenerateSingleRandomization game head
+            yield! old_operations
 
             // Take that as a new baseline, and get a list of writes needed to apply the rest of the randomizations
             let new_game = ApplyRandomizationsToBaseline game old_operations
-            let new_operations = GenerateMultipleRandomizations new_game tail
-
-            for o in old_operations do
-                // Determine whether the new operations list has a write to this offset
-                let no_matches =
-                    new_operations
-                    |> Seq.where (fun x -> x.Offsets = o.Offsets)
-                    |> Seq.isEmpty
-                // If the new list does not write to this offset, then the old write should still be performed
-                if no_matches then
-                    yield o
-
-            // Add all writes from the new list
-            yield! new_operations
-    ]
+            yield! GenerateMultipleRandomizations new_game tail
+    }
 
     let GenerateOperations game parameters =
+        // Pass to GenerateMultipleRandomizations, but only keep the last write to each set of offsets
         GenerateMultipleRandomizations game (List.ofSeq parameters)
+        |> Seq.groupBy (fun x -> x.Offsets)
+        |> Seq.map (fun (_, g) -> Seq.last g)
 
     let ApplyOperations (data: byte[]) (operations: seq<WriteOperation>) =
         let arr = Array.copy data
@@ -119,6 +110,11 @@ module Randomizer =
                 arr[o] <- x.WriteData
         arr
 
+    let private EOF =
+        "EOF"
+        |> Encoding.UTF8.GetBytes
+        |> Seq.toList
+
     let CreateIPS (operations: seq<WriteOperation>) = [|
         yield! Encoding.UTF8.GetBytes "PATCH"
 
@@ -126,17 +122,22 @@ module Randomizer =
             for o in x.Offsets do
                 if o >>> 24 <> 0 then
                     failwith "Cannot generate an IPS patch that writes to an offset outside the range 0 - 16 MiB"
-                if o = 0x454F46 then
-                    failwith "Cannot generate an IPS patch that writes to offset 0x454F46"
 
-                byte (o >>> 16)
-                byte (o >>> 8)
-                byte (o >>> 0)
+                let offsetData = [
+                    byte (o >>> 16)
+                    byte (o >>> 8)
+                    byte (o >>> 0)
+                ]
+
+                if offsetData = EOF then
+                    failwithf "Cannot generate an IPS patch that writes to offset %A" offsetData
+
+                yield! offsetData
 
                 byte 0
                 byte 1
 
                 x.WriteData
 
-        yield! Encoding.UTF8.GetBytes "EOF"
+        yield! EOF
     |]

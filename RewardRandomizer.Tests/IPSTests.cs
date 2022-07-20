@@ -31,5 +31,18 @@ namespace RewardRandomizer.Tests
                 ListModule.OfArray(expected),
                 ListModule.OfArray(actual));
         }
+
+        [TestMethod, ExpectedException(typeof(Exception))]
+        public void TestProhibitAmbiguity()
+        {
+            var random = new Random();
+            var data1 = new byte[0x500000];
+            random.NextBytes(data1);
+            var operations = new[]
+            {
+                new Randomizer.WriteOperation(offsets: SetModule.OfArray(new[] { 0x454F46 }), writeData: 100),
+            };
+            Randomizer.CreateIPS(operations);
+        }
     }
 }
