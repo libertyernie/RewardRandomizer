@@ -77,11 +77,12 @@ namespace RewardRandomizer.Tests
             var game = GameModule.FE7_US;
             var locations = game.Rewards;
             var correlations = Correlator.ExtractAll(locations);
-            Console.WriteLine(correlations.Length);
             var correlated = correlations.SelectMany(x => x);
             var expected_exclusives = new []
             {
                 0xCC9E2E, // Hector hard mode ch. 15 dragonshield
+                0xCCC325, // Eliwood speedwings A
+                0xCCC455, // Eliwood speedwings B
                 0xCB6124, // Afa's drops - requires tactician
                 0xCD79AD, // Kenneth map Eliwood hard mode speedwings (not in normal mode)
                 0xCD7BCD, // Kenneth map Hector hard mode speedwings (not in normal mode)
@@ -112,6 +113,8 @@ namespace RewardRandomizer.Tests
                 string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).Single();
                 Assert.Fail($"No match found for item: {x} {itemName}");
             }
+            // Test orion's bolt on Four Fanged Offense
+            Assert.IsTrue(correlations.Any(x => x.All(y => y.ItemId == 0x65) && x.SelectMany(y => y.Offsets).Contains(0xCB7828) && x.SelectMany(y => y.Offsets).Count() == 3));
         }
 
         [TestMethod]
@@ -120,7 +123,6 @@ namespace RewardRandomizer.Tests
             var game = GameModule.FE8_US;
             var locations = game.Rewards;
             var correlations = Correlator.ExtractAll(locations);
-            Console.WriteLine(correlations.Length);
             var correlated = correlations.SelectMany(x => x);
             var expected_exclusives = new[]
             {
@@ -156,7 +158,6 @@ namespace RewardRandomizer.Tests
             byte itemId,
             int offset,
             FSharpOption<Route>? route = null,
-            FSharpOption<Difficulty>? difficulty = null,
             FSharpOption<string>? tag = null)
         {
             return new Reward(
@@ -165,7 +166,6 @@ namespace RewardRandomizer.Tests
                 0,
                 SetModule.OfArray(new[] { offset }),
                 route ?? FSharpOption<Route>.None,
-                difficulty ?? FSharpOption<Difficulty>.None,
                 tag ?? FSharpOption<string>.None);
         }
 
@@ -195,44 +195,6 @@ namespace RewardRandomizer.Tests
             Assert.AreEqual(2, leftover.Count);
             Assert.IsTrue(leftover.Contains(eirikaExclusive));
             Assert.IsTrue(leftover.Contains(ephraimExclusive));
-        }
-
-        [TestMethod]
-        public void TestDifficultyCorrleation()
-        {
-            var normalSword = BuildReward(Method.Chest, 1, 0x1000, difficulty: Difficulty.Normal);
-            var hardSword = BuildReward(Method.Chest, 1, 0x2000, difficulty: Difficulty.Hard);
-            var hectorNormalSword = BuildReward(Method.Chest, 1, 0x3000, difficulty: Difficulty.HectorNormal);
-            var hectorHardSword = BuildReward(Method.Chest, 1, 0x4000, difficulty: Difficulty.HectorHard);
-
-            var hardLance = BuildReward(Method.Chest, 20, 0x7000, difficulty: Difficulty.Hard);
-            var hectorHardLance = BuildReward(Method.Chest, 20, 0x7000, difficulty: Difficulty.HectorHard);
-
-            var normalItem = BuildReward(Method.Chest, 50, 0x6000, difficulty: Difficulty.Normal);
-            var hardItem = BuildReward(Method.Chest, 50, 0x7000, difficulty: Difficulty.Hard);
-
-            var locations = new []
-            {
-                normalSword,
-                hardSword,
-                hectorNormalSword,
-                hectorHardSword,
-                hardLance,
-                hectorHardLance,
-                normalItem,
-                hardItem
-            };
-
-            var correlations = Correlator.ExtractAll(locations);
-            Assert.AreEqual(2, correlations.Length, $"{correlations}");
-            Assert.AreEqual(1, correlations[0].Select(x => x.ItemId).Distinct().Single());
-            Assert.AreEqual(50, correlations[1].Select(x => x.ItemId).Distinct().Single());
-            var correlated = correlations.SelectMany(x => x);
-            Assert.AreEqual(6, correlated.Count());
-            var leftover = locations.Except(correlated).ToHashSet();
-            Assert.IsTrue(leftover.Contains(hardLance));
-            Assert.IsTrue(leftover.Contains(hectorHardLance));
-            Assert.AreEqual(2, leftover.Count);
         }
 
         [TestMethod]

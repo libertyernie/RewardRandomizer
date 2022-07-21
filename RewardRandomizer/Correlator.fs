@@ -10,22 +10,19 @@ module Correlator =
             | Some t ->
                 let without_offsets =
                     group
-                    |> Seq.map (fun x -> { x with Offsets = Set.empty })
+                    |> Seq.map (fun x -> x.ItemId)
                     |> Seq.distinct
-                    |> Seq.toList
+                    |> Seq.length
                 match without_offsets with
-                | [] -> failwith "Empty group"
-                | [single] -> yield { single with Tag = None; Offsets = set [for x in group do yield! x.Offsets] }
-                | _::_ -> printfn "Skipping object(s) with tag %s due to mismatch" t
+                | 0 -> failwith "Empty group"
+                | 1 -> yield { Seq.head group with Tag = None; Offsets = set [for x in group do yield! x.Offsets] }
+                | _ -> ()
     ]
 
-    let IsOnRoute x r = r.Route = Some x && r.Difficulty = None
-    let IsOnDifficulty x r = r.Route = None && r.Difficulty = Some x
-    let IsOnNeither r = r.Route = None && r.Difficulty = None
+    let IsOnRoute x r = r.Route = Some x
+    let IsNotOnRoute r = r.Route = None
 
-    let GetMutuallyExclusiveFilterSets reward_source = [
-        let rewards = Set.ofSeq reward_source
-
+    let MutuallyExclusiveFilterSets = [
         // Handle route splits
         for (a, b) in [
             (Bartre, Echidna)
@@ -38,18 +35,8 @@ module Correlator =
         ] do
             yield ([IsOnRoute a; IsOnRoute b], [])
 
-        // Handle items specific to a difficulty level
-        let alternate_levels =
-            rewards
-            |> Seq.choose (fun x -> x.Difficulty)
-            |> Seq.except [Normal]
-            |> Seq.distinct
-            |> Seq.toList
-
-        yield ([IsOnDifficulty Normal], [for x in alternate_levels do IsOnDifficulty x])
-
         // Handle items that are neither
-        yield ([IsOnNeither], [])
+        yield ([IsNotOnRoute], [])
     ]
 
     let private remove (item: 'T) (set: HashSet<'T>) = set.Remove(item) |> ignore
@@ -96,6 +83,9 @@ module Correlator =
                     if missing then yield filter
             }
 
+            if p.ItemId = 0x65uy then
+                printfn "%A" [for x in matching_set do for o in x.Offsets do sprintf "%6X" o]
+
             if Seq.isEmpty missing_required_filters then
                 yield matching_set
     ]
@@ -107,7 +97,7 @@ module Correlator =
         let untagged_reward_set = reward_source |> Untag |> HashSet
         // Get a list of filters that are mutually exclusive with each other (e.g. "is Sacae" and "is Ilia")
         // One of these will simply be "all routes, all difficulty levels"
-        let reward_groups = GetMutuallyExclusiveFilterSets untagged_reward_set
+        let reward_groups = MutuallyExclusiveFilterSets
         // Pass each to GetMatches, which will remove processed items from the HashSet,
         // and return the results
         for (required, optional) in reward_groups do

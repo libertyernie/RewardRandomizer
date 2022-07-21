@@ -59,15 +59,15 @@ Item locations (rewards) are defined by:
 * Unit ID (if in a unit's starting inventory, or given to them as part of a story event)
 * Offsets (the locations in ROM at which the item ID appears)
 * Route (the route split, if any, that the item is exclusive to - e.g. Ilia, Sacae, Kenneth, Jerme, Eirika, Ephraim)
-* Difficulty (the difficulty level, if any, that the item is exclusive to - Blazing Blade only)
 * Tag (an arbitary string - item locations with the same tag are treated as one item location in the randomizer, unless their other attributes don't match - in that case, they are ignored)
 
-The `Correlator` module takes these locations and combines them (by joining
-their offsets together) when matching items are found across all routes, with
-the same tag, or on both Normal difficulty and other levels; for example, the
-wyrmslayer on Echidna's route and the one on Bartre's route are considered one
-item. Items that are exclusive to a route (like Ephraim's third knight crest)
-are omitted.
+The `Correlator` module takes these locations and combines them into sets when
+matching items are found across all routes. Before doing this, items with the
+same tag are combined into a single item. For example, the wyrmslayer on
+Echidna's route and the one on Bartre's route are included in a set, and the
+chapter 2 armorslayer is in a set of its own. Items that are exclusive to a
+route (like Ephraim's third knight crest) are omitted, as are items which
+share the same tag but don't have matching item IDs.
 
 The input parameters for an operation are:
 
