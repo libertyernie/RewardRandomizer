@@ -3,31 +3,15 @@
 open System.Collections.Generic
 
 module Correlator =
-    let Untag rewards = [
-        for (tag, group) in rewards |> Seq.groupBy (fun r -> r.Tag) do
-            if tag = None
-            then yield! group
-            else
-                let without_offsets =
-                    group
-                    |> Seq.map (fun x -> { x with Offsets = Set.empty })
-                    |> Seq.distinct
-                    |> Seq.toList
-                match without_offsets with
-                | [] -> failwith "Empty group"
-                | [single] -> yield { single with Tag = None; Offsets = set [for x in group do yield! x.Offsets] }
-                | _::_::_ -> ()
-    ]
-
     let IsOnRoute x r = r.Route = Some x
     let IsNotOnRoute r = r.Route = None
 
     let MutuallyExclusiveFilterSets = [
         // Handle route splits
         for set in [
+            [EarlyItem; LateItem]
             [Bartre; Echidna]
             [Ilia; Sacae]
-            [Eliwood; Hector]
             [EliwoodNormal; EliwoodHard; HectorNormal; HectorHard]
             [Tactician; NoTactician]
             [Lloyd; Linus]
@@ -88,11 +72,9 @@ module Correlator =
                 yield matching_set
     ]
 
-    let ExtractAll reward_source: Set<Reward> list = [
-        // Combine objects that have the same tag and other parameters match
-        // Discard objects that have the same tag if there are mismatches
+    let ExtractAll (reward_source: seq<Reward>): Set<Reward> list = [
         // Create a HashSet to store objects to be processed
-        let untagged_reward_set = reward_source |> Untag |> HashSet
+        let untagged_reward_set = HashSet reward_source
         // Get a list of filters that are mutually exclusive with each other (e.g. "is Sacae" and "is Ilia")
         // One of these will simply be "all routes, all difficulty levels"
         let reward_groups = MutuallyExclusiveFilterSets

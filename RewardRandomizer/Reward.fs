@@ -8,9 +8,9 @@ type Method =
 | Sand
 
 type Route =
+| EarlyItem | LateItem
 | Bartre | Echidna
 | Ilia | Sacae
-| Eliwood | Hector
 | EliwoodNormal | EliwoodHard | HectorNormal | HectorHard
 | Tactician | NoTactician
 | Lloyd | Linus
@@ -22,8 +22,7 @@ type Reward =
       ItemId: byte
       Unit: byte
       Offsets: Set<int>
-      Route: Route option
-      Tag: string option }
+      Route: Route option }
 
 module internal Reward =
     let reward method offset item unit =
@@ -31,13 +30,26 @@ module internal Reward =
           ItemId = byte item
           Unit = byte unit
           Offsets = Set.singleton offset
-          Route = None
-          Tag = None }
+          Route = None }
 
     let route new_route reward =
-        if reward.Route <> None then failwith "Object already has route"
-        { reward with Route = Some new_route }
+        if reward.Route = None
+        then { reward with Route = Some new_route }
+        else failwith "Object already has route"
 
-    let tag tag reward =
-        if reward.Tag <> None then failwith "Object already has tag"
-        { reward with Tag = Some tag }
+    let exclusiveTo routes rewards = seq {
+        for x in rewards do
+            for y in routes do
+                if x.Route = Some y then x
+                else if x.Route = None then { x with Route = Some y }
+    }
+
+    let mututallyExclusive rewards =
+        let without_offsets =
+            rewards
+            |> Seq.map (fun x -> { x with Offsets = Set.empty })
+            |> Seq.distinct
+            |> Seq.toList
+        match without_offsets with
+        | [single] -> Seq.singleton { single with Offsets = set [for x in rewards do yield! x.Offsets] }
+        | _ -> Seq.empty

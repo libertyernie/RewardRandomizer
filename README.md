@@ -59,17 +59,17 @@ Item locations (rewards) are defined by:
 * Unit ID (if in a unit's starting inventory, or given to them as part of a story event)
 * Offsets (the locations in ROM at which the item ID appears)
 * Route (the route split, if any, that the item is exclusive to)
-* Tag
 
-The `Correlator` module combines these locations in two ways:
+Some items are defined as mututally exclusive; these items get treated as a
+single item with multiple offsets by the randomizer as long as all properties
+(other than offset) match. If other properties do not match, the item is
+ignored.
 
-* Item location objects with the same **tag** are combined into a single
-  object, where the offsets are combined into a single set - but only if all
-  other attributes match; if not, the item location is ignored.
-* Item location objects with the same item ID, but on different routes, are
-  combined into sets - but only if a match is found on each of the other
-  corresponding routes (e.g. Eirika/Ephraim, Ilia/Sacae).
-  * If an item is not route-specific, it is included in a set of its own.
+Item location objects with the same item ID, but on different routes, are
+combined into sets by the `Correlator` - but only if a match is found on each
+of the other corresponding routes (e.g. Eirika/Ephraim, Ilia/Sacae), otherwise
+the item is ignored. If an item is not route-specific, it is included in a set
+of its own.
 
 The `Randomizer` then uses this list of sets as its basis, although which
 items get included when calculating the list of sets is constrained by the

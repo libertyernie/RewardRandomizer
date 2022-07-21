@@ -197,7 +197,7 @@ module FE6 =
         ITGV 0x66DE2C 0x2B // KILLER_BOW
         ITGV 0x66DD94 0x04 // SILVER_SWORD
 
-        yield! List.map (route Echidna) [
+        yield! exclusiveTo [Echidna] [
             // Chapter 10A: The Resistance Forces
             ITGV 0x66E260 0x24 // SWORDREAVER
             ITGC 0x66E2E4 0x78 0x01 // WYRMSLAYER
@@ -215,17 +215,21 @@ module FE6 =
             ITGC 0x66EDB0 0x62 0x2E // ELYSIAN_WHIP
         ]
 
-        yield! List.map (route Bartre) [
+        yield! exclusiveTo [Bartre] [
             // Chapter 10B: Caught in the Middle
             ITGV 0x673658 0x59 // DRAGON_SHIELD
             ITGV 0x673420 0x4C // SLEEP
             ITGV 0x6736A0 0x24 // SWORDREAVER
             ITGV 0x673468 0x61 // ORION_BOLT
-            ITGV 0x6735BC 0x69 |> tag "Western" // ELIXIR
-            ITGV 0x673604 0x5B |> tag "Western" // SPEEDWING
+            yield! Reward.mututallyExclusive [
+                ITGV 0x6735BC 0x69 // ELIXIR
+                ITGV 0x673604 0x5B // SPEEDWING
+            ]
             ITGV 0x6734B0 0x52 // BARRIER
-            ITGV 0x67350C 0x65 |> tag "Eastern" // DOOR_KEY
-            ITGV 0x673554 0x24 |> tag "Eastern" // SWORDREAVER
+            yield! Reward.mututallyExclusive [
+                ITGV 0x67350C 0x65 // DOOR_KEY
+                ITGV 0x673554 0x24 // SWORDREAVER
+            ]
             ITGC 0x673808 0x61 0x0F // ORION_BOLT
             ITGC 0x6737AC 0x5F 0x01 // HERO_CREST
             ITGC 0x673734 0x78 0x01 // WYRMSLAYER
@@ -263,7 +267,7 @@ module FE6 =
         // Chapter 13: The Rescue Plan
         ITGV 0x66F9F8 0x5E // BODY_RING
         ITGV 0x66FA40 0x74 // AL_SWORD
-        ITGC 0x66FBCC 0x60 0x1D |> tag "Percival Knight Crest" // KNIGHT_CREST
+        ITGC 0x66FBCC 0x60 0x1D |> route EarlyItem // KNIGHT_CREST
 
         // Chapter 14: Arcadia
         Sand 0x66FE44 0x4B // SILENCE
@@ -281,7 +285,7 @@ module FE6 =
         // Chapter 15: The Dragon Girl
         ITGV 0x67045C 0x4E // HAMMERNE
         ITGV 0x670414 0x3C // DIVINE
-        ITGC 0x670590 0x60 0x1D |> tag "Percival Knight Crest" // KNIGHT_CREST
+        ITGC 0x670590 0x60 0x1D |> route LateItem // KNIGHT_CREST
 
         // Chapter 16: Retaking the Capital
         CHES 0x668BC0 0x45 // RECOVER
@@ -297,7 +301,7 @@ module FE6 =
         // Chapter 16x: The Pinnacle of Light
         ITGC 0x675514 0x3E 0x01 // AUREOLA
 
-        yield! List.map (route Ilia) [
+        yield! exclusiveTo [Ilia] [
             // Chapter 17A: The Path Through the Ocean
             ITGV 0x670DEC 0x76 // TINA_STAFF
 
@@ -321,8 +325,10 @@ module FE6 =
             CHES 0x669150 0x4C // SLEEP
             CHES 0x66915C 0x40 // NOSFERATU
             CHES 0x669168 0x78 // WYRMSLAYER
-            ITGC 0x671A4C 0x58 0x01 |> tag "Ilia angelic robe" // ANGELIC_ROBE
-            ITGC 0x671B08 0x58 0x01 |> tag "Ilia angelic robe" // ANGELIC_ROBE
+            yield! mututallyExclusive [
+                ITGC 0x671A4C 0x58 0x01 // ANGELIC_ROBE
+                ITGC 0x671B08 0x58 0x01 // ANGELIC_ROBE
+            ]
 
             // Chapter 20Ax: The Spear of Ice
             ITGC 0x6756E0 0x17 0x01 // MALTET
@@ -332,7 +338,7 @@ module FE6 =
             Unit 0x680764 0x77 0x12 3 // HOLY_MAIDEN
         ]
 
-        yield! List.map (route Sacae) [
+        yield! exclusiveTo [Sacae] [
             // Chapter 17B: The Bishop's Teaching
             ITGV 0x673DFC 0x76 // TINA_STAFF
             ITGV 0x673E44 0x41 // ECLIPSE
@@ -366,7 +372,7 @@ module FE6 =
         // Chapter 21: The Binding Blade
         Unit 0x680454 0x60 0x62 1 // KNIGHT_CREST
         ITGV 0x671F40 0x60 // KNIGHT_CREST
-        ITGC 0x6720A4 0x0F 0x01 |> tag "Binding Blade" // BINDING_BLADE
+        ITGC 0x6720A4 0x0F 0x01 |> route EarlyItem // BINDING_BLADE
 
         // Chapter 21x: The Silencing Darkness
         ITGV 0x675D04 0x69 // ELIXIR
@@ -375,7 +381,7 @@ module FE6 =
         ITGV 0x675D8C 0x69 // ELIXIR
         ITGV 0x675D48 0x69 // ELIXIR
         ITGV 0x675E58 0x69 // ELIXIR
-        ITGC 0x675FB0 0x0F 0x01 |> tag "Binding Blade" // BINDING_BLADE
+        ITGC 0x675FB0 0x0F 0x01 |> route LateItem // BINDING_BLADE
         ITGC 0x675EC8 0x42 0x01 // APOCALYPSE
 
         // Chapter 22: The Neverending Dream
@@ -453,7 +459,7 @@ module FE6 =
         ITGV 0x66DE2C 0x2B // KILLER_BOW
         ITGV 0x66DD94 0x04 // SILVER_SWORD
 
-        yield! List.map (route Echidna) [
+        yield! exclusiveTo [Echidna] [
             // Chapter 10A: The Resistance Forces
             ITGV 0x66E260 0x24 // SWORDREAVER
             ITGC 0x66E2E4 0x78 0x01 // WYRMSLAYER
@@ -471,17 +477,21 @@ module FE6 =
             ITGC 0x800B04 0x62 0x2E // ELYSIAN_WHIP
         ]
 
-        yield! List.map (route Bartre) [
+        yield! exclusiveTo [Bartre] [
             // Chapter 10B: Caught in the Middle
             ITGV 0x673658 0x59 // DRAGON_SHIELD
             ITGV 0x673420 0x4C // SLEEP
             ITGV 0x6736A0 0x24 // SWORDREAVER
             ITGV 0x673468 0x61 // ORION_BOLT
-            ITGV 0x6735BC 0x69 |> tag "Western" // ELIXIR
-            ITGV 0x673604 0x5B |> tag "Western" // SPEEDWING
+            yield! Reward.mututallyExclusive [
+                ITGV 0x6735BC 0x69 // ELIXIR
+                ITGV 0x673604 0x5B // SPEEDWING
+            ]
             ITGV 0x6734B0 0x52 // BARRIER
-            ITGV 0x67350C 0x65 |> tag "Eastern" // DOOR_KEY
-            ITGV 0x673554 0x24 |> tag "Eastern" // SWORDREAVER
+            yield! Reward.mututallyExclusive [
+                ITGV 0x67350C 0x65 // DOOR_KEY
+                ITGV 0x673554 0x24 // SWORDREAVER
+            ]
             ITGC 0x8003A0 0x78 0x01 // WYRMSLAYER
             ITGC 0x8004D0 0x62 0x2E // ELYSIAN_WHIP
             ITGC 0x800474 0x61 0x0F // ORION_BOLT
@@ -519,7 +529,7 @@ module FE6 =
         // Chapter 13: The Rescue Plan
         ITGV 0x66F9F8 0x5E // BODY_RING
         ITGV 0x66FA40 0x74 // AL_SWORD
-        ITGC 0x66FBCC 0x60 0x1D |> tag "Percival Knight Crest" // KNIGHT_CREST
+        ITGC 0x66FBCC 0x60 0x1D |> route EarlyItem // KNIGHT_CREST
 
         // Chapter 14: Arcadia
         ITGV 0x66FE44 0x4B // SILENCE
@@ -537,7 +547,7 @@ module FE6 =
         // Chapter 15: The Dragon Girl
         ITGV 0x67045C 0x4E // HAMMERNE
         ITGV 0x670414 0x3C // DIVINE
-        ITGC 0x670590 0x60 0x1D |> tag "Percival Knight Crest" // KNIGHT_CREST
+        ITGC 0x670590 0x60 0x1D |> route LateItem // KNIGHT_CREST
 
         // Chapter 16: Retaking the Capital
         CHES 0x668BC0 0x45 // RECOVER
@@ -553,7 +563,7 @@ module FE6 =
         // Chapter 16x: The Pinnacle of Light
         ITGC 0x675514 0x3E 0x01 // AUREOLA
 
-        yield! List.map (route Ilia) [
+        yield! exclusiveTo [Ilia] [
             // Chapter 17A: The Path Through the Ocean
             ITGV 0x670DEC 0x76 // TINA_STAFF
 
@@ -577,8 +587,10 @@ module FE6 =
             CHES 0x669150 0x4C // SLEEP
             CHES 0x66915C 0x40 // NOSFERATU
             CHES 0x669168 0x78 // WYRMSLAYER
-            ITGC 0x8305B8 0x58 0x01 |> tag "Ilia angelic robe" // ANGELIC_ROBE
-            ITGC 0x83067C 0x58 0x01 |> tag "Ilia angelic robe" // ANGELIC_ROBE
+            yield! Reward.mututallyExclusive [
+                ITGC 0x8305B8 0x58 0x01 // ANGELIC_ROBE
+                ITGC 0x83067C 0x58 0x01 // ANGELIC_ROBE
+            ]
 
             // Chapter 20Ax: The Spear of Ice
             ITGC 0x8001EC 0x17 0x01 // MALTET
@@ -588,7 +600,7 @@ module FE6 =
             Unit 0x680764 0x77 0x12 3 // HOLY_MAIDEN
         ]
 
-        yield! List.map (route Sacae) [
+        yield! exclusiveTo [Sacae] [
             // Chapter 17B: The Bishop's Teaching
             ITGV 0x673DFC 0x76 // TINA_STAFF
             ITGV 0x673E44 0x41 // ECLIPSE
@@ -622,7 +634,7 @@ module FE6 =
         // Chapter 21: The Binding Blade
         Unit 0x680454 0x60 0x62 1 // KNIGHT_CREST
         ITGV 0x671F40 0x60 // KNIGHT_CREST
-        ITGC 0x6720A4 0x0F 0x01 |> tag "Binding Blade" // BINDING_BLADE
+        ITGC 0x6720A4 0x0F 0x01 |> route EarlyItem // BINDING_BLADE
 
         // Chapter 21x: The Silencing Darkness
         ITGV 0x675D04 0x69 // ELIXIR
@@ -632,7 +644,7 @@ module FE6 =
         ITGV 0x675D48 0x69 // ELIXIR
         ITGV 0x675E58 0x69 // ELIXIR
         ITGC 0x675EC8 0x42 0x01 // APOCALYPSE
-        ITGC 0x675FB0 0x0F 0x01 |> tag "Binding Blade" // BINDING_BLADE
+        ITGC 0x675FB0 0x0F 0x01 |> route LateItem // BINDING_BLADE
 
         // Chapter 22: The Neverending Dream
         Unit 0x680F50 0x5F 0x64 1 // HERO_CREST

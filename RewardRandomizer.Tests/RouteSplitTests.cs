@@ -50,7 +50,7 @@ namespace RewardRandomizer.Tests
                     (Route.Ilia, "ELYSIAN_WHIP"),
                     (Route.Sacae, "ORION_BOLT"),
                 };
-                var leftover = Correlator.Untag(locations).Except(correlated).ToHashSet();
+                var leftover = locations.Except(correlated).ToHashSet();
                 foreach (var (route, name) in expected_exclusives)
                 {
                     foreach (var x in leftover)
@@ -93,7 +93,7 @@ namespace RewardRandomizer.Tests
                 0xCA504C, // Jerme map bolting
                 0xCDB081, // Eliwood hard mode orion's bolt in Cog of Destiny
             };
-            var leftover = Correlator.Untag(locations).Except(correlated).ToHashSet();
+            var leftover = locations.Except(correlated).ToHashSet();
             foreach (int offset in expected_exclusives)
             {
                 foreach (var x in leftover)
@@ -108,8 +108,10 @@ namespace RewardRandomizer.Tests
             }
             foreach (var x in leftover)
             {
-                if (OptionModule.ToObj(x.Route)?.IsHector == true) continue;
-                if (OptionModule.ToObj(x.Route)?.IsEliwood == true && x.ItemId == 0x5B) continue;
+                if (OptionModule.ToObj(x.Route)?.IsHectorNormal == true) continue;
+                if (OptionModule.ToObj(x.Route)?.IsHectorHard == true) continue;
+                if (OptionModule.ToObj(x.Route)?.IsEliwoodNormal == true && x.ItemId == 0x5B) continue;
+                if (OptionModule.ToObj(x.Route)?.IsEliwoodHard == true && x.ItemId == 0x5B) continue;
                 string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).Single();
                 Assert.Fail($"No match found for item: {x} {itemName}");
             }
@@ -133,7 +135,7 @@ namespace RewardRandomizer.Tests
                 (Route.Eirika, "ENERGY_RING"), // Eirika has two (Ewan + chapter 14 chest), Ephraim has just one (off an enemy)
                 (Route.Ephraim, "KNIGHT_CREST"), // Ephraim has two (reward for saving Dussel's cavs + another off Vigarde), Eirika has one (off Aias)
             };
-            var leftover = Correlator.Untag(locations).Except(correlated).ToHashSet();
+            var leftover = locations.Except(correlated).ToHashSet();
             foreach (var (route, name) in expected_exclusives)
             {
                 foreach (var x in leftover)
@@ -157,16 +159,14 @@ namespace RewardRandomizer.Tests
             Method method,
             byte itemId,
             int offset,
-            FSharpOption<Route>? route = null,
-            FSharpOption<string>? tag = null)
+            FSharpOption<Route>? route = null)
         {
             return new Reward(
                 method,
                 itemId,
                 0,
                 SetModule.OfArray(new[] { offset }),
-                route ?? FSharpOption<Route>.None,
-                tag ?? FSharpOption<string>.None);
+                route ?? FSharpOption<Route>.None);
         }
 
         [TestMethod]
@@ -195,28 +195,6 @@ namespace RewardRandomizer.Tests
             Assert.AreEqual(2, leftover.Count);
             Assert.IsTrue(leftover.Contains(eirikaExclusive));
             Assert.IsTrue(leftover.Contains(ephraimExclusive));
-        }
-
-        [TestMethod]
-        public void TestConditionCorrleation()
-        {
-            var quickSword = BuildReward(Method.Chest, 1, 0x1000, tag: FSharpOption<string>.Some("tag1"));
-            var slowSword = BuildReward(Method.Chest, 1, 0x1100, tag: FSharpOption<string>.Some("tag1"));
-
-            var quickLance = BuildReward(Method.Chest, 20, 0x1200, tag: FSharpOption<string>.Some("tag2"));
-
-            var locations = new []
-            {
-                quickSword,
-                slowSword,
-                quickLance
-            };
-
-            var correlations = Correlator.ExtractAll(locations);
-            Assert.AreEqual(1, correlations[0].Count);
-            Assert.AreEqual(2, correlations[0].Single().Offsets.Count);
-            Assert.AreEqual(1, correlations[1].Count);
-            Assert.AreEqual(1, correlations[1].Single().Offsets.Count);
         }
     }
 }

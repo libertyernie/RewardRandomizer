@@ -164,25 +164,20 @@ module FE7 =
     let ChTo offset item unit = reward Story (offset + 16) item unit
     let Sand offset item = reward Sand (offset + 4) item 0
 
-    let acrossDifficultyLevels rewards = [
-        let g = System.Guid.NewGuid().ToString()
-        for x in rewards do
-            yield tag g x
-    ]
-
-    let hardModeOnly _ = List.empty
+    let Eliwood = [EliwoodNormal; EliwoodHard]
+    let Hector = [HectorNormal; HectorHard]
 
     let US = [
         // Fire Emblem (USA, Australia)
 
         // Chapter 11 (Eliwood): Taking Leave
-        yield! List.map (route Eliwood) [
+        yield! exclusiveTo Eliwood [
             ITGV 0xCAE43C 0x5F // DRAGONSHIELD
             Unit 0xCC7C5C 0x5B 0x08 1 // ENERGY_RING
         ]
 
         // Chapter 11 (Hector): Another Journey
-        yield! List.map (route Hector) [
+        yield! exclusiveTo Hector [
             CHES 0xCA19CC 0x75 // RED_GEM
         ]
 
@@ -200,10 +195,8 @@ module FE7 =
         ITGV 0xCB0348 0x05 // IRON_BLADE
 
         // Chapter 15: Talons Alight
-        yield! List.map (route Hector) [
-            yield! hardModeOnly [
-                Unit 0xCC9E24 0x5F 0x46 2 // DRAGONSHIELD
-            ]
+        yield! exclusiveTo Hector [
+            Unit 0xCC9E24 0x5F 0x46 2 |> route HectorHard // DRAGONSHIELD
             CHES 0xCA22CC 0x21 // SILVER_AXE
             CHES 0xCA22D8 0x4B // MEND
         ]
@@ -219,7 +212,7 @@ module FE7 =
         CHES 0xCA28A0 0x63 // HERO_CREST
         Chap 0xCB1950 0x75 // RED_GEM
 
-        yield! acrossDifficultyLevels [
+        yield! Reward.mututallyExclusive [
             Chap 0xCB1950 0x75 // RED_GEM
             Chap 0xCB197C 0x7A // LIGHT_RUNE
             Chap 0xCB19A8 0x79 // MINE
@@ -232,35 +225,27 @@ module FE7 =
         ITGV 0xCB200C 0x27 // DEVIL_AXE
 
         // Chapter 18: Pirate Ship
-        yield! acrossDifficultyLevels [
-            Unit 0xCCC32C 0x67 0x6E 1 // GUIDING_RING
-            Unit 0xCCC50C 0x67 0x4A 1 // GUIDING_RING
-            Unit 0xCCC45C 0x67 0x6E 1 // GUIDING_RING
-            Unit 0xCCC65C 0x67 0x4A 1 // GUIDING_RING
-        ]
+        Unit 0xCCC32C 0x67 0x6E 1 |> route EliwoodNormal // GUIDING_RING
+        Unit 0xCCC50C 0x67 0x4A 1 |> route EliwoodHard // GUIDING_RING
+        Unit 0xCCC45C 0x67 0x6E 1 |> route HectorNormal // GUIDING_RING
+        Unit 0xCCC65C 0x67 0x4A 1 |> route HectorHard // GUIDING_RING
         Unit 0xCCC6CC 0x66 0xF3 1 |> route HectorHard // ELYSIAN_WHIP
 
-        yield! List.map (route Eliwood) [
-            yield! acrossDifficultyLevels [
-                Unit 0xCCC31C 0x5D 0x4A 1 // SPEEDWINGS
-                Unit 0xCCC44C 0x5D 0x4A 1 // SPEEDWINGS
-            ]
-        ]
+        Unit 0xCCC31C 0x5D 0x4A 1 |> route EliwoodNormal // SPEEDWINGS
+        Unit 0xCCC44C 0x5D 0x4A 1 |> route EliwoodHard // SPEEDWINGS
 
         // Chapter 19: The Dread Isle
-        yield! acrossDifficultyLevels [
-            Unit 0xCCD054 0x65 0x4B 3 // ORION_BOLT
-            Unit 0xCCD314 0x65 0x4B 3  // ORION_BOLT
-            Unit 0xCCD1B4 0x65 0x4B 3  // ORION_BOLT
-            Unit 0xCCD4F4 0x65 0x4B 3  // ORION_BOLT
-        ]
+        Unit 0xCCD054 0x65 0x4B 3 |> route EliwoodNormal // ORION_BOLT
+        Unit 0xCCD314 0x65 0x4B 3 |> route EliwoodHard // ORION_BOLT
+        Unit 0xCCD1B4 0x65 0x4B 3 |> route HectorNormal // ORION_BOLT
+        Unit 0xCCD4F4 0x65 0x4B 3 |> route HectorHard // ORION_BOLT
 
         // Chapter 19x: Imprisoner of Magic
         Unit 0xCCDF50 0x66 0x6D 1 |> route EliwoodHard // ELYSIAN_WHIP
         ITGV 0xCB348C 0x5E // GODDESS_ICON
 
         // Chapter 19xx: A Glimpse in Time
-        yield! List.map (route Hector) [
+        yield! exclusiveTo Hector [
             CHES 0xCA2F50 0x5F // DRAGONSHIELD
             CHES 0xCA2F5C 0x60 // TALISMAN
             CHES 0xCA2F68 0x47 // ECLIPSE
@@ -274,12 +259,10 @@ module FE7 =
         CHES 0xCA3490 0x67 // GUIDING_RING
 
         // Chapter 21: New Resolve
-        yield! acrossDifficultyLevels [
-            Unit 0xCCFF0C 0x63 0x4F 2 // HERO_CREST
-            Unit 0xCD014C 0x63 0x4F 2 // HERO_CREST
-            Unit 0xCD003C 0x63 0x4F 2 // HERO_CREST
-            Unit 0xCD02FC 0x63 0x4F 2 // HERO_CREST
-        ]
+        Unit 0xCCFF0C 0x63 0x4F 2 |> route EliwoodNormal // HERO_CREST
+        Unit 0xCD014C 0x63 0x4F 2 |> route EliwoodHard // HERO_CREST
+        Unit 0xCD003C 0x63 0x4F 2 |> route HectorNormal // HERO_CREST
+        Unit 0xCD02FC 0x63 0x4F 2 |> route HectorHard // HERO_CREST
         ITGV 0xCB4E1C 0x0F // WYRMSLAYER
         ITGV 0xCB4E5C 0x7A // LIGHT_RUNE
         ITGV 0xCB4E9C 0x66 // ELYSIAN_WHIP
@@ -287,21 +270,17 @@ module FE7 =
 
         // Chapter 22: Kinship's Bond
         Unit 0xCD1064 0x5A 0x34 2 // ANGELIC_ROBE
-        yield! acrossDifficultyLevels [
-            Unit 0xCD0A44 0x64 0xD7 1 // KNIGHT_CREST
-            Unit 0xCD0C14 0x64 0x50 1 // KNIGHT_CREST
-            Unit 0xCD0B24 0x64 0xD7 1 // KNIGHT_CREST
-            Unit 0xCD0D74 0x64 0x50 1 // KNIGHT_CREST
-        ]
+        Unit 0xCD0A44 0x64 0xD7 1 |> route EliwoodNormal // KNIGHT_CREST
+        Unit 0xCD0C14 0x64 0x50 1 |> route EliwoodHard // KNIGHT_CREST
+        Unit 0xCD0B24 0x64 0xD7 1 |> route HectorNormal // KNIGHT_CREST
+        Unit 0xCD0D74 0x64 0x50 1 |> route HectorHard // KNIGHT_CREST
         CHES 0xCA3AAC 0x23 // BRAVE_AXE
 
         // Chapter 23: Living Legend
-        yield! acrossDifficultyLevels [
-            Unit 0xCD1CAC 0x67 0x54 2 // GUIDING_RING
-            Unit 0xCD1FFC 0x67 0xE8 1 // GUIDING_RING
-            Unit 0xCD1DFC 0x67 0x54 2 // GUIDING_RING
-            Unit 0xCD21DC 0x67 0xE8 1 // GUIDING_RING
-        ]
+        Unit 0xCD1CAC 0x67 0x54 2 |> route EliwoodNormal // GUIDING_RING
+        Unit 0xCD1FFC 0x67 0xE8 1 |> route EliwoodHard // GUIDING_RING
+        Unit 0xCD1DFC 0x67 0x54 2 |> route HectorNormal // GUIDING_RING
+        Unit 0xCD21DC 0x67 0xE8 1 |> route HectorHard // GUIDING_RING
         Sand 0xCB5CEC 0x63 // HERO_CREST
         Sand 0xCB5D2C 0x10 // LIGHT_BRAND
         Sand 0xCB5D6C 0x7C // FILLA_MIGHT
@@ -316,8 +295,8 @@ module FE7 =
         Chap 0xCB6118 0x88 |> route Tactician // AFA_DROPS
 
         // Chapter 24: Four Fanged Offense (Lloyd)
-        yield! List.map (route Lloyd) [
-            yield! acrossDifficultyLevels [
+        yield! exclusiveTo [Lloyd] [
+            yield! Reward.mututallyExclusive [
                 Unit 0xCD3128 0x65 0x6E 1 // ORION_BOLT - Eliwood Normal Mode
                 Unit 0xCD3298 0x65 0x6E 1 // ORION_BOLT - Hector Normal Mode
             ]
@@ -326,20 +305,20 @@ module FE7 =
         ]
 
         // Chapter 24: Four Fanged Offense (Linus)
-        yield! List.map (route Linus) [
+        yield! exclusiveTo [Linus] [
             ITGV 0xCB77E4 0x50 // SILENCE
             ITGV 0xCB7824 0x65 // ORION_BOLT
             ITGV 0xCB7864 0x87 // EARTH_SEAL
         ]
 
         // Chapter 25: Crazed Beast
-        yield! List.map (route Hector) [
+        yield! exclusiveTo Hector [
             ITGV 0xCB830C 0x66 // ELYSIAN_WHIP
         ]
 
         // Chapter 26: Unfulfilled Heart
         Chap 0xCB87F8 0x89 // HEAVEN_SEAL - only if Hawkeye got to Four Fanged Offense
-        yield! acrossDifficultyLevels [
+        yield! Reward.mututallyExclusive [
             Unit 0xCD568C 0x64 0x6D 1 // KNIGHT_CREST - Eliwood Normal mode
             Unit 0xCD599C 0x64 0x6D 1 // KNIGHT_CREST - Eliwood Hard mode
             Unit 0xCD580C 0x64 0x6D 1 // KNIGHT_CREST - Hector Normal mode
@@ -347,18 +326,16 @@ module FE7 =
         ITGV 0xCB8974 0x56 // HAMMERNE
 
         // Chapter 27: Pale Flower of Darkness (Kenneth)
-        yield! List.map (route Kenneth) [
-            yield! hardModeOnly [
-                Unit 0xCD79A4 0x5D 0x7C 1 // SPEEDWINGS - Eliwood Hard Mode
-                Unit 0xCD7BC4 0x5D 0x7C 1 // SPEEDWINGS - Hector Hard Mode
-            ]
+        yield! exclusiveTo [Kenneth] [
+            Unit 0xCD79A4 0x5D 0x7C 1 |> route EliwoodHard // SPEEDWINGS
+            Unit 0xCD7BC4 0x5D 0x7C 1 |> route HectorHard // SPEEDWINGS
             CHES 0xCA4CB8 0x67 // GUIDING_RING
             CHES 0xCA4CC4 0x74 // BLUE_GEM
             CHES 0xCA4CD0 0x60 // TALISMAN
         ]
 
         // Chapter 27: Pale Flower of Darkness (Jerme)
-        yield! List.map (route Jerme) [
+        yield! exclusiveTo [Jerme] [
             CHES 0xCA5024 0x60 // TALISMAN
             CHES 0xCA5030 0x73 // WHITE_GEM
             CHES 0xCA503C 0x63 // HERO_CREST
@@ -376,18 +353,14 @@ module FE7 =
         ChTo 0xCBA90C 0x89 0x01 // HEAVEN_SEAL
 
         // Chapter 28x: Night of Farewells
-        yield! acrossDifficultyLevels [
-            Unit 0xCD96B0 0x8B 0x5B 2 // FELL_CONTRACT
-            Unit 0xCD9A90 0x8B 0x5B 2 // FELL_CONTRACT
-            Unit 0xCD9880 0x8B 0x5B 2 // FELL_CONTRACT
-            Unit 0xCD9CE0 0x8B 0x5B 2 // FELL_CONTRACT
-        ]
-        yield! acrossDifficultyLevels [
-            Unit 0xCD96F0 0x5A 0x70 2 // ANGELIC_ROBE
-            Unit 0xCD9AD0 0x5A 0x70 2 // ANGELIC_ROBE
-            Unit 0xCD98C0 0x5A 0x70 2 // ANGELIC_ROBE
-            Unit 0xCD9D20 0x5A 0x70 2 // ANGELIC_ROBE
-        ]
+        Unit 0xCD96B0 0x8B 0x5B 2 |> route EliwoodNormal // FELL_CONTRACT
+        Unit 0xCD9A90 0x8B 0x5B 2 |> route EliwoodHard // FELL_CONTRACT
+        Unit 0xCD9880 0x8B 0x5B 2 |> route HectorNormal // FELL_CONTRACT
+        Unit 0xCD9CE0 0x8B 0x5B 2 |> route HectorHard // FELL_CONTRACT
+        Unit 0xCD96F0 0x5A 0x70 2 |> route EliwoodNormal // ANGELIC_ROBE
+        Unit 0xCD9AD0 0x5A 0x70 2 |> route EliwoodHard // ANGELIC_ROBE
+        Unit 0xCD98C0 0x5A 0x70 2 |> route HectorNormal // ANGELIC_ROBE
+        Unit 0xCD9D20 0x5A 0x70 2 |> route HectorHard // ANGELIC_ROBE
         CHES 0xCA58EC 0x48 // FENRIR
         CHES 0xCA58F8 0x7E // THOR_IRE
         CHES 0xCA5904 0x4C // RECOVER
@@ -396,21 +369,17 @@ module FE7 =
         // Chapter 28 (Eliwood): Valorous Roland
 
         // Chapter 29: Cog of Destiny
-        yield! acrossDifficultyLevels [
-            Unit 0xCDAB18 0x67 0x70 1 // GUIDING_RING - Eliwood Normal Mode
-            Unit 0xCDADC8 0x67 0x70 1 // GUIDING_RING - Hector Normal Mode
+        yield! Reward.mututallyExclusive [
+            Unit 0xCDAB18 0x67 0x70 1 // GUIDING_RING
+            Unit 0xCDADC8 0x67 0x70 1 // GUIDING_RING
         ]
-        yield! hardModeOnly [
-            Unit 0xCDB078 0x65 0x70 1 // ORION_BOLT - Eliwood Hard Mode
-        ]
+        Unit 0xCDB078 0x65 0x70 1 |> route EliwoodHard // ORION_BOLT
         ITGV 0xCBBFFC 0x53 // WARP
 
         // Chapter 30 (Hector): The Berserker
-        yield! List.map (route Hector) [
-            yield! hardModeOnly [
-                Unit 0xCDC5B4 0x5D 0xEA 1 // SPEEDWINGS
-                Unit 0xCDC644 0x5E 0xEA 1 // GODDESS_ICON
-            ]
+        yield! exclusiveTo Hector [
+            Unit 0xCDC5B4 0x5D 0xEA 1 |> route HectorHard // SPEEDWINGS
+            Unit 0xCDC644 0x5E 0xEA 1 |> route HectorHard // GODDESS_ICON
             CHES 0xCA5B90 0x6D // PURE_WATER
             CHES 0xCA5B9C 0x6C // ELIXIR
             CHES 0xCA5BA8 0x8D // WOLF_BEIL
@@ -429,7 +398,7 @@ module FE7 =
         ITGV 0xCBECE4 0x60 // TALISMAN
 
         // Chapter 32x: The Value of Life
-        yield! List.map (route Hector) [
+        yield! exclusiveTo Hector [
             CHES 0xCA6518 0x4E // FORTIFY
             CHES 0xCA6524 0x11 // RUNE_SWORD
         ]

@@ -224,7 +224,7 @@ module FE8 =
         CHES 0x9E8F90 0x67 // ELYSIAN_WHIP
         CHES 0x9E8FA8 0x5B // ANGELIC_ROBE
 
-        yield! List.map (route Eirika) [
+        yield! exclusiveTo [Eirika] [
             // Chapter 9 (Eirika): Distant Blade
             ITGV 0x9F3FC8 0x60 // DRAGONSHIELD
             ITGV 0x9F4004 0x09 // RAPIER
@@ -260,10 +260,14 @@ module FE8 =
             CHES 0x9E9720 0x1D // SPEAR
             CHES 0x9E9738 0x5C // ENERGY_RING
             CHES 0x9E9744 0x68 // GUIDING_RING
-            Chap 0x9F5FDC 0x91 |> tag "Audhulma" // AUDHULMA
-            Chap 0x9F5FF0 0x3E |> tag "Excalibur" // EXCALIBUR
-            Chap 0x9F6024 0x91 |> tag "Audhulma" // AUDHULMA
-            Chap 0x9F6038 0x3E |> tag "Excalibur" // EXCALIBUR
+            yield! Reward.mututallyExclusive [
+                Chap 0x9F5FDC 0x91 // AUDHULMA
+                Chap 0x9F6024 0x91 // AUDHULMA
+            ]
+            yield! Reward.mututallyExclusive [
+                Chap 0x9F5FF0 0x3E // EXCALIBUR
+                Chap 0x9F6038 0x3E // EXCALIBUR
+            ]
 
             // Chapter 15 (Eirika): Scorched Sand
             Unit 0x8BC8A4 0x68 0x80 2 // GUIDING_RING
@@ -309,7 +313,7 @@ module FE8 =
             // Final (Eirika): Sacred Stone (Part 2)
         ]
 
-        yield! List.map (route Ephraim) [
+        yield! exclusiveTo [Ephraim] [
             // Chapter 9 (Ephraim): Fort Rigwald
             CHES 0x9EA2A0 0x50 // RESTORE
             CHES 0x9EA2E8 0x97 // CONQUORER_PROOF
