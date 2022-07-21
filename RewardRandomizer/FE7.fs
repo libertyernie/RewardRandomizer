@@ -238,7 +238,7 @@ module FE7 =
             Unit 0xCCC45C 0x67 0x6E 1 // GUIDING_RING
             Unit 0xCCC65C 0x67 0x4A 1 // GUIDING_RING
         ]
-        Unit 0xCCC6CC 0x66 0xF3 1 |> tag "FE7 Elysian Whip" // ELYSIAN_WHIP - Hector Hard Mode
+        Unit 0xCCC6CC 0x66 0xF3 1 |> route HectorHard // ELYSIAN_WHIP
 
         yield! List.map (route Eliwood) [
             yield! acrossDifficultyLevels [
@@ -256,7 +256,7 @@ module FE7 =
         ]
 
         // Chapter 19x: Imprisoner of Magic
-        Unit 0xCCDF50 0x66 0x6D 1 |> tag "FE7 Elysian Whip" // ELYSIAN_WHIP - Eliwood Hard Mode
+        Unit 0xCCDF50 0x66 0x6D 1 |> route EliwoodHard // ELYSIAN_WHIP
         ITGV 0xCB348C 0x5E // GODDESS_ICON
 
         // Chapter 19xx: A Glimpse in Time
@@ -366,8 +366,8 @@ module FE7 =
         ]
 
         // Chapter 28: Battle Before Dawn
-        Unit 0xCD87C8 0x66 0x6E 2 |> tag "FE7 Elysian Whip" // ELYSIAN_WHIP - Eliwood Normal Mode
-        Unit 0xCD8828 0x66 0x6E 2 |> tag "FE7 Elysian Whip" // ELYSIAN_WHIP - Hector Normal Mode
+        Unit 0xCD87C8 0x66 0x6E 2 |> route EliwoodNormal // ELYSIAN_WHIP
+        Unit 0xCD8828 0x66 0x6E 2 |> route HectorNormal // ELYSIAN_WHIP
         Unit 0xCD90A8 0x87 0x6D 1 // EARTH_SEAL
         CHES 0xCA5418 0x61 // BOOTS
         CHES 0xCA5424 0x19 // BRAVE_LANCE

@@ -5,18 +5,18 @@ open System.Collections.Generic
 module Correlator =
     let Untag rewards = [
         for (tag, group) in rewards |> Seq.groupBy (fun r -> r.Tag) do
-            match tag with
-            | None -> yield! group
-            | Some t ->
+            if tag = None
+            then yield! group
+            else
                 let without_offsets =
                     group
-                    |> Seq.map (fun x -> x.ItemId)
+                    |> Seq.map (fun x -> { x with Offsets = Set.empty })
                     |> Seq.distinct
-                    |> Seq.length
+                    |> Seq.toList
                 match without_offsets with
-                | 0 -> failwith "Empty group"
-                | 1 -> yield { Seq.head group with Tag = None; Offsets = set [for x in group do yield! x.Offsets] }
-                | _ -> ()
+                | [] -> failwith "Empty group"
+                | [single] -> yield { single with Tag = None; Offsets = set [for x in group do yield! x.Offsets] }
+                | _::_::_ -> ()
     ]
 
     let IsOnRoute x r = r.Route = Some x
@@ -24,16 +24,17 @@ module Correlator =
 
     let MutuallyExclusiveFilterSets = [
         // Handle route splits
-        for (a, b) in [
-            (Bartre, Echidna)
-            (Ilia, Sacae)
-            (Eliwood, Hector)
-            (Tactician, NoTactician)
-            (Lloyd, Linus)
-            (Kenneth, Jerme)
-            (Eirika, Ephraim)
+        for set in [
+            [Bartre; Echidna]
+            [Ilia; Sacae]
+            [Eliwood; Hector]
+            [EliwoodNormal; EliwoodHard; HectorNormal; HectorHard]
+            [Tactician; NoTactician]
+            [Lloyd; Linus]
+            [Kenneth; Jerme]
+            [Eirika; Ephraim]
         ] do
-            yield ([IsOnRoute a; IsOnRoute b], [])
+            yield ([for x in set do IsOnRoute x], [])
 
         // Handle items that are neither
         yield ([IsNotOnRoute], [])
@@ -82,9 +83,6 @@ module Correlator =
                         |> Seq.isEmpty
                     if missing then yield filter
             }
-
-            if p.ItemId = 0x65uy then
-                printfn "%A" [for x in matching_set do for o in x.Offsets do sprintf "%6X" o]
 
             if Seq.isEmpty missing_required_filters then
                 yield matching_set

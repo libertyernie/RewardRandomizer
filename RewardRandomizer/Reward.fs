@@ -11,6 +11,7 @@ type Route =
 | Bartre | Echidna
 | Ilia | Sacae
 | Eliwood | Hector
+| EliwoodNormal | EliwoodHard | HectorNormal | HectorHard
 | Tactician | NoTactician
 | Lloyd | Linus
 | Kenneth | Jerme

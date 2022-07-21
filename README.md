@@ -58,18 +58,22 @@ Item locations (rewards) are defined by:
 * Item ID (RewardRandomizer has an item name lookup table for each game)
 * Unit ID (if in a unit's starting inventory, or given to them as part of a story event)
 * Offsets (the locations in ROM at which the item ID appears)
-* Route (the route split, if any, that the item is exclusive to - e.g. Ilia, Sacae, Kenneth, Jerme, Eirika, Ephraim)
-* Tag (an arbitary string - item locations with the same tag are treated as one item location in the randomizer, unless their other attributes don't match - in that case, they are ignored)
+* Route (the route split, if any, that the item is exclusive to)
+* Tag
 
-The `Correlator` module takes these locations and combines them into sets when
-matching items are found across all routes. Before doing this, items with the
-same tag are combined into a single item. For example, the wyrmslayer on
-Echidna's route and the one on Bartre's route are included in a set, and the
-chapter 2 armorslayer is in a set of its own. Items that are exclusive to a
-route (like Ephraim's third knight crest) are omitted, as are items which
-share the same tag but don't have matching item IDs.
+The `Correlator` module combines these locations in two ways:
 
-The input parameters for an operation are:
+* Item location objects with the same **tag** are combined into a single
+  object, where the offsets are combined into a single set - but only if all
+  other attributes match; if not, the item location is ignored.
+* Item location objects with the same item ID, but on different routes, are
+  combined into sets - but only if a match is found on each of the other
+  corresponding routes (e.g. Eirika/Ephraim, Ilia/Sacae).
+  * If an item is not route-specific, it is included in a set of its own.
+
+The `Randomizer` then uses this list of sets as its basis, although which
+items get included when calculating the list of sets is constrained by the
+input parameters:
 
 * The input game metadata (item list, item location list, etc.)
 * The mode (shuffle or randomize)
