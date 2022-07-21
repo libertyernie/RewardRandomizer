@@ -72,6 +72,49 @@ namespace RewardRandomizer.Tests
         }
 
         [TestMethod]
+        public void TestFE7()
+        {
+            var game = GameModule.FE7_US;
+            var locations = game.Rewards;
+            var correlations = Correlator.ExtractAll(locations);
+            Console.WriteLine(correlations.Length);
+            var correlated = correlations.SelectMany(x => x);
+            var expected_exclusives = new []
+            {
+                0xCC9E2E, // Hector hard mode ch. 15 dragonshield
+                0xCB6124, // Afa's drops - requires tactician
+                0xCD79AD, // Kenneth map Eliwood hard mode speedwings (not in normal mode)
+                0xCD7BCD, // Kenneth map Hector hard mode speedwings (not in normal mode)
+                0xCA4CBC, // Kenneth map guiding ring
+                0xCA4CC8, // Kenneth map blue gem
+                0xCA5034, // Jerme map white gem
+                0xCA5040, // Jerme map hero crest
+                0xCA504C, // Jerme map bolting
+                0xCDB081, // Eliwood hard mode orion's bolt in Cog of Destiny
+            };
+            var leftover = Correlator.Untag(locations).Except(correlated).ToHashSet();
+            foreach (int offset in expected_exclusives)
+            {
+                foreach (var x in leftover)
+                {
+                    string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).Single();
+                    if (x.Offsets.Contains(offset))
+                    {
+                        leftover.Remove(x);
+                        break;
+                    }
+                }
+            }
+            foreach (var x in leftover)
+            {
+                if (OptionModule.ToObj(x.Route)?.IsHector == true) continue;
+                if (OptionModule.ToObj(x.Route)?.IsEliwood == true && x.ItemId == 0x5B) continue;
+                string itemName = game.Items.Where(y => y.Id == x.ItemId).Select(y => y.Name).Single();
+                Assert.Fail($"No match found for item: {x} {itemName}");
+            }
+        }
+
+        [TestMethod]
         public void TestFE8()
         {
             var game = GameModule.FE8_US;
