@@ -201,9 +201,9 @@ Partial Class Form1
         Me.ShuffleDesert.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ShuffleDesert.Location = New System.Drawing.Point(138, 19)
         Me.ShuffleDesert.Name = "ShuffleDesert"
-        Me.ShuffleDesert.Size = New System.Drawing.Size(57, 17)
+        Me.ShuffleDesert.Size = New System.Drawing.Size(84, 17)
         Me.ShuffleDesert.TabIndex = 9
-        Me.ShuffleDesert.Text = "Desert"
+        Me.ShuffleDesert.Text = "Desert items"
         Me.ShuffleDesert.UseVisualStyleBackColor = True
         '
         'ValidateButton
@@ -233,13 +233,14 @@ Partial Class Form1
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.AutoSize = True
+        Me.GroupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GroupBox1.Controls.Add(Me.ShufflePromoItems)
         Me.GroupBox1.Controls.Add(Me.ShuffleStatBoosters)
         Me.GroupBox1.Controls.Add(Me.RandomizePromotionItems)
         Me.GroupBox1.Controls.Add(Me.RandomizeStatBoosters)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 65)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(460, 78)
+        Me.GroupBox1.Size = New System.Drawing.Size(315, 78)
         Me.GroupBox1.TabIndex = 20
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "By category"
@@ -248,13 +249,15 @@ Partial Class Form1
         '
         Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.AutoSize = True
+        Me.GroupBox2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GroupBox2.Controls.Add(Me.ExcludeConsumables)
         Me.GroupBox2.Controls.Add(Me.ShuffleDesert)
         Me.GroupBox2.Controls.Add(Me.ShuffleVillages)
         Me.GroupBox2.Controls.Add(Me.ShuffleChests)
         Me.GroupBox2.Location = New System.Drawing.Point(12, 149)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(460, 78)
+        Me.GroupBox2.Size = New System.Drawing.Size(288, 78)
         Me.GroupBox2.TabIndex = 21
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Then, shuffle all:"
