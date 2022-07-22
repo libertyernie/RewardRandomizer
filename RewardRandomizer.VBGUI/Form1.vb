@@ -121,24 +121,30 @@ Public Class Form1
                 Dim operations = GenerateOperations(game, steps)
 
                 Dim extension = Path.GetExtension(dialog.FileName).ToLowerInvariant()
+
                 If extension = ".ips" Then
                     File.WriteAllBytes(dialog.FileName, CreateIPS(operations))
                     MsgBox("Patch file written.")
-                ElseIf extension = ".gba" Then
+                    Exit Sub
+                End If
+
+                If extension = ".gba" Then
                     If Not File.Exists(InputBox.Text) Then
                         MsgBox("Input ROM not found. (Maybe you want to save an IPS patch instead?)")
-                    Else
-                        If Not InputDataMatchesGame(game) Then
-                            MsgBox("Input ROM data does not match the selected game. It may be a different region or have incompatible patches.")
-                            Return
-                        End If
-                        Dim newData = ApplyOperations(InputData, operations)
-                        File.WriteAllBytes(dialog.FileName, newData)
-                        MsgBox("Output ROM written.")
+                        Exit Sub
                     End If
-                Else
-                    MsgBox("File extension not recognized: " + extension)
+
+                    If Not InputDataMatchesGame(game) Then
+                        MsgBox("Input ROM data does not match the selected game. It may be a different region or have incompatible patches.")
+                        Exit Sub
+                    End If
+
+                    Dim newData = ApplyOperations(InputData, operations)
+                    File.WriteAllBytes(dialog.FileName, newData)
+                    MsgBox("Output ROM written.")
                 End If
+
+                MsgBox("File extension not recognized: " + extension)
             End If
         End Using
     End Sub
