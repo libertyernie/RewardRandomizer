@@ -63,13 +63,13 @@ Partial Class Form1
         Me.InputBox.Location = New System.Drawing.Point(71, 46)
         Me.InputBox.Name = "InputBox"
         Me.InputBox.ReadOnly = True
-        Me.InputBox.Size = New System.Drawing.Size(171, 20)
+        Me.InputBox.Size = New System.Drawing.Size(370, 20)
         Me.InputBox.TabIndex = 3
         '
         'BrowseInputButton
         '
         Me.BrowseInputButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BrowseInputButton.Location = New System.Drawing.Point(248, 46)
+        Me.BrowseInputButton.Location = New System.Drawing.Point(447, 46)
         Me.BrowseInputButton.Name = "BrowseInputButton"
         Me.BrowseInputButton.Size = New System.Drawing.Size(75, 20)
         Me.BrowseInputButton.TabIndex = 4
@@ -88,7 +88,7 @@ Partial Class Form1
         'SaveButton
         '
         Me.SaveButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SaveButton.Location = New System.Drawing.Point(347, 271)
+        Me.SaveButton.Location = New System.Drawing.Point(546, 187)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
         Me.SaveButton.TabIndex = 8
@@ -167,7 +167,7 @@ Partial Class Form1
         '
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 276)
+        Me.Label6.Location = New System.Drawing.Point(12, 226)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(69, 13)
         Me.Label6.TabIndex = 9
@@ -178,7 +178,7 @@ Partial Class Form1
         Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
         Me.Label7.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Label7.Location = New System.Drawing.Point(12, 289)
+        Me.Label7.Location = New System.Drawing.Point(12, 239)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(248, 13)
         Me.Label7.TabIndex = 10
@@ -193,7 +193,7 @@ Partial Class Form1
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(71, 19)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(333, 21)
+        Me.ComboBox1.Size = New System.Drawing.Size(532, 21)
         Me.ComboBox1.TabIndex = 1
         '
         'ShuffleDesert
@@ -211,7 +211,7 @@ Partial Class Form1
         'ValidateButton
         '
         Me.ValidateButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ValidateButton.Location = New System.Drawing.Point(329, 46)
+        Me.ValidateButton.Location = New System.Drawing.Point(528, 46)
         Me.ValidateButton.Name = "ValidateButton"
         Me.ValidateButton.Size = New System.Drawing.Size(75, 20)
         Me.ValidateButton.TabIndex = 5
@@ -234,6 +234,7 @@ Partial Class Form1
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.AutoSize = True
         Me.GroupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GroupBox1.Controls.Add(Me.ShufflePromoItems)
         Me.GroupBox1.Controls.Add(Me.ShuffleStatBoosters)
@@ -241,7 +242,7 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.RandomizeStatBoosters)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 103)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(410, 78)
+        Me.GroupBox1.Size = New System.Drawing.Size(315, 78)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "By category"
@@ -250,14 +251,15 @@ Partial Class Form1
         '
         Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.AutoSize = True
         Me.GroupBox2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GroupBox2.Controls.Add(Me.ExcludeConsumables)
         Me.GroupBox2.Controls.Add(Me.ShuffleDesert)
         Me.GroupBox2.Controls.Add(Me.ShuffleVillages)
         Me.GroupBox2.Controls.Add(Me.ShuffleChests)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 187)
+        Me.GroupBox2.Location = New System.Drawing.Point(333, 103)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(410, 78)
+        Me.GroupBox2.Size = New System.Drawing.Size(288, 78)
         Me.GroupBox2.TabIndex = 7
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Then, shuffle all:"
@@ -266,6 +268,7 @@ Partial Class Form1
         '
         Me.GroupBox3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox3.AutoSize = True
         Me.GroupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GroupBox3.Controls.Add(Me.ComboBox1)
         Me.GroupBox3.Controls.Add(Me.InputBox)
@@ -275,7 +278,7 @@ Partial Class Form1
         Me.GroupBox3.Controls.Add(Me.Label1)
         Me.GroupBox3.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(410, 85)
+        Me.GroupBox3.Size = New System.Drawing.Size(609, 85)
         Me.GroupBox3.TabIndex = 11
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Input"
@@ -284,7 +287,7 @@ Partial Class Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(434, 311)
+        Me.ClientSize = New System.Drawing.Size(633, 261)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
