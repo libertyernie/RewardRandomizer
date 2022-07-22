@@ -61,13 +61,13 @@ Partial Class Form1
         Me.InputBox.Location = New System.Drawing.Point(83, 12)
         Me.InputBox.Name = "InputBox"
         Me.InputBox.ReadOnly = True
-        Me.InputBox.Size = New System.Drawing.Size(158, 20)
+        Me.InputBox.Size = New System.Drawing.Size(308, 20)
         Me.InputBox.TabIndex = 1
         '
         'BrowseInputButton
         '
         Me.BrowseInputButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BrowseInputButton.Location = New System.Drawing.Point(247, 11)
+        Me.BrowseInputButton.Location = New System.Drawing.Point(397, 11)
         Me.BrowseInputButton.Name = "BrowseInputButton"
         Me.BrowseInputButton.Size = New System.Drawing.Size(75, 20)
         Me.BrowseInputButton.TabIndex = 2
@@ -86,7 +86,7 @@ Partial Class Form1
         'SaveButton
         '
         Me.SaveButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SaveButton.Location = New System.Drawing.Point(247, 279)
+        Me.SaveButton.Location = New System.Drawing.Point(394, 233)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
         Me.SaveButton.TabIndex = 17
@@ -96,7 +96,7 @@ Partial Class Form1
         'RandomizeStatBoosters
         '
         Me.RandomizeStatBoosters.AutoSize = True
-        Me.RandomizeStatBoosters.Location = New System.Drawing.Point(6, 88)
+        Me.RandomizeStatBoosters.Location = New System.Drawing.Point(167, 42)
         Me.RandomizeStatBoosters.Name = "RandomizeStatBoosters"
         Me.RandomizeStatBoosters.Size = New System.Drawing.Size(142, 17)
         Me.RandomizeStatBoosters.TabIndex = 15
@@ -106,7 +106,7 @@ Partial Class Form1
         'RandomizePromotionItems
         '
         Me.RandomizePromotionItems.AutoSize = True
-        Me.RandomizePromotionItems.Location = New System.Drawing.Point(6, 65)
+        Me.RandomizePromotionItems.Location = New System.Drawing.Point(6, 42)
         Me.RandomizePromotionItems.Name = "RandomizePromotionItems"
         Me.RandomizePromotionItems.Size = New System.Drawing.Size(155, 17)
         Me.RandomizePromotionItems.TabIndex = 13
@@ -118,7 +118,7 @@ Partial Class Form1
         Me.ShuffleStatBoosters.AutoSize = True
         Me.ShuffleStatBoosters.Checked = True
         Me.ShuffleStatBoosters.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShuffleStatBoosters.Location = New System.Drawing.Point(6, 42)
+        Me.ShuffleStatBoosters.Location = New System.Drawing.Point(167, 19)
         Me.ShuffleStatBoosters.Name = "ShuffleStatBoosters"
         Me.ShuffleStatBoosters.Size = New System.Drawing.Size(122, 17)
         Me.ShuffleStatBoosters.TabIndex = 14
@@ -165,7 +165,7 @@ Partial Class Form1
         '
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 326)
+        Me.Label6.Location = New System.Drawing.Point(12, 276)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(69, 13)
         Me.Label6.TabIndex = 18
@@ -176,7 +176,7 @@ Partial Class Form1
         Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
         Me.Label7.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Label7.Location = New System.Drawing.Point(12, 339)
+        Me.Label7.Location = New System.Drawing.Point(12, 289)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(248, 13)
         Me.Label7.TabIndex = 19
@@ -191,7 +191,7 @@ Partial Class Form1
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(83, 38)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(158, 21)
+        Me.ComboBox1.Size = New System.Drawing.Size(308, 21)
         Me.ComboBox1.TabIndex = 4
         '
         'ShuffleDesert
@@ -209,7 +209,7 @@ Partial Class Form1
         'ValidateButton
         '
         Me.ValidateButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ValidateButton.Location = New System.Drawing.Point(247, 37)
+        Me.ValidateButton.Location = New System.Drawing.Point(397, 37)
         Me.ValidateButton.Name = "ValidateButton"
         Me.ValidateButton.Size = New System.Drawing.Size(75, 21)
         Me.ValidateButton.TabIndex = 5
@@ -232,13 +232,14 @@ Partial Class Form1
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.RandomizeStatBoosters)
-        Me.GroupBox1.Controls.Add(Me.RandomizePromotionItems)
-        Me.GroupBox1.Controls.Add(Me.ShuffleStatBoosters)
+        Me.GroupBox1.AutoSize = True
         Me.GroupBox1.Controls.Add(Me.ShufflePromoItems)
+        Me.GroupBox1.Controls.Add(Me.ShuffleStatBoosters)
+        Me.GroupBox1.Controls.Add(Me.RandomizePromotionItems)
+        Me.GroupBox1.Controls.Add(Me.RandomizeStatBoosters)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 65)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(310, 124)
+        Me.GroupBox1.Size = New System.Drawing.Size(460, 78)
         Me.GroupBox1.TabIndex = 20
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "By category"
@@ -251,18 +252,18 @@ Partial Class Form1
         Me.GroupBox2.Controls.Add(Me.ShuffleDesert)
         Me.GroupBox2.Controls.Add(Me.ShuffleVillages)
         Me.GroupBox2.Controls.Add(Me.ShuffleChests)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 195)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 149)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(310, 78)
+        Me.GroupBox2.Size = New System.Drawing.Size(460, 78)
         Me.GroupBox2.TabIndex = 21
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Shuffle all"
+        Me.GroupBox2.Text = "Then, shuffle all:"
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(334, 361)
+        Me.ClientSize = New System.Drawing.Size(484, 311)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.ValidateButton)
