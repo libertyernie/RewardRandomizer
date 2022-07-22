@@ -142,6 +142,7 @@ Public Class Form1
                     Dim newData = ApplyOperations(InputData, operations)
                     File.WriteAllBytes(dialog.FileName, newData)
                     MsgBox("Output ROM written.")
+                    Exit Sub
                 End If
 
                 MsgBox("File extension not recognized: " + extension)
