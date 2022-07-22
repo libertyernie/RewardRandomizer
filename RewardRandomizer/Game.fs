@@ -27,11 +27,12 @@ module Game =
           Items = FE8.Items
           Rewards = FE8.US }
 
-    let All =
-        [ FE6_JP
-          FE6_Localization
-          FE7_US
-          FE8_US ]
+    let All = [
+        FE6_JP
+        FE6_Localization
+        FE7_US
+        FE8_US
+    ]
 
     exception RewardIndexOutOfBoundsException of int
 

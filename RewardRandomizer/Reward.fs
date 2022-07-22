@@ -40,8 +40,7 @@ module internal Reward =
     let exclusiveTo routes rewards = seq {
         for x in rewards do
             for y in routes do
-                if x.Route = Some y then x
-                else if x.Route = None then { x with Route = Some y }
+                if x.Route = Some y || x.Route = None then { x with Route = Some y }
     }
 
     let mututallyExclusive rewards =

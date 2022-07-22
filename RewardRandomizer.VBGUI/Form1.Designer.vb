@@ -166,9 +166,9 @@ Partial Class Form1
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(12, 251)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(69, 13)
+        Me.Label6.Size = New System.Drawing.Size(99, 13)
         Me.Label6.TabIndex = 9
-        Me.Label6.Text = "Version 1.0.0"
+        Me.Label6.Text = "Version 2022-07-22"
         '
         'Label7
         '

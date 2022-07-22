@@ -3,10 +3,10 @@
 open System.Collections.Generic
 
 module Correlator =
-    let IsOnRoute x r = r.Route = Some x
-    let IsNotOnRoute r = r.Route = None
-
     let MutuallyExclusiveFilterSets = [
+        let isOnRoute x r = r.Route = Some x
+        let isNotOnRoute r = r.Route = None
+
         // Handle route splits
         for set in [
             [EarlyItem; LateItem]
@@ -18,21 +18,21 @@ module Correlator =
             [Kenneth; Jerme]
             [Eirika; Ephraim]
         ] do
-            yield ([for x in set do IsOnRoute x], [])
+            yield ([for x in set do isOnRoute x], [])
 
         // Handle items that are neither
-        yield ([IsNotOnRoute], [])
+        yield ([isNotOnRoute], [])
     ]
-
-    let private remove (item: 'T) (set: HashSet<'T>) = set.Remove(item) |> ignore
 
     // Determines which items are the "same".
     // Groups of the "same" item are collected into sets.
     // Any items found are removed from the set.
-    let GetMatches rewards required optional = [
+    let GetMatches (rewards: HashSet<Reward>) required optional = [
         // Pick one of the routes/difficulty levels, and scan for items that appear in a special place there
         let primary_filter = List.head required
         let primary_rewards = rewards |> Seq.where primary_filter |> Seq.toList
+
+        let remove item = ignore (rewards.Remove item)
 
         for p in primary_rewards do
             // This function will find the best match for this item on the route given.
@@ -55,7 +55,7 @@ module Correlator =
 
             // Remove matched items from the pool for further operations.
             for x in matching_set do
-                rewards |> remove x
+                remove x
 
             // Make sure no required filters lacked a match.
             // If any of them did, this item won't be included in the randomizer.
