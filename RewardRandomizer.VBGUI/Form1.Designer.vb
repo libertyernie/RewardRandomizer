@@ -40,6 +40,9 @@ Partial Class Form1
         Me.ValidateButton = New System.Windows.Forms.Button()
         Me.ExcludeConsumables = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Label1
@@ -83,11 +86,10 @@ Partial Class Form1
         'SaveButton
         '
         Me.SaveButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SaveButton.Location = New System.Drawing.Point(322, 206)
-        Me.SaveButton.Margin = New System.Windows.Forms.Padding(3, 13, 3, 3)
+        Me.SaveButton.Location = New System.Drawing.Point(322, 187)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
-        Me.SaveButton.TabIndex = 8
+        Me.SaveButton.TabIndex = 18
         Me.SaveButton.Text = "Apply"
         Me.SaveButton.UseVisualStyleBackColor = True
         '
@@ -97,7 +99,7 @@ Partial Class Form1
         Me.RandomizeStatBoosters.Location = New System.Drawing.Point(173, 98)
         Me.RandomizeStatBoosters.Name = "RandomizeStatBoosters"
         Me.RandomizeStatBoosters.Size = New System.Drawing.Size(142, 17)
-        Me.RandomizeStatBoosters.TabIndex = 15
+        Me.RandomizeStatBoosters.TabIndex = 10
         Me.RandomizeStatBoosters.Text = "Randomize stat boosters"
         Me.RandomizeStatBoosters.UseVisualStyleBackColor = True
         '
@@ -107,7 +109,7 @@ Partial Class Form1
         Me.RandomizePromotionItems.Location = New System.Drawing.Point(12, 98)
         Me.RandomizePromotionItems.Name = "RandomizePromotionItems"
         Me.RandomizePromotionItems.Size = New System.Drawing.Size(155, 17)
-        Me.RandomizePromotionItems.TabIndex = 13
+        Me.RandomizePromotionItems.TabIndex = 9
         Me.RandomizePromotionItems.Text = "Randomize promotion items"
         Me.RandomizePromotionItems.UseVisualStyleBackColor = True
         '
@@ -119,7 +121,7 @@ Partial Class Form1
         Me.ShuffleStatBoosters.Location = New System.Drawing.Point(173, 75)
         Me.ShuffleStatBoosters.Name = "ShuffleStatBoosters"
         Me.ShuffleStatBoosters.Size = New System.Drawing.Size(122, 17)
-        Me.ShuffleStatBoosters.TabIndex = 14
+        Me.ShuffleStatBoosters.TabIndex = 8
         Me.ShuffleStatBoosters.Text = "Shuffle stat boosters"
         Me.ShuffleStatBoosters.UseVisualStyleBackColor = True
         '
@@ -128,11 +130,10 @@ Partial Class Form1
         Me.ShufflePromoItems.AutoSize = True
         Me.ShufflePromoItems.Checked = True
         Me.ShufflePromoItems.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShufflePromoItems.Location = New System.Drawing.Point(12, 75)
-        Me.ShufflePromoItems.Margin = New System.Windows.Forms.Padding(3, 13, 3, 3)
+        Me.ShufflePromoItems.Location = New System.Drawing.Point(15, 75)
         Me.ShufflePromoItems.Name = "ShufflePromoItems"
         Me.ShufflePromoItems.Size = New System.Drawing.Size(135, 17)
-        Me.ShufflePromoItems.TabIndex = 12
+        Me.ShufflePromoItems.TabIndex = 7
         Me.ShufflePromoItems.Text = "Shuffle promotion items"
         Me.ShufflePromoItems.UseVisualStyleBackColor = True
         '
@@ -141,10 +142,10 @@ Partial Class Form1
         Me.ShuffleVillages.AutoSize = True
         Me.ShuffleVillages.Checked = True
         Me.ShuffleVillages.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShuffleVillages.Location = New System.Drawing.Point(76, 150)
+        Me.ShuffleVillages.Location = New System.Drawing.Point(164, 131)
         Me.ShuffleVillages.Name = "ShuffleVillages"
         Me.ShuffleVillages.Size = New System.Drawing.Size(62, 17)
-        Me.ShuffleVillages.TabIndex = 8
+        Me.ShuffleVillages.TabIndex = 14
         Me.ShuffleVillages.Text = "Villages"
         Me.ShuffleVillages.UseVisualStyleBackColor = True
         '
@@ -153,10 +154,10 @@ Partial Class Form1
         Me.ShuffleChests.AutoSize = True
         Me.ShuffleChests.Checked = True
         Me.ShuffleChests.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShuffleChests.Location = New System.Drawing.Point(12, 150)
+        Me.ShuffleChests.Location = New System.Drawing.Point(100, 131)
         Me.ShuffleChests.Name = "ShuffleChests"
         Me.ShuffleChests.Size = New System.Drawing.Size(58, 17)
-        Me.ShuffleChests.TabIndex = 7
+        Me.ShuffleChests.TabIndex = 13
         Me.ShuffleChests.Text = "Chests"
         Me.ShuffleChests.UseVisualStyleBackColor = True
         '
@@ -164,10 +165,10 @@ Partial Class Form1
         '
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 251)
+        Me.Label6.Location = New System.Drawing.Point(12, 226)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(99, 13)
-        Me.Label6.TabIndex = 9
+        Me.Label6.TabIndex = 19
         Me.Label6.Text = "Version 2022-07-22"
         '
         'Label7
@@ -175,10 +176,10 @@ Partial Class Form1
         Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
         Me.Label7.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Label7.Location = New System.Drawing.Point(12, 264)
+        Me.Label7.Location = New System.Drawing.Point(12, 239)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(248, 13)
-        Me.Label7.TabIndex = 10
+        Me.Label7.TabIndex = 20
         Me.Label7.Text = "https://github.com/libertyernie/RewardRandomizer"
         '
         'ComboBox1
@@ -198,10 +199,10 @@ Partial Class Form1
         Me.ShuffleDesert.AutoSize = True
         Me.ShuffleDesert.Checked = True
         Me.ShuffleDesert.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShuffleDesert.Location = New System.Drawing.Point(144, 150)
+        Me.ShuffleDesert.Location = New System.Drawing.Point(232, 131)
         Me.ShuffleDesert.Name = "ShuffleDesert"
         Me.ShuffleDesert.Size = New System.Drawing.Size(84, 17)
-        Me.ShuffleDesert.TabIndex = 9
+        Me.ShuffleDesert.TabIndex = 15
         Me.ShuffleDesert.Text = "Desert items"
         Me.ShuffleDesert.UseVisualStyleBackColor = True
         '
@@ -220,28 +221,51 @@ Partial Class Form1
         Me.ExcludeConsumables.AutoSize = True
         Me.ExcludeConsumables.Checked = True
         Me.ExcludeConsumables.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ExcludeConsumables.Location = New System.Drawing.Point(12, 173)
+        Me.ExcludeConsumables.Location = New System.Drawing.Point(12, 154)
         Me.ExcludeConsumables.Name = "ExcludeConsumables"
         Me.ExcludeConsumables.Size = New System.Drawing.Size(276, 17)
-        Me.ExcludeConsumables.TabIndex = 10
+        Me.ExcludeConsumables.TabIndex = 16
         Me.ExcludeConsumables.Text = "Exclude vulneraries, elixirs, pure water, and antitoxins"
         Me.ExcludeConsumables.UseVisualStyleBackColor = True
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 131)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(3, 13, 3, 3)
+        Me.Label3.Location = New System.Drawing.Point(9, 132)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(85, 13)
-        Me.Label3.TabIndex = 16
+        Me.Label3.TabIndex = 12
         Me.Label3.Text = "Then, shuffle all:"
+        '
+        'Label4
+        '
+        Me.Label4.Location = New System.Drawing.Point(12, 62)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(385, 10)
+        Me.Label4.TabIndex = 6
+        '
+        'Label5
+        '
+        Me.Label5.Location = New System.Drawing.Point(9, 118)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(385, 10)
+        Me.Label5.TabIndex = 11
+        '
+        'Label8
+        '
+        Me.Label8.Location = New System.Drawing.Point(12, 174)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(385, 10)
+        Me.Label8.TabIndex = 17
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(409, 286)
+        Me.ClientSize = New System.Drawing.Size(409, 261)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.ExcludeConsumables)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.ShuffleDesert)
@@ -285,4 +309,7 @@ Partial Class Form1
     Friend WithEvents ValidateButton As Button
     Friend WithEvents ExcludeConsumables As CheckBox
     Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label8 As Label
 End Class

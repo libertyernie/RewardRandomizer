@@ -40,15 +40,17 @@ module internal Reward =
     let exclusiveTo routes rewards = seq {
         for x in rewards do
             for y in routes do
-                if x.Route = Some y || x.Route = None then { x with Route = Some y }
+                if x.Route = Some y || x.Route = None then
+                    yield { x with Route = Some y }
     }
 
-    let mututallyExclusive rewards =
+    let mututallyExclusive rewards = seq {
         let without_offsets =
             rewards
             |> Seq.map (fun x -> { x with Offsets = Set.empty })
             |> Seq.distinct
             |> Seq.toList
         match without_offsets with
-        | [single] -> Seq.singleton { single with Offsets = set [for x in rewards do yield! x.Offsets] }
-        | _ -> Seq.empty
+        | [single] -> yield { single with Offsets = set [for x in rewards do yield! x.Offsets] }
+        | _ -> ()
+    }

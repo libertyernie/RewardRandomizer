@@ -36,7 +36,7 @@ module Game =
 
     exception RewardIndexOutOfBoundsException of int
 
-    let EnumerateDifferences (game: Game) (data: byte[]) = seq {
+    let SummarizeDifferences (game: Game) (data: byte[]) = String.concat System.Environment.NewLine [
         let itemName id =
             game.Items
             |> Seq.where (fun x -> x.Id = id)
@@ -48,20 +48,15 @@ module Game =
         for x in game.Rewards do
             for o in x.Offsets do
                 if o < 0 || o >= data.Length then
-                    raise (RewardIndexOutOfBoundsException o)
+                    sprintf "%6X (%O): out of bounds" o x.Method
                 else if data[o] <> x.ItemId then
                     sprintf "%6X (%O): %s -> %s" o x.Method (itemName x.ItemId) (itemName data[o])
         ""
         "Unchanged:"
         for x in game.Rewards do
             for o in x.Offsets do
-                if data[o] = x.ItemId then
+                if o < 0 || o >= data.Length then
+                    sprintf "%6X (%O): out of bounds" o x.Method
+                else if data[o] = x.ItemId then
                     sprintf "%6X (%O): %s" o x.Method (itemName data[o])
-    }
-
-    let SummarizeDifferences game data =
-        try
-            EnumerateDifferences game data
-            |> String.concat System.Environment.NewLine
-        with
-        | (RewardIndexOutOfBoundsException offset) -> sprintf "Out of bounds: %6X" offset
+    ]
