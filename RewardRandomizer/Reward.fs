@@ -6,13 +6,14 @@ type Method =
 | StartingInventory
 | Story
 | Sand
+| SophiaSand
 
 type Route =
 | EarlyItem | LateItem
 | Bartre | Echidna
 | Ilia | Sacae
 | EliwoodNormal | EliwoodHard | HectorNormal | HectorHard
-| Tactician | NoTactician
+| Tactician
 | Lloyd | Linus
 | Kenneth | Jerme
 | Eirika | Ephraim

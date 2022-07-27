@@ -13,7 +13,6 @@ module Correlator =
             [Bartre; Echidna]
             [Ilia; Sacae]
             [EliwoodNormal; EliwoodHard; HectorNormal; HectorHard]
-            [Tactician; NoTactician]
             [Lloyd; Linus]
             [Kenneth; Jerme]
             [Eirika; Ephraim]

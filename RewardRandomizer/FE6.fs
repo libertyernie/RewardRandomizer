@@ -277,7 +277,7 @@ module FE6 =
         Sand 0x66FF44 0x5B // SPEEDWING
         Sand 0x66FF84 0x6E // SILVER_CARD
         Sand 0x66FFC4 0x48 // WARP
-        Sand 0x670018 0x63 // GUIDING_RING
+        { Sand 0x670018 0x63 with Method = SophiaSand } // GUIDING_RING
 
         // Chapter 14x: The Infernal Element
         ITGC 0x6752F4 0x3A 0x01 // FORBLAZE
@@ -539,7 +539,7 @@ module FE6 =
         ITGV 0x66FF44 0x5B // SPEEDWING
         ITGV 0x66FF84 0x6E // SILVER_CARD
         ITGV 0x66FFC4 0x48 // WARP
-        ITGV 0x670018 0x63 // GUIDING_RING
+        { Sand 0x670018 0x63 with Method = SophiaSand } // GUIDING_RING
 
         // Chapter 14x: The Infernal Element
         ITGC 0x6752F4 0x3A 0x01 // FORBLAZE
