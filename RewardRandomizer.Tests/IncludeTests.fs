@@ -20,7 +20,7 @@ type IncludeTests() =
 
     let shufflePromotionItemsEverywhere = {
         Mode = Shuffle
-        Items = AllItemsInCategory Promotion
+        Items = ItemCollection.PromotionItems
         Methods = AllMethods
     }
 

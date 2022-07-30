@@ -60,13 +60,21 @@ Public Class Form1
                     Exit Sub
                 End If
 
+                If ExcludeConsumables.Checked Then
+                    game = game.Without(ItemCategory.Consumable)
+                End If
+
+                If ExcludeBoots.Checked Then
+                    game = game.Without(ItemCategory.Boots)
+                End If
+
                 Dim steps As New List(Of RandomizationParameters)
 
                 If ShufflePromoItems.Checked Then
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Shuffle,
-                            ItemCollection.NewAllItemsInCategory(ItemCategory.Promotion),
+                            ItemCollection.PromotionItems,
                             MethodCollection.AllMethods))
                 End If
 
@@ -74,7 +82,7 @@ Public Class Form1
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Shuffle,
-                            ItemCollection.NewAllItemsInCategory(ItemCategory.StatBooster),
+                            ItemCollection.StatBoosters,
                             MethodCollection.AllMethods))
                 End If
 
@@ -82,7 +90,7 @@ Public Class Form1
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Randomize,
-                            ItemCollection.NewAllItemsInCategory(ItemCategory.Promotion),
+                            ItemCollection.PromotionItems,
                             MethodCollection.AllMethods))
                 End If
 
@@ -90,7 +98,7 @@ Public Class Form1
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Randomize,
-                            ItemCollection.NewAllItemsInCategory(ItemCategory.StatBooster),
+                            ItemCollection.StatBoosters,
                             MethodCollection.AllMethods))
                 End If
 
@@ -112,9 +120,7 @@ Public Class Form1
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Shuffle,
-                            If(ExcludeConsumables.Checked,
-                                ItemCollection.NewAllItemsNotInCategory(ItemCategory.Consumable),
-                                ItemCollection.AllItems),
+                            ItemCollection.AllItems,
                             MethodCollection.NewMethodCollection(step3)))
                 End If
 

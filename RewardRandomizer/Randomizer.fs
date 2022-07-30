@@ -7,14 +7,17 @@ module Randomizer =
     type Mode = Shuffle | Randomize
 
     type ItemCollection =
-    | AllItemsInCategory of ItemCategory
-    | AllItemsNotInCategory of ItemCategory
+    | AllItemsInCategories of Set<ItemCategory>
     | AllItems
+    with
+        static member PromotionItems =
+            AllItemsInCategories (set [Promotion])
+        static member StatBoosters =
+            AllItemsInCategories (set [StatBooster; Boots])
 
     let private itemIsIn itemCollection item =
         match itemCollection with
-        | AllItemsInCategory c -> item.Category = c
-        | AllItemsNotInCategory c -> item.Category <> c
+        | AllItemsInCategories c -> Set.contains item.Category c
         | AllItems -> true
 
     type MethodCollection = MethodCollection of seq<Method> | AllMethods

@@ -11,7 +11,7 @@ type SophiaTests() =
         for game in [Game.FE6_JP; Game.FE6_Localization] do
             let parameters1 =
                 { Mode = Randomize
-                  Items = AllItemsInCategory Promotion
+                  Items = ItemCollection.PromotionItems
                   Methods = AllMethods }
             let parameters2 =
                 { Mode = Randomize

@@ -4,7 +4,18 @@ type Game = {
     Name: string
     Items: Item list
     Rewards: Reward list
-}
+} with
+    member this.GetItem id =
+        this.Items
+        |> Seq.where (fun y -> y.Id = id)
+        |> Seq.head
+    member this.Without exclude =
+        { this with
+            Rewards = [
+                for x in this.Rewards do
+                    if (this.GetItem x.ItemId).Category <> exclude then
+                        yield x
+            ] }
 
 module Game =
     let FE6_JP =

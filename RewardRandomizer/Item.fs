@@ -1,6 +1,6 @@
 ﻿namespace RewardRandomizer
 
-type ItemCategory = Consumable | Promotion | StatBooster | Other
+type ItemCategory = Consumable | Promotion | StatBooster | Boots | Other
 
 type Item =
     { Id: byte

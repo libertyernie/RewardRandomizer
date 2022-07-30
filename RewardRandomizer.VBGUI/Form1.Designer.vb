@@ -43,6 +43,8 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.ExcludeBoots = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'Label1
@@ -86,10 +88,10 @@ Partial Class Form1
         'SaveButton
         '
         Me.SaveButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SaveButton.Location = New System.Drawing.Point(322, 187)
+        Me.SaveButton.Location = New System.Drawing.Point(322, 220)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
-        Me.SaveButton.TabIndex = 18
+        Me.SaveButton.TabIndex = 20
         Me.SaveButton.Text = "Apply"
         Me.SaveButton.UseVisualStyleBackColor = True
         '
@@ -130,7 +132,7 @@ Partial Class Form1
         Me.ShufflePromoItems.AutoSize = True
         Me.ShufflePromoItems.Checked = True
         Me.ShufflePromoItems.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShufflePromoItems.Location = New System.Drawing.Point(15, 75)
+        Me.ShufflePromoItems.Location = New System.Drawing.Point(12, 75)
         Me.ShufflePromoItems.Name = "ShufflePromoItems"
         Me.ShufflePromoItems.Size = New System.Drawing.Size(135, 17)
         Me.ShufflePromoItems.TabIndex = 7
@@ -165,21 +167,21 @@ Partial Class Form1
         '
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 226)
+        Me.Label6.Location = New System.Drawing.Point(12, 251)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(99, 13)
-        Me.Label6.TabIndex = 19
-        Me.Label6.Text = "Version 2022-07-27"
+        Me.Label6.TabIndex = 21
+        Me.Label6.Text = "Version 2022-07-30"
         '
         'Label7
         '
         Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
         Me.Label7.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Label7.Location = New System.Drawing.Point(12, 239)
+        Me.Label7.Location = New System.Drawing.Point(12, 264)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(248, 13)
-        Me.Label7.TabIndex = 20
+        Me.Label7.TabIndex = 22
         Me.Label7.Text = "https://github.com/libertyernie/RewardRandomizer"
         '
         'ComboBox1
@@ -221,10 +223,10 @@ Partial Class Form1
         Me.ExcludeConsumables.AutoSize = True
         Me.ExcludeConsumables.Checked = True
         Me.ExcludeConsumables.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ExcludeConsumables.Location = New System.Drawing.Point(12, 154)
+        Me.ExcludeConsumables.Location = New System.Drawing.Point(12, 164)
         Me.ExcludeConsumables.Name = "ExcludeConsumables"
         Me.ExcludeConsumables.Size = New System.Drawing.Size(276, 17)
-        Me.ExcludeConsumables.TabIndex = 16
+        Me.ExcludeConsumables.TabIndex = 17
         Me.ExcludeConsumables.Text = "Exclude vulneraries, elixirs, pure water, and antitoxins"
         Me.ExcludeConsumables.UseVisualStyleBackColor = True
         '
@@ -253,16 +255,37 @@ Partial Class Form1
         '
         'Label8
         '
-        Me.Label8.Location = New System.Drawing.Point(12, 174)
+        Me.Label8.Location = New System.Drawing.Point(12, 207)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(385, 10)
-        Me.Label8.TabIndex = 17
+        Me.Label8.TabIndex = 19
+        '
+        'Label9
+        '
+        Me.Label9.Location = New System.Drawing.Point(12, 151)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(385, 10)
+        Me.Label9.TabIndex = 16
+        '
+        'ExcludeBoots
+        '
+        Me.ExcludeBoots.AutoSize = True
+        Me.ExcludeBoots.Checked = True
+        Me.ExcludeBoots.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ExcludeBoots.Location = New System.Drawing.Point(12, 187)
+        Me.ExcludeBoots.Name = "ExcludeBoots"
+        Me.ExcludeBoots.Size = New System.Drawing.Size(149, 17)
+        Me.ExcludeBoots.TabIndex = 18
+        Me.ExcludeBoots.Text = "Exclude boots / swiftsoles"
+        Me.ExcludeBoots.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(409, 261)
+        Me.ClientSize = New System.Drawing.Size(409, 286)
+        Me.Controls.Add(Me.ExcludeBoots)
+        Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
@@ -312,4 +335,6 @@ Partial Class Form1
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label8 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents ExcludeBoots As CheckBox
 End Class

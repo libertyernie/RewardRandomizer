@@ -130,7 +130,7 @@ module FE8 =
         item 0x5f "GODDESS_ICON" StatBooster
         item 0x60 "DRAGONSHIELD" StatBooster
         item 0x61 "TALISMAN" StatBooster
-        item 0x62 "BOOTS" StatBooster
+        item 0x62 "BOOTS" Boots
         item 0x63 "BODY_RING" StatBooster
         item 0x64 "HERO_CREST" Promotion
         item 0x65 "KNIGHT_CREST" Promotion

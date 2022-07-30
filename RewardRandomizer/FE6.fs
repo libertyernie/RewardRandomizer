@@ -104,7 +104,7 @@ module FE6 =
         item 0x5a "ENERGY_RING" StatBooster
         item 0x5b "SPEEDWING" StatBooster
         item 0x5c "TALISMAN" StatBooster
-        item 0x5d "BOOTS" StatBooster
+        item 0x5d "BOOTS" Boots
         item 0x5e "BODY_RING" StatBooster
         item 0x5f "HERO_CREST" Promotion
         item 0x60 "KNIGHT_CREST" Promotion
