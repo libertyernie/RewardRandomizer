@@ -1,14 +1,19 @@
 ﻿namespace RewardRandomizer
 
-type ItemCategory = Consumable | Promotion | MasterSeal | StatBooster | Boots | Other
+type ItemCategory = Consumable | Promotion | MasterSeal | StatBooster | RareStatBooster | Other
 
 type Item =
     { Id: byte
       Name: string
-      Category: ItemCategory }
+      Category: ItemCategory
+      Max: decimal }
 
 module internal Item =
     let item id name cat =
         { Id = byte id
           Name = name
-          Category = cat }
+          Category = cat
+          Max = 0m }
+
+    let item_max count i =
+        { i with Max = count }

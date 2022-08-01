@@ -10,6 +10,7 @@
   <ItemGroup>
     <Compile Include="IncludeTests.fs" />
     <Compile Include="IPSTests.fs" />
+    <Compile Include="RandomizeLimitedTests.fs" />
     <Compile Include="SophiaTests.fs" />
     <Compile Include="RouteSplitTests.fs" />
     <Compile Include="Program.fs" />

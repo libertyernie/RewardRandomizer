@@ -115,19 +115,19 @@ module FE7 =
         item 0x5e "GODDESS_ICON" StatBooster
         item 0x5f "DRAGONSHIELD" StatBooster
         item 0x60 "TALISMAN" StatBooster
-        item 0x61 "BOOTS" Boots
+        item 0x61 "BOOTS" RareStatBooster
         item 0x62 "BODY_RING" StatBooster
-        item 0x63 "HERO_CREST" Promotion
-        item 0x64 "KNIGHT_CREST" Promotion
-        item 0x65 "ORION_BOLT" Promotion
-        item 0x66 "ELYSIAN_WHIP" Promotion
-        item 0x67 "GUIDING_RING" Promotion
+        item 0x63 "HERO_CREST" Promotion |> item_max 4m
+        item 0x64 "KNIGHT_CREST" Promotion |> item_max 4m
+        item 0x65 "ORION_BOLT" Promotion |> item_max 3m
+        item 0x66 "ELYSIAN_WHIP" Promotion |> item_max 3.5m
+        item 0x67 "GUIDING_RING" Promotion |> item_max 6m
         item 0x87 "EARTH_SEAL" MasterSeal
-        item 0x89 "HEAVEN_SEAL" Promotion
+        item 0x89 "HEAVEN_SEAL" Promotion |> item_max 2m
         item 0x8a "EMBLEM_SEAL" Other
-        item 0x8b "FELL_CONTRACT" Promotion
-        item 0x96 "OCEAN_SEAL" Promotion
-        item 0x88 "AFA_DROPS" Other
+        item 0x8b "FELL_CONTRACT" Promotion |> item_max 2m
+        item 0x96 "OCEAN_SEAL" Promotion |> item_max 1m
+        item 0x88 "AFA_DROPS" RareStatBooster
         item 0x68 "CHEST_KEY" Other
         item 0x78 "CHEST_KEY_5" Other
         item 0x69 "DOOR_KEY" Other

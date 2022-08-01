@@ -10,12 +10,13 @@ type Game = {
         |> Seq.where (fun y -> y.Id = id)
         |> Seq.head
     member this.Without exclude =
-        { this with
-            Rewards = [
-                for x in this.Rewards do
-                    if (this.GetItem x.ItemId).Category <> exclude then
-                        yield x
-            ] }
+        { Name = this.Name
+          Items =
+              this.Items
+              |> List.where (fun x -> x.Category <> exclude)
+          Rewards =
+              this.Rewards
+              |> List.where (fun x -> (this.GetItem x.ItemId).Category <> exclude) }
 
 module Game =
     let FE6_JP =

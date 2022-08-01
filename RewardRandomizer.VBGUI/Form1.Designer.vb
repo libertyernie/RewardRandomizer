@@ -44,7 +44,9 @@ Partial Class Form1
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.ExcludeBoots = New System.Windows.Forms.CheckBox()
+        Me.ExcludeRareStatBoosters = New System.Windows.Forms.CheckBox()
+        Me.RandomizePromotionItemsWithLimit = New System.Windows.Forms.CheckBox()
+        Me.ExcludeMasterSeal = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'Label1
@@ -88,20 +90,22 @@ Partial Class Form1
         'SaveButton
         '
         Me.SaveButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SaveButton.Location = New System.Drawing.Point(322, 220)
+        Me.SaveButton.Location = New System.Drawing.Point(322, 325)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
-        Me.SaveButton.TabIndex = 20
+        Me.SaveButton.TabIndex = 22
         Me.SaveButton.Text = "Apply"
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'RandomizeStatBoosters
         '
         Me.RandomizeStatBoosters.AutoSize = True
-        Me.RandomizeStatBoosters.Location = New System.Drawing.Point(173, 98)
+        Me.RandomizeStatBoosters.Checked = True
+        Me.RandomizeStatBoosters.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.RandomizeStatBoosters.Location = New System.Drawing.Point(12, 167)
         Me.RandomizeStatBoosters.Name = "RandomizeStatBoosters"
         Me.RandomizeStatBoosters.Size = New System.Drawing.Size(142, 17)
-        Me.RandomizeStatBoosters.TabIndex = 10
+        Me.RandomizeStatBoosters.TabIndex = 11
         Me.RandomizeStatBoosters.Text = "Randomize stat boosters"
         Me.RandomizeStatBoosters.UseVisualStyleBackColor = True
         '
@@ -110,28 +114,24 @@ Partial Class Form1
         Me.RandomizePromotionItems.AutoSize = True
         Me.RandomizePromotionItems.Location = New System.Drawing.Point(12, 98)
         Me.RandomizePromotionItems.Name = "RandomizePromotionItems"
-        Me.RandomizePromotionItems.Size = New System.Drawing.Size(155, 17)
-        Me.RandomizePromotionItems.TabIndex = 9
-        Me.RandomizePromotionItems.Text = "Randomize promotion items"
+        Me.RandomizePromotionItems.Size = New System.Drawing.Size(315, 17)
+        Me.RandomizePromotionItems.TabIndex = 8
+        Me.RandomizePromotionItems.Text = "Randomize promotion items (independently with equal weight)"
         Me.RandomizePromotionItems.UseVisualStyleBackColor = True
         '
         'ShuffleStatBoosters
         '
         Me.ShuffleStatBoosters.AutoSize = True
-        Me.ShuffleStatBoosters.Checked = True
-        Me.ShuffleStatBoosters.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShuffleStatBoosters.Location = New System.Drawing.Point(173, 75)
+        Me.ShuffleStatBoosters.Location = New System.Drawing.Point(12, 144)
         Me.ShuffleStatBoosters.Name = "ShuffleStatBoosters"
         Me.ShuffleStatBoosters.Size = New System.Drawing.Size(122, 17)
-        Me.ShuffleStatBoosters.TabIndex = 8
+        Me.ShuffleStatBoosters.TabIndex = 10
         Me.ShuffleStatBoosters.Text = "Shuffle stat boosters"
         Me.ShuffleStatBoosters.UseVisualStyleBackColor = True
         '
         'ShufflePromoItems
         '
         Me.ShufflePromoItems.AutoSize = True
-        Me.ShufflePromoItems.Checked = True
-        Me.ShufflePromoItems.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ShufflePromoItems.Location = New System.Drawing.Point(12, 75)
         Me.ShufflePromoItems.Name = "ShufflePromoItems"
         Me.ShufflePromoItems.Size = New System.Drawing.Size(135, 17)
@@ -144,10 +144,10 @@ Partial Class Form1
         Me.ShuffleVillages.AutoSize = True
         Me.ShuffleVillages.Checked = True
         Me.ShuffleVillages.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShuffleVillages.Location = New System.Drawing.Point(164, 131)
+        Me.ShuffleVillages.Location = New System.Drawing.Point(76, 213)
         Me.ShuffleVillages.Name = "ShuffleVillages"
         Me.ShuffleVillages.Size = New System.Drawing.Size(62, 17)
-        Me.ShuffleVillages.TabIndex = 14
+        Me.ShuffleVillages.TabIndex = 15
         Me.ShuffleVillages.Text = "Villages"
         Me.ShuffleVillages.UseVisualStyleBackColor = True
         '
@@ -156,10 +156,10 @@ Partial Class Form1
         Me.ShuffleChests.AutoSize = True
         Me.ShuffleChests.Checked = True
         Me.ShuffleChests.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShuffleChests.Location = New System.Drawing.Point(100, 131)
+        Me.ShuffleChests.Location = New System.Drawing.Point(12, 213)
         Me.ShuffleChests.Name = "ShuffleChests"
         Me.ShuffleChests.Size = New System.Drawing.Size(58, 17)
-        Me.ShuffleChests.TabIndex = 13
+        Me.ShuffleChests.TabIndex = 14
         Me.ShuffleChests.Text = "Chests"
         Me.ShuffleChests.UseVisualStyleBackColor = True
         '
@@ -167,21 +167,21 @@ Partial Class Form1
         '
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 251)
+        Me.Label6.Location = New System.Drawing.Point(12, 351)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(99, 13)
-        Me.Label6.TabIndex = 21
-        Me.Label6.Text = "Version 2022-07-30"
+        Me.Label6.TabIndex = 23
+        Me.Label6.Text = "Version 2022-07-31"
         '
         'Label7
         '
         Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
         Me.Label7.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Label7.Location = New System.Drawing.Point(12, 264)
+        Me.Label7.Location = New System.Drawing.Point(12, 364)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(248, 13)
-        Me.Label7.TabIndex = 22
+        Me.Label7.TabIndex = 24
         Me.Label7.Text = "https://github.com/libertyernie/RewardRandomizer"
         '
         'ComboBox1
@@ -201,10 +201,10 @@ Partial Class Form1
         Me.ShuffleDesert.AutoSize = True
         Me.ShuffleDesert.Checked = True
         Me.ShuffleDesert.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ShuffleDesert.Location = New System.Drawing.Point(232, 131)
+        Me.ShuffleDesert.Location = New System.Drawing.Point(144, 213)
         Me.ShuffleDesert.Name = "ShuffleDesert"
         Me.ShuffleDesert.Size = New System.Drawing.Size(84, 17)
-        Me.ShuffleDesert.TabIndex = 15
+        Me.ShuffleDesert.TabIndex = 16
         Me.ShuffleDesert.Text = "Desert items"
         Me.ShuffleDesert.UseVisualStyleBackColor = True
         '
@@ -223,20 +223,20 @@ Partial Class Form1
         Me.ExcludeConsumables.AutoSize = True
         Me.ExcludeConsumables.Checked = True
         Me.ExcludeConsumables.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ExcludeConsumables.Location = New System.Drawing.Point(12, 164)
+        Me.ExcludeConsumables.Location = New System.Drawing.Point(12, 246)
         Me.ExcludeConsumables.Name = "ExcludeConsumables"
         Me.ExcludeConsumables.Size = New System.Drawing.Size(276, 17)
-        Me.ExcludeConsumables.TabIndex = 17
+        Me.ExcludeConsumables.TabIndex = 18
         Me.ExcludeConsumables.Text = "Exclude vulneraries, elixirs, pure water, and antitoxins"
         Me.ExcludeConsumables.UseVisualStyleBackColor = True
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 132)
+        Me.Label3.Location = New System.Drawing.Point(9, 197)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(85, 13)
-        Me.Label3.TabIndex = 12
+        Me.Label3.TabIndex = 13
         Me.Label3.Text = "Then, shuffle all:"
         '
         'Label4
@@ -248,43 +248,69 @@ Partial Class Form1
         '
         'Label5
         '
-        Me.Label5.Location = New System.Drawing.Point(9, 118)
+        Me.Label5.Location = New System.Drawing.Point(12, 233)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(385, 10)
-        Me.Label5.TabIndex = 11
+        Me.Label5.TabIndex = 17
         '
         'Label8
         '
-        Me.Label8.Location = New System.Drawing.Point(12, 207)
+        Me.Label8.Location = New System.Drawing.Point(12, 312)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(385, 10)
-        Me.Label8.TabIndex = 19
+        Me.Label8.TabIndex = 21
         '
         'Label9
         '
-        Me.Label9.Location = New System.Drawing.Point(12, 151)
+        Me.Label9.Location = New System.Drawing.Point(12, 187)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(385, 10)
-        Me.Label9.TabIndex = 16
+        Me.Label9.TabIndex = 12
         '
-        'ExcludeBoots
+        'ExcludeRareStatBoosters
         '
-        Me.ExcludeBoots.AutoSize = True
-        Me.ExcludeBoots.Checked = True
-        Me.ExcludeBoots.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ExcludeBoots.Location = New System.Drawing.Point(12, 187)
-        Me.ExcludeBoots.Name = "ExcludeBoots"
-        Me.ExcludeBoots.Size = New System.Drawing.Size(149, 17)
-        Me.ExcludeBoots.TabIndex = 18
-        Me.ExcludeBoots.Text = "Exclude boots / swiftsoles"
-        Me.ExcludeBoots.UseVisualStyleBackColor = True
+        Me.ExcludeRareStatBoosters.AutoSize = True
+        Me.ExcludeRareStatBoosters.Checked = True
+        Me.ExcludeRareStatBoosters.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ExcludeRareStatBoosters.Location = New System.Drawing.Point(12, 269)
+        Me.ExcludeRareStatBoosters.Name = "ExcludeRareStatBoosters"
+        Me.ExcludeRareStatBoosters.Size = New System.Drawing.Size(269, 17)
+        Me.ExcludeRareStatBoosters.TabIndex = 19
+        Me.ExcludeRareStatBoosters.Text = "Exclude boots / swiftsoles and growth rate boosters"
+        Me.ExcludeRareStatBoosters.UseVisualStyleBackColor = True
+        '
+        'RandomizePromotionItemsWithLimit
+        '
+        Me.RandomizePromotionItemsWithLimit.AutoSize = True
+        Me.RandomizePromotionItemsWithLimit.Checked = True
+        Me.RandomizePromotionItemsWithLimit.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.RandomizePromotionItemsWithLimit.Location = New System.Drawing.Point(12, 121)
+        Me.RandomizePromotionItemsWithLimit.Name = "RandomizePromotionItemsWithLimit"
+        Me.RandomizePromotionItemsWithLimit.Size = New System.Drawing.Size(364, 17)
+        Me.RandomizePromotionItemsWithLimit.TabIndex = 9
+        Me.RandomizePromotionItemsWithLimit.Text = "Randomize promotion items (weighted by how many units can use them)"
+        Me.RandomizePromotionItemsWithLimit.UseVisualStyleBackColor = True
+        '
+        'ExcludeMasterSeal
+        '
+        Me.ExcludeMasterSeal.AutoSize = True
+        Me.ExcludeMasterSeal.Checked = True
+        Me.ExcludeMasterSeal.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ExcludeMasterSeal.Location = New System.Drawing.Point(12, 292)
+        Me.ExcludeMasterSeal.Name = "ExcludeMasterSeal"
+        Me.ExcludeMasterSeal.Size = New System.Drawing.Size(201, 17)
+        Me.ExcludeMasterSeal.TabIndex = 20
+        Me.ExcludeMasterSeal.Text = "Exclude the Earth Seal / Master Seal"
+        Me.ExcludeMasterSeal.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(409, 286)
-        Me.Controls.Add(Me.ExcludeBoots)
+        Me.ClientSize = New System.Drawing.Size(409, 386)
+        Me.Controls.Add(Me.ExcludeMasterSeal)
+        Me.Controls.Add(Me.RandomizePromotionItemsWithLimit)
+        Me.Controls.Add(Me.ExcludeRareStatBoosters)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label5)
@@ -336,5 +362,7 @@ Partial Class Form1
     Friend WithEvents Label5 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
-    Friend WithEvents ExcludeBoots As CheckBox
+    Friend WithEvents ExcludeRareStatBoosters As CheckBox
+    Friend WithEvents RandomizePromotionItemsWithLimit As CheckBox
+    Friend WithEvents ExcludeMasterSeal As CheckBox
 End Class

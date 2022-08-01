@@ -104,13 +104,13 @@ module FE6 =
         item 0x5a "ENERGY_RING" StatBooster
         item 0x5b "SPEEDWING" StatBooster
         item 0x5c "TALISMAN" StatBooster
-        item 0x5d "BOOTS" Boots
+        item 0x5d "BOOTS" RareStatBooster
         item 0x5e "BODY_RING" StatBooster
-        item 0x5f "HERO_CREST" Promotion
-        item 0x60 "KNIGHT_CREST" Promotion
-        item 0x61 "ORION_BOLT" Promotion
-        item 0x62 "ELYSIAN_WHIP" Promotion
-        item 0x63 "GUIDING_RING" Promotion
+        item 0x5f "HERO_CREST" Promotion |> item_max 8m
+        item 0x60 "KNIGHT_CREST" Promotion |> item_max 7m
+        item 0x61 "ORION_BOLT" Promotion |> item_max 4m
+        item 0x62 "ELYSIAN_WHIP" Promotion |> item_max 4m
+        item 0x63 "GUIDING_RING" Promotion |> item_max 8m
         item 0x64 "CHEST_KEY_5" Other
         item 0x65 "DOOR_KEY" Other
         item 0x67 "LOCKPICK" Other

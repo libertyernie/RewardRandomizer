@@ -130,15 +130,15 @@ module FE8 =
         item 0x5f "GODDESS_ICON" StatBooster
         item 0x60 "DRAGONSHIELD" StatBooster
         item 0x61 "TALISMAN" StatBooster
-        item 0x62 "BOOTS" Boots
+        item 0x62 "BOOTS" RareStatBooster
         item 0x63 "BODY_RING" StatBooster
-        item 0x64 "HERO_CREST" Promotion
-        item 0x65 "KNIGHT_CREST" Promotion
-        item 0x66 "ORION_BOLT" Promotion
-        item 0x67 "ELYSIAN_WHIP" Promotion
-        item 0x68 "GUIDING_RING" Promotion
+        item 0x64 "HERO_CREST" Promotion |> item_max 4.5m
+        item 0x65 "KNIGHT_CREST" Promotion |> item_max 5m
+        item 0x66 "ORION_BOLT" Promotion |> item_max 1m
+        item 0x67 "ELYSIAN_WHIP" Promotion |> item_max 3m
+        item 0x68 "GUIDING_RING" Promotion |> item_max 7m
         item 0x88 "MASTER_SEAL" MasterSeal
-        item 0x97 "CONQUORER_PROOF" Promotion
+        item 0x97 "CONQUORER_PROOF" Promotion |> item_max 1.5m
         item 0x98 "MOON_BRACELET" Other
         item 0x99 "SUN_BRACELET" Other
         item 0x8a "HEAVEN_SEAL" Other
@@ -155,7 +155,7 @@ module FE8 =
         item 0x72 "MEMBER_CARD" Other
         item 0x73 "SILVER_CARD" Other
         item 0x7c "HOPLON_GUARD" Other
-        item 0x89 "METIS_TOME" StatBooster
+        item 0x89 "METIS_TOME" RareStatBooster
         item 0x74 "WHITE_GEM" Other
         item 0x75 "BLUE_GEM" Other
         item 0x76 "RED_GEM" Other

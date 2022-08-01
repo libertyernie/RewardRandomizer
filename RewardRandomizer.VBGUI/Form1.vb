@@ -64,8 +64,12 @@ Public Class Form1
                     game = game.Without(ItemCategory.Consumable)
                 End If
 
-                If ExcludeBoots.Checked Then
-                    game = game.Without(ItemCategory.Boots)
+                If ExcludeRareStatBoosters.Checked Then
+                    game = game.Without(ItemCategory.RareStatBooster)
+                End If
+
+                If ExcludeMasterSeal.Checked Then
+                    game = game.Without(ItemCategory.MasterSeal)
                 End If
 
                 Dim steps As New List(Of RandomizationParameters)
@@ -90,6 +94,14 @@ Public Class Form1
                     steps.Add(
                         New RandomizationParameters(
                             Mode.Randomize,
+                            ItemCollection.PromotionItems,
+                            MethodCollection.AllMethods))
+                End If
+
+                If RandomizePromotionItemsWithLimit.Checked Then
+                    steps.Add(
+                        New RandomizationParameters(
+                            Mode.RandomizeLimited,
                             ItemCollection.PromotionItems,
                             MethodCollection.AllMethods))
                 End If

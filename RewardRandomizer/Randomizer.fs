@@ -4,16 +4,16 @@ open System
 open System.Text
 
 module Randomizer =
-    type Mode = Shuffle | Randomize
+    type Mode = Shuffle | Randomize | RandomizeLimited
 
     type ItemCollection =
     | AllItemsInCategories of Set<ItemCategory>
     | AllItems
     with
         static member PromotionItems =
-            AllItemsInCategories (set [Promotion])
+            AllItemsInCategories (set [Promotion; MasterSeal])
         static member StatBoosters =
-            AllItemsInCategories (set [StatBooster; Boots])
+            AllItemsInCategories (set [StatBooster; RareStatBooster])
 
     let private itemIsIn itemCollection item =
         match itemCollection with
@@ -38,13 +38,15 @@ module Randomizer =
 
     let private random = new Random()
 
-    let private GenerateSingleRandomization (game: Game) (parameters: RandomizationParameters) = seq {
+    let ChooseRandomItems (game: Game) (parameters: RandomizationParameters) = [
         // Get all item IDs in the categories specified by the randomization parameters
         let item_ids =
             game.Items
             |> Seq.where (itemIsIn parameters.Items)
             |> Seq.map (fun x -> x.Id)
             |> Seq.toList
+
+        let getRandom() = item_ids[random.Next (List.length item_ids)]
 
         // Get all rewards using the methods specified by the randomization parameters, and correlate them across route splits
         let reward_sets =
@@ -58,23 +60,47 @@ module Randomizer =
             reward_sets
             |> List.sortBy (fun _ -> random.Next())
 
+        printfn "Generating pool"
+        // Establish a pool that controls how many times an item can be picked in RandomizeLimited mode
+        let mutable pool =
+            seq {
+                for x in game.Items do
+                    yield! Seq.replicate (x.Max |> floor |> int) x.Id }
+            //|> Seq.sortBy (fun _ -> random.Next())
+            |> Seq.toList
+        printfn "Generated pool: %d" (List.length pool)
+
         // Go through both the original and shuffled lists
         for (old_set, new_set) in Seq.zip reward_sets shuffled_sets do
             // Get the item from the shuffled list (or a random item, if that option is selected)
             let new_item =
                 match parameters.Mode with
                 | Shuffle ->
+                    printfn "Shuffle"
                     new_set
                     |> Seq.map (fun x -> x.ItemId)
                     |> Seq.distinct
                     |> Seq.exactlyOne
                 | Randomize ->
-                    item_ids[random.Next (List.length item_ids)]
+                    printfn "Randomize"
+                    getRandom()
+                | RandomizeLimited ->
+                    printfn "RandomizeLimited"
+                    let x = List.head pool
+                    pool <- List.tail pool
+                    printfn "Took: %d" x
+                    x
 
             // Request a write to the offset(s) for the corresponding item in the original list
-            for old_location in old_set do
-                { Offsets = old_location.Offsets; WriteData = new_item }
-    }
+            {| OldLocations = old_set; WriteData = new_item |}
+        printfn "Leftover pool: %d" (List.length pool)
+    ]
+
+    let private GenerateSingleRandomization (game: Game) (parameters: RandomizationParameters) = [
+        for x in ChooseRandomItems game parameters do
+            for y in x.OldLocations do
+                yield { Offsets = y.Offsets; WriteData = x.WriteData }
+    ]
 
     let private ApplyRandomizationsToBaseline game operations =
         // Copy all rewards to an array
@@ -94,24 +120,26 @@ module Randomizer =
         // This allows us to generate another set of randomizations on top
         { game with Rewards = Array.toList array }
 
-    let rec private GenerateMultipleRandomizations game parameters = seq {
+    let rec private GenerateMultipleRandomizations game parameters = [
         match parameters with
         | [] -> ()
         | head::tail ->
             // Generate a list of writes that must be made to randomize this game using the first parameter set
+            printfn "Generating"
             let old_operations = GenerateSingleRandomization game head
             yield! old_operations
 
             // Take that as a new baseline, and get a list of writes needed to apply the rest of the randomizations
             let new_game = ApplyRandomizationsToBaseline game old_operations
             yield! GenerateMultipleRandomizations new_game tail
-    }
+    ]
 
     let GenerateOperations game parameters =
         // Pass to GenerateMultipleRandomizations, but only keep the last write to each set of offsets
         GenerateMultipleRandomizations game (List.ofSeq parameters)
         |> Seq.groupBy (fun x -> x.Offsets)
         |> Seq.map (fun (_, g) -> Seq.last g)
+        |> Seq.toList
 
     let ApplyOperations (data: byte[]) (operations: seq<WriteOperation>) =
         let arr = Array.copy data
