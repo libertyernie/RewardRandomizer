@@ -122,7 +122,7 @@ module FE7 =
         item 0x65 "ORION_BOLT" Promotion
         item 0x66 "ELYSIAN_WHIP" Promotion
         item 0x67 "GUIDING_RING" Promotion
-        item 0x87 "EARTH_SEAL" Promotion
+        item 0x87 "EARTH_SEAL" MasterSeal
         item 0x89 "HEAVEN_SEAL" Promotion
         item 0x8a "EMBLEM_SEAL" Other
         item 0x8b "FELL_CONTRACT" Promotion

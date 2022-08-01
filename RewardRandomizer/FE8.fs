@@ -137,7 +137,7 @@ module FE8 =
         item 0x66 "ORION_BOLT" Promotion
         item 0x67 "ELYSIAN_WHIP" Promotion
         item 0x68 "GUIDING_RING" Promotion
-        item 0x88 "MASTER_SEAL" Promotion
+        item 0x88 "MASTER_SEAL" MasterSeal
         item 0x97 "CONQUORER_PROOF" Promotion
         item 0x98 "MOON_BRACELET" Other
         item 0x99 "SUN_BRACELET" Other
