@@ -193,8 +193,8 @@ module FE6 =
         ITGC 0x674C38 0x09 0x01 // DURANDAL
 
         // Chapter 9: The Misty Isles
-        ITGV 0x66DDDC 0x4A // RESTORE
-        ITGV 0x66DE2C 0x2B // KILLER_BOW
+        ITGV 0x66DDDC 0x4A |> route Bartre // RESTORE
+        ITGV 0x66DE2C 0x2B |> route Echidna // KILLER_BOW
         ITGV 0x66DD94 0x04 // SILVER_SWORD
 
         yield! exclusiveTo [Echidna] [
@@ -455,8 +455,8 @@ module FE6 =
         ITGC 0x674C38 0x09 0x01 // DURANDAL
 
         // Chapter 9: The Misty Isles
-        ITGV 0x66DDDC 0x4A // RESTORE
-        ITGV 0x66DE2C 0x2B // KILLER_BOW
+        ITGV 0x66DDDC 0x4A |> route Bartre // RESTORE
+        ITGV 0x66DE2C 0x2B |> route Echidna // KILLER_BOW
         ITGV 0x66DD94 0x04 // SILVER_SWORD
 
         yield! exclusiveTo [Echidna] [
