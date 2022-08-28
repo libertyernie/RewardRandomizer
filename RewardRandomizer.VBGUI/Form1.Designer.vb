@@ -171,7 +171,7 @@ Partial Class Form1
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(99, 13)
         Me.Label6.TabIndex = 23
-        Me.Label6.Text = "Version 2022-07-31"
+        Me.Label6.Text = "Version 2022-08-28"
         '
         'Label7
         '

@@ -60,15 +60,13 @@ module Randomizer =
             reward_sets
             |> List.sortBy (fun _ -> random.Next())
 
-        printfn "Generating pool"
         // Establish a pool that controls how many times an item can be picked in RandomizeLimited mode
         let mutable pool =
             seq {
                 for x in game.Items do
                     yield! Seq.replicate (x.Max |> floor |> int) x.Id }
-            //|> Seq.sortBy (fun _ -> random.Next())
+            |> Seq.sortBy (fun _ -> random.Next())
             |> Seq.toList
-        printfn "Generated pool: %d" (List.length pool)
 
         // Go through both the original and shuffled lists
         for (old_set, new_set) in Seq.zip reward_sets shuffled_sets do
@@ -76,24 +74,21 @@ module Randomizer =
             let new_item =
                 match parameters.Mode with
                 | Shuffle ->
-                    printfn "Shuffle"
                     new_set
                     |> Seq.map (fun x -> x.ItemId)
                     |> Seq.distinct
                     |> Seq.exactlyOne
                 | Randomize ->
-                    printfn "Randomize"
                     getRandom()
                 | RandomizeLimited ->
-                    printfn "RandomizeLimited"
                     let x = List.head pool
                     pool <- List.tail pool
-                    printfn "Took: %d" x
                     x
+
+            printfn "(%A) %A -> %s" parameters.Mode [for r in old_set do (game.GetItem r.ItemId).Name] (game.GetItem new_item).Name
 
             // Request a write to the offset(s) for the corresponding item in the original list
             {| OldLocations = old_set; WriteData = new_item |}
-        printfn "Leftover pool: %d" (List.length pool)
     ]
 
     let private GenerateSingleRandomization (game: Game) (parameters: RandomizationParameters) = [
@@ -125,7 +120,6 @@ module Randomizer =
         | [] -> ()
         | head::tail ->
             // Generate a list of writes that must be made to randomize this game using the first parameter set
-            printfn "Generating"
             let old_operations = GenerateSingleRandomization game head
             yield! old_operations
 
