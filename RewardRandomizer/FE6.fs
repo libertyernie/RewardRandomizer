@@ -187,7 +187,6 @@ module FE6 =
         CHES 0x6680AC 0x2B // KILLER_BOW
         CHES 0x6680B8 0x36 // ELFIRE
         CHES 0x6680C4 0x60 // KNIGHT_CREST
-        ITGV 0x66D6D8 0x34 // THUNDER
 
         // Chapter 8x: The Blazing Sword
         ITGC 0x674C38 0x09 0x01 // DURANDAL
@@ -449,7 +448,6 @@ module FE6 =
         CHES 0x6680AC 0x2B // KILLER_BOW
         CHES 0x6680B8 0x36 // ELFIRE
         CHES 0x6680C4 0x60 // KNIGHT_CREST
-        ITGV 0x66D6D8 0x34 // THUNDER
 
         // Chapter 8x: The Blazing Sword
         ITGC 0x674C38 0x09 0x01 // DURANDAL

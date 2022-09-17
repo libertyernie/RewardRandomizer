@@ -171,7 +171,7 @@ Partial Class Form1
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(99, 13)
         Me.Label6.TabIndex = 23
-        Me.Label6.Text = "Version 2022-08-28"
+        Me.Label6.Text = "Version 2022-09-17"
         '
         'Label7
         '
@@ -199,8 +199,6 @@ Partial Class Form1
         'ShuffleDesert
         '
         Me.ShuffleDesert.AutoSize = True
-        Me.ShuffleDesert.Checked = True
-        Me.ShuffleDesert.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ShuffleDesert.Location = New System.Drawing.Point(144, 213)
         Me.ShuffleDesert.Name = "ShuffleDesert"
         Me.ShuffleDesert.Size = New System.Drawing.Size(84, 17)
