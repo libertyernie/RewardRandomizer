@@ -98,7 +98,7 @@ type IncludeTests() =
                             chestsAndVillagesWithPromoItemsStill <- chestsAndVillagesWithPromoItemsStill + 1
                     if Set.contains o otherPromotionItemOffsets then
                         otherLocations <- otherLocations + 1
-                        if item.Category = Promotion then
+                        if item.Category = Promotion || item.Category = MasterSeal then
                             otherLocationsWithPromoItemsStill <- otherLocationsWithPromoItemsStill + 1
             if chestsAndVillages = chestsAndVillagesWithPromoItemsStill then
                 Assert.Inconclusive()

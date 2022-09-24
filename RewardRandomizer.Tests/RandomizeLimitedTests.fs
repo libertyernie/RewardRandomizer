@@ -38,6 +38,23 @@ type RandomizeLimitedTests() =
             assertMax 8 guiding_rings
 
     [<TestMethod>]
+    member _.TestSand() =
+        for game in [Game.FE6_JP; Game.FE6_Localization; Game.FE8_US] do
+            let operations = Randomizer.ChooseRandomItems game {
+                Mode = Shuffle
+                Items = ItemCollection.AllItems
+                Methods = MethodCollection [Chest; Village]
+            }
+
+            let silverCardId =
+                game.Items
+                |> Seq.where (fun x -> x.Name = "SILVER_CARD")
+                |> Seq.map (fun x -> x.Id)
+                |> Seq.head
+
+            Assert.IsFalse(operations |> Seq.exists (fun x -> x.WriteData = silverCardId))
+
+    [<TestMethod>]
     member _.TestAll() =
         for game in Game.All do
             let operations = Randomizer.ChooseRandomItems game {

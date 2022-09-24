@@ -22,8 +22,8 @@ type RouteSplitTests() =
             let correlations = Correlator.ExtractAll locations
             let correlated = correlations |> Seq.collect id
             let expected_exclusives = [
-                (Route.Echidna, "RESTORE")
-                (Route.Bartre, "BARRIER")
+                (Route.Echidna, "KILLER_BOW") // Chapter 8 (the Restore staff for Bartre's route matches with one on Echidna's chapter 11)
+                (Route.Bartre, "BARRIER") // Chapter 10
 
                 (Route.Echidna, "AXEREAVER")
                 (Route.Echidna, "SPEEDWING") // Echidna route - Bartre's version requires Lot/Ward (see below)

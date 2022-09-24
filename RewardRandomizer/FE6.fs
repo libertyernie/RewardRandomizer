@@ -530,13 +530,13 @@ module FE6 =
         ITGC 0x66FBCC 0x60 0x1D |> route EarlyItem // KNIGHT_CREST
 
         // Chapter 14: Arcadia
-        ITGV 0x66FE44 0x4B // SILENCE
-        ITGV 0x66FE84 0x5C // TALISMAN
-        ITGV 0x66FEC4 0x5D // BOOTS
-        ITGV 0x66FF04 0x73 // SILVER_BLADE
-        ITGV 0x66FF44 0x5B // SPEEDWING
-        ITGV 0x66FF84 0x6E // SILVER_CARD
-        ITGV 0x66FFC4 0x48 // WARP
+        Sand 0x66FE44 0x4B // SILENCE
+        Sand 0x66FE84 0x5C // TALISMAN
+        Sand 0x66FEC4 0x5D // BOOTS
+        Sand 0x66FF04 0x73 // SILVER_BLADE
+        Sand 0x66FF44 0x5B // SPEEDWING
+        Sand 0x66FF84 0x6E // SILVER_CARD
+        Sand 0x66FFC4 0x48 // WARP
         { Sand 0x670018 0x63 with Method = SophiaSand } // GUIDING_RING
 
         // Chapter 14x: The Infernal Element
