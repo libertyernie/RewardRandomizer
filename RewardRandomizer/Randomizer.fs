@@ -7,17 +7,17 @@ module Randomizer =
     type Mode = Shuffle | Randomize | RandomizeLimited
 
     type ItemCollection =
-    | AllItemsInCategories of Set<ItemCategory>
+    | AllItemsInCategories of seq<ItemCategory>
     | AllItems
     with
         static member PromotionItems =
-            AllItemsInCategories (set [Promotion; MasterSeal])
+            AllItemsInCategories [Promotion; MasterSeal]
         static member StatBoosters =
-            AllItemsInCategories (set [StatBooster; RareStatBooster])
+            AllItemsInCategories [StatBooster; HPBooster; RareStatBooster]
 
     let private itemIsIn itemCollection item =
         match itemCollection with
-        | AllItemsInCategories c -> Set.contains item.Category c
+        | AllItemsInCategories c -> Seq.contains item.Category c
         | AllItems -> true
 
     type MethodCollection = MethodCollection of seq<Method> | AllMethods

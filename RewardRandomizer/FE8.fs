@@ -123,7 +123,7 @@ module FE8 =
         item 0xb3 "EVIL_EYE" Other
         item 0xb4 "CRIMSON_EYE" Other
         item 0xb5 "STONE" Other
-        item 0x5b "ANGELIC_ROBE" StatBooster
+        item 0x5b "ANGELIC_ROBE" HPBooster
         item 0x5c "ENERGY_RING" StatBooster
         item 0x5d "SECRET_BOOK" StatBooster
         item 0x5e "SPEEDWINGS" StatBooster

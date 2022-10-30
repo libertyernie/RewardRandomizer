@@ -42,11 +42,11 @@ Partial Class Form1
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.ExcludeRareStatBoosters = New System.Windows.Forms.CheckBox()
         Me.RandomizePromotionItemsWithLimit = New System.Windows.Forms.CheckBox()
         Me.ExcludeMasterSeal = New System.Windows.Forms.CheckBox()
+        Me.ExcludeHPBoosters = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'Label1
@@ -90,7 +90,7 @@ Partial Class Form1
         'SaveButton
         '
         Me.SaveButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SaveButton.Location = New System.Drawing.Point(322, 325)
+        Me.SaveButton.Location = New System.Drawing.Point(322, 338)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
         Me.SaveButton.TabIndex = 22
@@ -167,18 +167,18 @@ Partial Class Form1
         '
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 351)
+        Me.Label6.Location = New System.Drawing.Point(12, 376)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(99, 13)
         Me.Label6.TabIndex = 23
-        Me.Label6.Text = "Version 2022-09-24"
+        Me.Label6.Text = "Version 2022-10-29"
         '
         'Label7
         '
         Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
         Me.Label7.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Label7.Location = New System.Drawing.Point(12, 364)
+        Me.Label7.Location = New System.Drawing.Point(12, 389)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(248, 13)
         Me.Label7.TabIndex = 24
@@ -251,13 +251,6 @@ Partial Class Form1
         Me.Label5.Size = New System.Drawing.Size(385, 10)
         Me.Label5.TabIndex = 17
         '
-        'Label8
-        '
-        Me.Label8.Location = New System.Drawing.Point(12, 312)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(385, 10)
-        Me.Label8.TabIndex = 21
-        '
         'Label9
         '
         Me.Label9.Location = New System.Drawing.Point(12, 187)
@@ -270,10 +263,10 @@ Partial Class Form1
         Me.ExcludeRareStatBoosters.AutoSize = True
         Me.ExcludeRareStatBoosters.Checked = True
         Me.ExcludeRareStatBoosters.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ExcludeRareStatBoosters.Location = New System.Drawing.Point(12, 269)
+        Me.ExcludeRareStatBoosters.Location = New System.Drawing.Point(12, 292)
         Me.ExcludeRareStatBoosters.Name = "ExcludeRareStatBoosters"
         Me.ExcludeRareStatBoosters.Size = New System.Drawing.Size(269, 17)
-        Me.ExcludeRareStatBoosters.TabIndex = 19
+        Me.ExcludeRareStatBoosters.TabIndex = 20
         Me.ExcludeRareStatBoosters.Text = "Exclude boots / swiftsoles and growth rate boosters"
         Me.ExcludeRareStatBoosters.UseVisualStyleBackColor = True
         '
@@ -294,23 +287,35 @@ Partial Class Form1
         Me.ExcludeMasterSeal.AutoSize = True
         Me.ExcludeMasterSeal.Checked = True
         Me.ExcludeMasterSeal.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ExcludeMasterSeal.Location = New System.Drawing.Point(12, 292)
+        Me.ExcludeMasterSeal.Location = New System.Drawing.Point(12, 315)
         Me.ExcludeMasterSeal.Name = "ExcludeMasterSeal"
         Me.ExcludeMasterSeal.Size = New System.Drawing.Size(201, 17)
-        Me.ExcludeMasterSeal.TabIndex = 20
+        Me.ExcludeMasterSeal.TabIndex = 21
         Me.ExcludeMasterSeal.Text = "Exclude the Earth Seal / Master Seal"
         Me.ExcludeMasterSeal.UseVisualStyleBackColor = True
+        '
+        'ExcludeHPBoosters
+        '
+        Me.ExcludeHPBoosters.AutoSize = True
+        Me.ExcludeHPBoosters.Checked = True
+        Me.ExcludeHPBoosters.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ExcludeHPBoosters.Location = New System.Drawing.Point(12, 269)
+        Me.ExcludeHPBoosters.Name = "ExcludeHPBoosters"
+        Me.ExcludeHPBoosters.Size = New System.Drawing.Size(125, 17)
+        Me.ExcludeHPBoosters.TabIndex = 19
+        Me.ExcludeHPBoosters.Text = "Exclude HP boosters"
+        Me.ExcludeHPBoosters.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(409, 386)
+        Me.ClientSize = New System.Drawing.Size(409, 411)
+        Me.Controls.Add(Me.ExcludeHPBoosters)
         Me.Controls.Add(Me.ExcludeMasterSeal)
         Me.Controls.Add(Me.RandomizePromotionItemsWithLimit)
         Me.Controls.Add(Me.ExcludeRareStatBoosters)
         Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.ExcludeConsumables)
@@ -358,9 +363,9 @@ Partial Class Form1
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
-    Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents ExcludeRareStatBoosters As CheckBox
     Friend WithEvents RandomizePromotionItemsWithLimit As CheckBox
     Friend WithEvents ExcludeMasterSeal As CheckBox
+    Friend WithEvents ExcludeHPBoosters As CheckBox
 End Class

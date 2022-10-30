@@ -42,7 +42,7 @@ type RandomizeLimitedTests() =
         for game in [Game.FE6_JP; Game.FE6_Localization; Game.FE8_US] do
             let operations = Randomizer.ChooseRandomItems game {
                 Mode = Shuffle
-                Items = ItemCollection.AllItems
+                Items = AllItems
                 Methods = MethodCollection [Chest; Village]
             }
 
@@ -53,6 +53,39 @@ type RandomizeLimitedTests() =
                 |> Seq.head
 
             Assert.IsFalse(operations |> Seq.exists (fun x -> x.WriteData = silverCardId))
+
+    [<TestMethod>]
+    member _.TestAngelicRobe() =
+        for game in [Game.FE6_JP; Game.FE6_Localization; Game.FE7_US; Game.FE8_US] do
+            let angelicRobe =
+                game.Items
+                |> Seq.where (fun x -> x.Name = "ANGELIC_ROBE")
+                |> Seq.map (fun x -> x.Id)
+                |> Seq.head
+
+            let operations1 = Randomizer.ChooseRandomItems game {
+                Mode = Shuffle
+                Items = AllItems
+                Methods = AllMethods
+            }
+
+            Assert.IsTrue(operations1 |> Seq.exists (fun x -> x.WriteData = angelicRobe))
+
+            let operations2 = Randomizer.ChooseRandomItems game {
+                Mode = Shuffle
+                Items = ItemCollection.StatBoosters
+                Methods = AllMethods
+            }
+
+            Assert.IsTrue(operations2 |> Seq.exists (fun x -> x.WriteData = angelicRobe))
+
+            let operations3 = Randomizer.ChooseRandomItems game {
+                Mode = Shuffle
+                Items = AllItemsInCategories [StatBooster; RareStatBooster]
+                Methods = AllMethods
+            }
+
+            Assert.IsFalse(operations3 |> Seq.exists (fun x -> x.WriteData = angelicRobe))
 
     [<TestMethod>]
     member _.TestAll() =

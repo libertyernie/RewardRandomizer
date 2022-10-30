@@ -64,6 +64,10 @@ Public Class Form1
                     game = game.Without(ItemCategory.Consumable)
                 End If
 
+                If ExcludeHPBoosters.Checked Then
+                    game = game.Without(ItemCategory.HPBooster)
+                End If
+
                 If ExcludeRareStatBoosters.Checked Then
                     game = game.Without(ItemCategory.RareStatBooster)
                 End If

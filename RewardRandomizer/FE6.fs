@@ -99,7 +99,7 @@ module FE6 =
         item 0x55 "MAGIC_DRAGON_STONE" Other
         item 0x56 "SECRET_BOOK" StatBooster
         item 0x57 "GODDESS_ICON" StatBooster
-        item 0x58 "ANGELIC_ROBE" StatBooster
+        item 0x58 "ANGELIC_ROBE" HPBooster
         item 0x59 "DRAGON_SHIELD" StatBooster
         item 0x5a "ENERGY_RING" StatBooster
         item 0x5b "SPEEDWING" StatBooster

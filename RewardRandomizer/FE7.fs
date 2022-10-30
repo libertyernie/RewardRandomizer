@@ -108,7 +108,7 @@ module FE7 =
         item 0x56 "HAMMERNE" Other
         item 0x57 "UNLOCK" Other
         item 0x58 "BARRIER" Other
-        item 0x5a "ANGELIC_ROBE" StatBooster
+        item 0x5a "ANGELIC_ROBE" HPBooster
         item 0x5b "ENERGY_RING" StatBooster
         item 0x5c "SECRET_BOOK" StatBooster
         item 0x5d "SPEEDWINGS" StatBooster
